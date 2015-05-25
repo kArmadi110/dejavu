@@ -1,6 +1,5 @@
 package hu.unideb.inf.dejavu.objects;
 
-import java.io.File;
 
 import org.junit.Test;
 

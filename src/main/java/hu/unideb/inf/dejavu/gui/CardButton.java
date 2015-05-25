@@ -1,11 +1,8 @@
 package hu.unideb.inf.dejavu.gui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Insets;
 import java.io.File;
 
 import hu.unideb.inf.dejavu.objects.Card;
@@ -13,7 +10,6 @@ import hu.unideb.inf.dejavu.objects.Card;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.border.Border;
 
 public class CardButton extends JButton {
 	double size;

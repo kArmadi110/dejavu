@@ -5,9 +5,6 @@ import hu.unideb.inf.dejavu.objects.StopWatch;
 
 import java.awt.CardLayout;
 import java.awt.Container;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 
 import javax.swing.ImageIcon;

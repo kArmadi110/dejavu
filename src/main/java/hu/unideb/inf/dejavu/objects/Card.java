@@ -1,6 +1,5 @@
 package hu.unideb.inf.dejavu.objects;
 
-import hu.unideb.inf.dejavu.DejaVu;
 
 import java.io.File;
 
