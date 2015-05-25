@@ -409,7 +409,7 @@ public class Game {
 	 */
 
 	public boolean addProfile(String name, String pass) {
-		if (!isPerfectName(name) && !isPerfectName(pass)) {
+		if (!isPerfectName(name) || !isPerfectName(pass)) {
 			return false;
 		}
 		if (DataB.isUserExist(name)) {
@@ -421,7 +421,7 @@ public class Game {
 	}
 
 	/**
-	 * Betölt egy Profilt.
+	 * Betölt egy profilt.
 	 * 
 	 * @param name
 	 *            A felhasználó elhasználóneve.

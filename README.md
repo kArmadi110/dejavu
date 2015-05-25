@@ -9,4 +9,10 @@ mvn install:install-file -Dfile=lib/ojdbc6.jar -DgroupId=com.oracle -DartifactId
 ```
 A használathoz szükséges az src/main/resources/project.properties fájlban a username, password és a url értékeket megadni. Ezek legyenek az adatbázis hozzáféréshez szükséges adatok.
 ##Futtatás
+```sh
 mvn clean install  && java -jar target/dejavu-0.1-jar-with-dependencies.jar
+```
+vagy
+```sh
+mvn clean install exec:java -Dexec.maClass="hu.unideb.inf.dejavu.DejaVu"
+```
