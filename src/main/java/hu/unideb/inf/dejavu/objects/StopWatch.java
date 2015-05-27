@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  */
 public class StopWatch {
 	/**
-	 * A kezdő pillanatot tároljuk el benne eleinte, utánna minden percben
+	 * A {@code start} a kezdő pillanatot tároljuk eleinte, utánna minden percben
 	 * növeljük egy percel.
 	 */
 	long start = 0;
@@ -38,7 +38,7 @@ public class StopWatch {
 	}
 
 	/**
-	 * Percenként frissíti a kezőállapotot, és a percek számát.
+	 * Percenként frissíti a kezdőállapotot, és a percek számát.
 	 * 
 	 * @return Igaz értékkel tér vissza ha eltelt 60 másodperc, egyébként
 	 *         hamissal.
@@ -47,7 +47,7 @@ public class StopWatch {
 		if ((System.currentTimeMillis() - start) / 1000 >= 60) {
 			minute += 1;
 			start += 60000;
-			logger.info("Letelt egy perc");
+			logger.info("Letelt egy perc.");
 
 			return true;
 		}

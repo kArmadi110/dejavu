@@ -7,22 +7,23 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * A {@code Rand} osztály véletlen poziciókat szolgáltat, amit a kártyáknak
- * tudunk majd adni.
+ * A {@code Rand} osztály véletlen poziciókat szolgáltat, ami a kártyák
+ * elhelyezésében segít.
  * 
  * @author iam346
  *
  */
 public class Rand {
 	/**
-	 * A véletlenszerű poziciók tárolására szolgáló lista.
+	 * A véletlen poziciók tárolására szolgáló lista.
 	 */
 	List<Position> randomPos = new ArrayList<Position>();
 
 	/**
-	 * Beállítja a véletlenszerű poziciókat.
+	 * Beállítja a véletlen poziciókat.
 	 * 
-	 * @param dimension A pozicióknak átadott dimenzió érték.
+	 * @param dimension
+	 *            A pozicióknak átadott dimenzió érték.
 	 */
 	public Rand(int dimension) {
 		List<Position> positions = new ArrayList<Position>();

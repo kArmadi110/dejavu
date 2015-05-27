@@ -6,7 +6,7 @@ import java.io.File;
 /**
  * A {@code Kártya} osztály reprezentál egy kártyát.
  * 
- * Tartalmazza a kép elérési útját, amit a felhazsnáló választott, azt hogy
+ * Tartalmazza a kép elérési útját, amit a felhasználó választott, azt hogy
  * lehet e még rá kattintani, és a pozicióját a mátrixban.
  * 
  * @author iam346
@@ -41,11 +41,11 @@ public class Card {
 	 * @param value
 	 *            A választott kép elérési útja.
 	 * @param x
-	 *            a mátrixbeli helyzet x koordinátája.
+	 *            A mátrixbeli helyzet x koordinátája.
 	 * @param y
-	 *            a mátrixbeli helyzet y koordinátája.
+	 *            A mátrixbeli helyzet y koordinátája.
 	 * @param dimension
-	 *            a mátrix dimenziója.
+	 *            A mátrix dimenziója.
 	 */
 	public Card(File value, int x, int y, int dimension) {
 		this.value = value;
@@ -80,7 +80,8 @@ public class Card {
 		clicked = b;
 	}
 	/**
-	 * Visszaadja, hogy a kártya kattinthatóságának állapotát.
+	 * Visszaadja, a kártya kattinthatóságának állapotát.
+	 * 
 	 * @return A kártya kattinthatóságának állapota.
 	 */
 
@@ -89,13 +90,15 @@ public class Card {
 	}
 	/**
 	 * Visszaadja, hogy a kártya pozicióját.
+	 * 
 	 * @return A kártya poziciója.
 	 */
 	public Position getPosition() {
 		return position;
 	}
 	/**
-	 * Visszaadja, hogy a kártyához kiválasztott kép elérési útvonalát.
+	 * Visszaadja a kártyához kiválasztott kép elérési útvonalát.
+	 * 
 	 * @return A kártyához kiválasztott kép elérési útvonala.
 	 */
 	public File getValue() {

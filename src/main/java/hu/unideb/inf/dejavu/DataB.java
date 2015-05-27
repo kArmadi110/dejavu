@@ -22,26 +22,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Osztály az adatbázis kapcsolatok kezelésére.
+ * A {@code DataB} osztály segítségével csatlakozhatunk az adatbázishoz.
  * 
  * @author iam346
  *
  */
 public class DataB {
 	/**
-	 * Az osztály naplózója.
+	 * A {@code DataB} osztály naplózója.
 	 */
 	private static Logger logger = LoggerFactory.getLogger(DejaVu.class);
 	/**
-	 * Az adatbázisho való belépéshez használt fehasználónév.
+	 * Az adatbázishoz való belépéshez használt fehasználónév.
 	 */
 	private static String USERNAME = "";
 	/**
-	 * Az adatbázisho való belépéshez használt jelszó.
+	 * Az adatbázishoz való belépéshez használt jelszó.
 	 */
 	private static String PASS = "";
 	/**
-	 * Az adatbázisho való belépéshez használt URL.
+	 * Az adatbázishoz való belépéshez használt URL.
 	 */
 	private static String URL = "";
 	/**
@@ -49,14 +49,11 @@ public class DataB {
 	 */
 	private static Connection connection = null;
 
-	DataB() {
-
-	}
-
 	/**
 	 * Az adatbázis kapcsolat létrehozása.
 	 * 
-	 * @return A kapcsolatot sikerült e létrehozni vagy sem.
+	 * @return Igazzal tér vissza ha a kapcsolatot sikerült létrehozni,
+	 *         egyébként hamissal.
 	 * */
 	public static boolean connect() {
 		if (connection != null)
@@ -67,7 +64,7 @@ public class DataB {
 			logger.error("A Drivert nem sikerült betölteni.");
 			return false;
 		}
-		logger.info("A driver sikeresen betöltődött.");
+		logger.debug("A driver sikeresen betöltődött.");
 
 		try {
 			Properties properties = new Properties();
@@ -77,7 +74,6 @@ public class DataB {
 						.getResourceAsStream("project.properties");
 				properties.load(inputStream);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			USERNAME = properties.getProperty("username");
@@ -88,15 +84,20 @@ public class DataB {
 		} catch (SQLException e) {
 			logger.error("A kapcsolatot nem sikerült létrehozni.");
 			return false;
+		}catch(NullPointerException e){
+			logger.error("A kapcsolatot nem sikerült létrehozni.");
+			logger.info("Hozzon létre egy megfelelő project.properties filet");
+			return false;
 		}
-		logger.info("A kapcsolat sikeresen létrejött.");
+		logger.debug("A kapcsolat sikeresen létrejött.");
 		return true;
 	}
 
 	/**
 	 * Az adatbázis kapcsolat bezárása.
 	 * 
-	 * @return A kapcsolatot sikerült e bezárni vagy sem.
+	 * @return Igazzal tér vissza ha sikerült bezárni a kapcsolatot, egyébként
+	 *         hamissal
 	 * */
 	public static boolean close() {
 
@@ -113,7 +114,7 @@ public class DataB {
 			logger.error("A kapcsolat már be van zárva.");
 			return false;
 		}
-		logger.info("A kapcsolat sikeresen bezárult.");
+		logger.debug("A kapcsolat sikeresen bezárult.");
 		return true;
 
 	}
@@ -121,7 +122,8 @@ public class DataB {
 	/**
 	 * Létrehozza a USERS táblát.
 	 * 
-	 * @return Igaz igazságértékkel tér vissza, ha sikerült a létrehozás.
+	 * @return Igaz igazságértékkel tér vissza, ha sikerült létrehozni a táblát,
+	 *         egyébként hamissal.
 	 */
 
 	private static boolean createUsersTable() {
@@ -134,14 +136,15 @@ public class DataB {
 			logger.error("Users tábla létrehozása sikertelen.");
 			return false;
 		}
-		logger.info("Users tábla sikeresen létrehozva.");
+		logger.debug("Users tábla sikeresen létrehozva.");
 		return true;
 	}
 
 	/**
 	 * Létrehozza a STATUS táblát.
 	 * 
-	 * @return Igaz igazságértékkel tér vissza, ha sikerült a létrehozás.
+	 * @return Igaz igazságértékkel tér vissza, ha sikerült létrehozni a táblát,
+	 *         egyébként hamissal.
 	 */
 	private static boolean createStatusTable() {
 		try {
@@ -154,7 +157,7 @@ public class DataB {
 			logger.error("Status tábla létrehozása sikertelen.");
 			return false;
 		}
-		logger.info("Status tábla sikeresen létrehozva.");
+		logger.debug("Status tábla sikeresen létrehozva.");
 
 		return true;
 	}
@@ -162,7 +165,8 @@ public class DataB {
 	/**
 	 * Létrehozza a HIGH_SCORES táblát.
 	 * 
-	 * @return Igaz igazságértékkel tér vissza, ha sikerült a létrehozás.
+	 * @return Igaz igazságértékkel tér vissza, ha sikerült létrehozni a táblát,
+	 *         egyébként hamissal.
 	 */
 	private static boolean createHighScoresTable() {
 		try {
@@ -174,7 +178,7 @@ public class DataB {
 			logger.error("HighScores tábla létrehozása sikertelen.");
 			return false;
 		}
-		logger.info("HighScores tábla sikeresen létrehozva.");
+		logger.debug("HighScores tábla sikeresen létrehozva.");
 		return true;
 	}
 
@@ -193,10 +197,10 @@ public class DataB {
 			DatabaseMetaData dbm = connection.getMetaData();
 			ResultSet rs = dbm.getTables(null, null, table, null);
 			if (rs.next()) {
-				logger.info("A lekérdezés sikeres.");
+				logger.debug("A lekérdezés sikeres.");
 				return true;
 			} else {
-				logger.info("A lekérdezés sikeres.");
+				logger.debug("A lekérdezés sikeres.");
 				return false;
 			}
 		} catch (SQLException e) {
@@ -227,9 +231,9 @@ public class DataB {
 	 * @param dim
 	 *            A kártya mátrix dimenziója.
 	 * 
-	 * @return A játékállást sikerült-e elmenteni, vagy sem.
+	 * @return Igaz igazságértékkel tér vissza, ha sikerült elmenteni a
+	 *         játékállást, egyébként hamissal.
 	 * */
-
 	public static boolean saveStatus(String name, String card, StopWatch time,
 			boolean clicked, int x, int y, int dim) {
 		if (!isTableExist("STATUS"))
@@ -252,8 +256,9 @@ public class DataB {
 			statement.executeQuery("commit");
 		} catch (SQLException e) {
 			logger.error("A mentés sikertelen");
+			return false;
 		}
-		logger.info("A mentés sikeres");
+		logger.debug("A mentés sikeres");
 
 		return true;
 
@@ -271,7 +276,8 @@ public class DataB {
 	 * @param name
 	 *            A menteni kívánt felhasználónév.
 	 * 
-	 * @return Sikerült-e a frissítés vagy sem.
+	 * @return Igaz igazságértékkel tér vissza, ha sikerült a frissítés,
+	 *         egyébként hamissal.
 	 * */
 	public static boolean updateHighScores(String sw, String name) {
 		if (!isTableExist("HIGH_SCORES"))
@@ -298,7 +304,8 @@ public class DataB {
 	 * @param name
 	 *            A betölteni kívánt játékmentés tulajdonosának neve.
 	 * 
-	 * @return Sikerült-e a betöltés, vagy sem.
+	 * @return Igaz igazságértékkel tér vissza, ha sikerült betölteni a
+	 *         menstést, egyébként hamissal.
 	 * */
 	public static String getTime(String name) {
 		try {
@@ -306,7 +313,7 @@ public class DataB {
 			String query = "SELECT TIME FROM STATUS WHERE NAME='" + name + "'";
 			ResultSet result = statement.executeQuery(query);
 			if (result.next()) {
-				logger.info("A lekérdezés sikeres.");
+				logger.debug("A lekérdezés sikeres.");
 				return result.getString("TIME");
 			}
 		} catch (SQLException e) {
@@ -337,7 +344,7 @@ public class DataB {
 		} catch (SQLException e) {
 			logger.error("A lekérdezés sikertelen.");
 		}
-		logger.info("A lekérdezés sikeres.");
+		logger.debug("A lekérdezés sikeres.");
 		return result;
 	}
 
@@ -347,8 +354,8 @@ public class DataB {
 	 * @param name
 	 *            A betölteni kívánt játékmentés tulajdonosának neve.
 	 * 
-	 * @return Visszaadja a játékmentést, vagy amennyiben nem létezik akkor üres
-	 *         listát
+	 * @return Az {@code name} felhasználó lementett kártyáinak a helyzetével
+	 *         tér vissza.
 	 * */
 	public static List<Card> loadStatus(String name) {
 		List<Card> result = new ArrayList<Card>();
@@ -363,7 +370,7 @@ public class DataB {
 						rs.getInt("X"), rs.getInt("Y"), rs.getInt("DIM"));
 				temp.setClicked((rs.getInt("CLICKED") == 1 ? true : false));
 				result.add(temp);
-				logger.info("A lekérdezés sikeres.");
+				logger.debug("A lekérdezés sikeres.");
 			}
 		} catch (SQLException e) {
 			logger.error("A lekérdezés sikertelen.");
@@ -391,7 +398,7 @@ public class DataB {
 			String query = "SELECT * FROM USERS WHERE NAME='" + name + "'";
 			ResultSet result = statement.executeQuery(query);
 			if (result.next()) {
-				logger.info("A lekérdezés sikeres.");
+				logger.debug("A lekérdezés sikeres.");
 				return true;
 			}
 
@@ -420,7 +427,7 @@ public class DataB {
 			String query = "SELECT NAME FROM STATUS WHERE NAME='" + name + "'";
 			ResultSet result = statement.executeQuery(query);
 			if (result.next()) {
-				logger.info("A lekérdezés sikeres.");
+				logger.debug("A lekérdezés sikeres.");
 
 				return true;
 			}
@@ -444,7 +451,7 @@ public class DataB {
 			Statement statement = connection.createStatement();
 			String query = "DELETE FROM STATUS WHERE NAME= '" + name + "'";
 			statement.executeQuery(query);
-			logger.info("A törlés sikeres.");
+			logger.debug("A törlés sikeres.");
 
 			return true;
 		} catch (SQLException e) {
@@ -465,14 +472,15 @@ public class DataB {
 	 * @param pass
 	 *            A felhasználó jelszava.
 	 * 
-	 * @return Igaz ha sikerült létrehozni a profilt egyébként hamis.
-	 * */
-
+	 * @return Igaz ha sikerült létrehozni a profilt, egyébként hamis.
+	 **/
 	public static boolean addProfile(String name, String pass) {
 		if (!isTableExist("USERS"))
 			createStatusTable();
-		if (isUserExist(name))
+		if (isUserExist(name)) {
+			logger.error("A hozzáadás a táblához sikertelen.");
 			return false;
+		}
 		try {
 
 			Statement stm = connection.createStatement();
@@ -487,7 +495,7 @@ public class DataB {
 			logger.error("A hozzáadás a táblához sikertelen.");
 			return false;
 		}
-		logger.info("A hozzáadás a táblához sikeres.");
+		logger.debug("A hozzáadás a táblához sikeres.");
 
 		return true;
 	}
@@ -502,7 +510,8 @@ public class DataB {
 	 * @param pass
 	 *            A felhasználó jelszava.
 	 * 
-	 * @return Igaz ha sikerült betölteni a profilt egyébként hamis.
+	 * @return Igazzal tér vissza, ha sikerült betölteni a profilt, egyébként
+	 *         hamissal.
 	 * */
 
 	public static boolean loadProfile(String name, String pass) {
@@ -513,7 +522,7 @@ public class DataB {
 			String query = "SELECT PASS FROM USERS WHERE NAME='" + name + "'";
 			ResultSet result = statement.executeQuery(query);
 			if (result.next() && result.getString("PASS").equals(pass)) {
-				logger.info("A betöltés sikeres.");
+				logger.debug("A betöltés sikeres.");
 				return true;
 			}
 		} catch (SQLException e) {

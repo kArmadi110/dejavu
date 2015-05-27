@@ -17,10 +17,10 @@ public class DejaVu {
 	public static Ground ground;
 
 	/**
-	 * A program main metóduse.
+	 * A program main metódusa.
 	 * 
 	 * @param args
-	 *            Argumentumok.
+	 *            Parancssori argumentumok.
 	 */
 	public static void main(String[] args) {
 		DataB.connect();

@@ -160,9 +160,7 @@ public class Game {
 	 *            A kívánt dimenzió.
 	 * */
 	public void setDim(int dimension) {
-	//	if(isStatusExist())
-		//	removeStatus();
-		logger.info("Új dimenzió beállítva");
+		logger.debug("Új dimenzió beállítva");
 		upCards.clear();
 		downCards.clear();
 		this.dimension = dimension;
@@ -171,7 +169,7 @@ public class Game {
 	/**
 	 * Visszaadja, hogy beállítottunk e már dimenziót.
 	 * 
-	 * @return igazzal tér vissza, ha a dimension be van állítva.
+	 * @return Igazzal tér vissza, ha a dimension be van állítva.
 	 */
 	public boolean isSetDim() {
 		return dimension > 0 ? true : false;
@@ -204,7 +202,7 @@ public class Game {
 			if (!result.contains((int) Math.sqrt(i))
 					&& (int) Math.sqrt(i) % 2 == 0)
 				result.add((int) Math.sqrt(i));
-		logger.info("Új mátrix méretek létrehozása sikeres");
+		logger.debug("Új mátrix méretek létrehozása sikeres.");
 
 		return result;
 	}
@@ -213,7 +211,7 @@ public class Game {
 	 * Meghatározza, hogy a játékos nyer-e.
 	 * 
 	 * @return Igazzal tér vissza, ha minden kártyának sikeresen megleltük a
-	 *         párját.
+	 *         párját, a játéknak ilyenkor vége.
 	 */
 
 	public boolean isEnd() {
@@ -230,15 +228,15 @@ public class Game {
 	 * Frissíti a visszafordítandó kártyák listáját.
 	 * 
 	 * Frissíti a visszafordítandó kártyák listáját. Minden kártyára való
-	 * kattintás után meg kell hívni, és a kattintás után a lefordítandó
-	 * kártyákat lefordítani.
+	 * kattintáskor meg kell hívni, és a kattintás után a lefordítandó kártyákat
+	 * lefordítani.
 	 * 
 	 * @param row
-	 *            A kártya sorindexe.
+	 *            A kártya mátrixbeli X koordinátája.
 	 * @param column
-	 *            A kártya oszlopindexe.
+	 *            A kártya mátrixbeli Y koordinátája.
 	 * 
-	 * @return Igaz értékkel tér vossza, ha akártyák felfordítva maradnak,
+	 * @return Igaz értékkel tér vossza, ha a kártyák felfordítva maradnak,
 	 *         egyébként hamissal.
 	 */
 	public boolean updateCardStatus(int row, int column) {
@@ -297,7 +295,6 @@ public class Game {
 	 * @return Igaz igazságértékkel tér vissza, ha kártyákat sikeresen
 	 *         betöltöttük.
 	 */
-
 	public boolean loadCards() {
 		List<Card> res = DataB.loadStatus(name);
 		String time = DataB.getTime(name);
@@ -380,7 +377,7 @@ public class Game {
 	}
 
 	/**
-	 * Meghatározza egy felhasználónévről, vagy jelszóról, hogy helyes e vagy
+	 * Meghatározza egy felhasználónévről vagy jelszóról, hogy helyes e vagy
 	 * sem.
 	 * 
 	 * @param name

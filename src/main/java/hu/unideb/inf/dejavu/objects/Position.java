@@ -17,14 +17,14 @@ public class Position {
 	 */
 	private int second;
 	/**
-	 * A mátrix beli dimenzió.
+	 * A mátrix dimenziója.
 	 */
 	private int dimension;
 
 	/**
 	 * A {@code Position} osztály üres konstruktora.
 	 * 
-	 * Alapértelmezett érték mindennél nulla;
+	 * Alapértelmezett érték minden értéknél nulla;
 	 */
 	public Position() {
 		first = 0;
@@ -40,7 +40,7 @@ public class Position {
 	 * @param second
 	 *            A mátrix beli Y koordináta.
 	 * @param dimension
-	 *            A mátrix beli dimenzió.
+	 *            A mátrix dimenziója.
 	 */
 	public Position(int first, int second, int dimension) {
 		this.dimension = dimension;
@@ -56,7 +56,7 @@ public class Position {
 	 * @param second
 	 *            A mátrix beli Y koordináta.
 	 * @param dimension
-	 *            A mátrix beli dimenzió.
+	 *            A mátrix dimenziója.
 	 */
 	public void setPos(int first, int second, int dimension) {
 		this.first = first;
