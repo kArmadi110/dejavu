@@ -14,5 +14,9 @@ mvn clean install  && java -jar target/dejavu-0.1-jar-with-dependencies.jar
 ```
 vagy
 ```sh
-mvn clean install exec:java -Dexec.maClass="hu.unideb.inf.dejavu.DejaVu"
+mvn clean install exec:java -Dexec.mainClass=hu.unideb.inf.dejavu.DejaVu
+```
+##Kapcsoló a debug megjelenítéséhez
+```sh
+-Dorg.slf4j.simpleLogger.defaultLogLevel=DEBUG
 ```
