@@ -1,5 +1,5 @@
 /**
- * 
+ *A játékhoz szükséges objektumokat tartalmazó package. 
  */
 /**
  * @author iam346

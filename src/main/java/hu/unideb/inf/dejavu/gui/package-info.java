@@ -1,5 +1,5 @@
 /**
- * 
+ *A felhasználói felületet tartalmazó package. 
  */
 /**
  * @author iam346

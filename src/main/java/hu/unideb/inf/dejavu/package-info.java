@@ -1,5 +1,5 @@
 /**
- * 
+ * Az alkalmazáslogikát tartalmazó package.
  */
 /**
  * @author iam346
