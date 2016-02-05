@@ -27,16 +27,19 @@ public class Game {
 	 * A megjelenítendő kártyák.
 	 * */
 	Card[][] cards;
+
 	/**
 	 * A játéktér dimenziója.
 	 * 
 	 * Kizárólag négyzetes mátrixokkal játszunk, ezért elég egy érték.
 	 * */
 	int dimension;
+
 	/**
 	 * A felfordított kártyákat tárolja ideiglenesen.
 	 */
 	private List<Position> upCards = new ArrayList<Position>();
+
 	/**
 	 * A lefordítani a kívánt kártyák.
 	 * 
@@ -44,18 +47,22 @@ public class Game {
 	 * tartalmazza majd azokat amiket vissza kell fordítani.
 	 * */
 	List<Position> downCards = new ArrayList<Position>();
+
 	/**
 	 * Stopper az idő mérésére.
 	 * */
 	public StopWatch timer;
+
 	/**
 	 * A jelenlegi játékos felhasználóneve.
 	 * */
 	String name;
+
 	/**
 	 * A jelenlegi játékos jelszava.
 	 * */
 	String pass;
+
 	/**
 	 * Az osztály naplózója.
 	 */
@@ -67,6 +74,7 @@ public class Game {
 	 * Alapértelmezett értéket állít be {@code dimension} - nak és létrehoz egy
 	 * {@code Stopwatch} objektumot.
 	 */
+
 	public Game() {
 		dimension = 0;
 		timer = new StopWatch();
@@ -85,12 +93,14 @@ public class Game {
 	public void setCards(List<File> cardNames) {
 		upCards.clear();
 		downCards.clear();
+
 		if (DataB.isStatusExist(name)) {
 			logger.info("Mentett játékállás betöltése");
 			loadCards();
 		} else if (isSetDim()) {
 			logger.info("Új játékállás betöltése");
 			timer = new StopWatch();
+
 			Rand randomTemp = new Rand(dimension);
 			cards = new Card[dimension][dimension];
 
@@ -104,6 +114,7 @@ public class Game {
 						.getFirst(), randomTemp.randomPos.get(i).getSecond(),
 						dimension);
 			}
+
 		}
 
 	}
@@ -136,11 +147,11 @@ public class Game {
 	 * @return Visszatér a kívánt kártyával.
 	 * 
 	 * */
-
 	public Card getCard(int row, int column) {
 		if (row < dimension && column < dimension) {
 			return cards[row][column];
 		}
+
 		return null;
 	}
 
@@ -150,6 +161,7 @@ public class Game {
 	 * @return Visszatér a lefordított jártyák pozicióinak listájával.
 	 * */
 	public List<Position> getDownCard() {
+
 		return downCards;
 	}
 
@@ -172,6 +184,7 @@ public class Game {
 	 * @return Igazzal tér vissza, ha a dimension be van állítva.
 	 */
 	public boolean isSetDim() {
+
 		return dimension > 0 ? true : false;
 	}
 
@@ -181,6 +194,7 @@ public class Game {
 	 * @return A dimenzió értéke.
 	 * */
 	public int getDim() {
+
 		return dimension;
 	}
 
@@ -188,7 +202,7 @@ public class Game {
 	 * Meghatározza a megfelelő mátrixméreteket.
 	 * 
 	 * Meghatározza, hogy milyen mátrixméretek lehetnek megfelelőek, és azt
-	 * visszaadja egy listában, ha nincs megfelelő akkor üresm listával tér
+	 * visszaadja egy listában, ha nincs megfelelő akkor üres listával tér
 	 * vissza.
 	 * 
 	 * @param numberOfElement
@@ -202,6 +216,7 @@ public class Game {
 			if (!result.contains((int) Math.sqrt(i))
 					&& (int) Math.sqrt(i) % 2 == 0)
 				result.add((int) Math.sqrt(i));
+
 		logger.debug("Új mátrix méretek létrehozása sikeres.");
 
 		return result;
@@ -241,6 +256,7 @@ public class Game {
 	 */
 	public boolean updateCardStatus(int row, int column) {
 		downCards.clear();
+
 		if (cards[row][column].isClicked()) {
 			if (!upCards.contains(cards[row][column].getPosition()))
 				upCards.add(cards[row][column].getPosition());
@@ -255,9 +271,11 @@ public class Game {
 				cards[upCards.get(0).getFirst()][upCards.get(0).getSecond()]
 						.setClicked(false);
 				upCards.remove(0);
+
 				cards[upCards.get(0).getFirst()][upCards.get(0).getSecond()]
 						.setClicked(false);
 				upCards.remove(0);
+
 				return true;
 
 			} else if (upCards.size() > 2) {
@@ -269,6 +287,7 @@ public class Game {
 			}
 
 		}
+		
 		return false;
 	}
 
@@ -279,6 +298,7 @@ public class Game {
 	 */
 	public boolean filesExist() {
 		List<Card> res = DataB.loadStatus(name);
+		
 		for (int i = 0; i < res.size(); i++) {
 			if (!res.get(i).getValue().exists()
 					|| res.get(i).getValue().isDirectory()) {
@@ -286,6 +306,7 @@ public class Game {
 				return false;
 			}
 		}
+		
 		return true;
 	}
 
@@ -310,7 +331,9 @@ public class Game {
 			cards[res.get(i).getPosition().getFirst()][res.get(i).getPosition()
 					.getSecond()] = res.get(i);
 		}
+		
 		removeStatus();
+		
 		return true;
 	}
 
@@ -322,6 +345,7 @@ public class Game {
 	 */
 	public boolean saveCards() {
 		removeStatus();
+		
 		for (int i = 0; i < dimension; i++)
 			for (int j = 0; j < dimension; j++) {
 				DataB.saveStatus(name, cards[i][j].getValue().toString(),
@@ -340,6 +364,7 @@ public class Game {
 	 *         egyébként hamissal.
 	 */
 	public boolean isStatusExist() {
+		
 		return DataB.isStatusExist(name);
 	}
 
@@ -350,6 +375,7 @@ public class Game {
 	 *         hamissal.
 	 */
 	public boolean removeStatus() {
+		
 		return DataB.removeStatus(name);
 	}
 
@@ -360,6 +386,7 @@ public class Game {
 	 *         egyébként hamissal.
 	 */
 	public boolean updateHighScores() {
+		
 		return DataB.updateHighScores(timer.toString(), name);
 	}
 
@@ -389,8 +416,10 @@ public class Game {
 		if (name.contains("\"") || name.contains("*") || name.contains("'")
 				|| name.contains("#") || name.contains("@")
 				|| name.contains("!") || name.contains("?")) {
+		
 			return false;
 		}
+		
 		return true;
 	}
 
@@ -409,11 +438,13 @@ public class Game {
 		if (!isPerfectName(name) || !isPerfectName(pass)) {
 			return false;
 		}
+		
 		if (DataB.isUserExist(name)) {
 			return false;
 		}
 		this.name = name;
 		this.pass = pass;
+		
 		return DataB.addProfile(name, pass);
 	}
 
@@ -435,6 +466,7 @@ public class Game {
 
 		this.name = name;
 		this.pass = pass;
+
 		return DataB.loadProfile(name, pass);
 	}
 

@@ -57,13 +57,16 @@ public class DataB {
 	 * */
 	public static boolean connect() {
 		if (connection != null)
+
 			return true;
 		try {
 			DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
 		} catch (SQLException e) {
 			logger.error("A Drivert nem sikerült betölteni.");
+
 			return false;
 		}
+
 		logger.debug("A driver sikeresen betöltődött.");
 
 		try {
@@ -72,10 +75,12 @@ public class DataB {
 			try {
 				InputStream inputStream = DataB.class.getClassLoader()
 						.getResourceAsStream("project.properties");
+
 				properties.load(inputStream);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
 			USERNAME = properties.getProperty("username");
 			PASS = properties.getProperty("password");
 			URL = properties.getProperty("url");
@@ -83,13 +88,17 @@ public class DataB {
 			connection = DriverManager.getConnection(URL, USERNAME, PASS);
 		} catch (SQLException e) {
 			logger.error("A kapcsolatot nem sikerült létrehozni.");
+
 			return false;
-		}catch(NullPointerException e){
+		} catch (NullPointerException e) {
 			logger.error("A kapcsolatot nem sikerült létrehozni.");
 			logger.info("Hozzon létre egy megfelelő project.properties filet");
+
 			return false;
 		}
+
 		logger.debug("A kapcsolat sikeresen létrejött.");
+
 		return true;
 	}
 
@@ -100,7 +109,6 @@ public class DataB {
 	 *         hamissal
 	 * */
 	public static boolean close() {
-
 		try {
 			if (connection != null && !connection.isClosed()) {
 				try {
@@ -110,11 +118,15 @@ public class DataB {
 				}
 			} else
 				return true;
+
 		} catch (SQLException e) {
 			logger.error("A kapcsolat már be van zárva.");
+
 			return false;
 		}
+
 		logger.debug("A kapcsolat sikeresen bezárult.");
+
 		return true;
 
 	}
@@ -134,9 +146,11 @@ public class DataB {
 			statement.executeQuery("commit");
 		} catch (SQLException e) {
 			logger.error("Users tábla létrehozása sikertelen.");
+
 			return false;
 		}
 		logger.debug("Users tábla sikeresen létrehozva.");
+
 		return true;
 	}
 
@@ -155,6 +169,7 @@ public class DataB {
 			statement.executeQuery("commit");
 		} catch (SQLException e) {
 			logger.error("Status tábla létrehozása sikertelen.");
+
 			return false;
 		}
 		logger.debug("Status tábla sikeresen létrehozva.");
@@ -176,9 +191,12 @@ public class DataB {
 			statement.executeQuery("commit");
 		} catch (SQLException e) {
 			logger.error("HighScores tábla létrehozása sikertelen.");
+
 			return false;
 		}
+
 		logger.debug("HighScores tábla sikeresen létrehozva.");
+
 		return true;
 	}
 
@@ -192,19 +210,21 @@ public class DataB {
 	 */
 
 	private static boolean isTableExist(String table) {
-
 		try {
 			DatabaseMetaData dbm = connection.getMetaData();
 			ResultSet rs = dbm.getTables(null, null, table, null);
 			if (rs.next()) {
 				logger.debug("A lekérdezés sikeres.");
+
 				return true;
 			} else {
 				logger.debug("A lekérdezés sikeres.");
+
 				return false;
 			}
 		} catch (SQLException e) {
 			logger.error("A lekérdezés sikertelen.");
+
 			return false;
 		}
 
@@ -238,6 +258,7 @@ public class DataB {
 			boolean clicked, int x, int y, int dim) {
 		if (!isTableExist("STATUS"))
 			createStatusTable();
+
 		try {
 			Statement statement = connection.createStatement();
 			String query = "INSERT INTO STATUS (NAME,CARD,TIME,CLICKED,X,Y,DIM) "
@@ -256,12 +277,13 @@ public class DataB {
 			statement.executeQuery("commit");
 		} catch (SQLException e) {
 			logger.error("A mentés sikertelen");
+
 			return false;
 		}
+
 		logger.debug("A mentés sikeres");
 
 		return true;
-
 	}
 
 	/**
@@ -290,11 +312,15 @@ public class DataB {
 					+ name + "','" + sw + "')";
 			stm.executeQuery(query);
 			stm.executeQuery("commit");
+
 		} catch (SQLException e) {
 			logger.error("A lekérdezés sikertelen.");
+
 			return false;
 		}
+
 		logger.info("A lekérdezés sikeres.");
+
 		return true;
 	}
 
@@ -312,8 +338,10 @@ public class DataB {
 			Statement statement = connection.createStatement();
 			String query = "SELECT TIME FROM STATUS WHERE NAME='" + name + "'";
 			ResultSet result = statement.executeQuery(query);
+
 			if (result.next()) {
 				logger.debug("A lekérdezés sikeres.");
+
 				return result.getString("TIME");
 			}
 		} catch (SQLException e) {
@@ -332,19 +360,23 @@ public class DataB {
 	 * */
 	public static Map<String, String> getHighScores() {
 		Map<String, String> result = new TreeMap<String, String>();
+
 		if (!isTableExist("HIGH_SCORES"))
 			createHighScoresTable();
 		try {
 			Statement statement = connection.createStatement();
 			String query = "SELECT NAME, TIME FROM HIGH_SCORES";
 			ResultSet r = statement.executeQuery(query);
+
 			while (r.next()) {
 				result.put(r.getString("TIME"), r.getString("NAME"));
 			}
 		} catch (SQLException e) {
 			logger.error("A lekérdezés sikertelen.");
 		}
+
 		logger.debug("A lekérdezés sikeres.");
+
 		return result;
 	}
 
@@ -359,12 +391,14 @@ public class DataB {
 	 * */
 	public static List<Card> loadStatus(String name) {
 		List<Card> result = new ArrayList<Card>();
+
 		if (!isStatusExist(name))
 			return result;
 		try {
 			Statement statement = connection.createStatement();
 			String query = "SELECT * FROM STATUS WHERE NAME='" + name + "'";
 			ResultSet rs = statement.executeQuery(query);
+
 			while (rs.next()) {
 				Card temp = new Card(new File(rs.getString("CARD")),
 						rs.getInt("X"), rs.getInt("Y"), rs.getInt("DIM"));
@@ -397,6 +431,7 @@ public class DataB {
 			Statement statement = connection.createStatement();
 			String query = "SELECT * FROM USERS WHERE NAME='" + name + "'";
 			ResultSet result = statement.executeQuery(query);
+
 			if (result.next()) {
 				logger.debug("A lekérdezés sikeres.");
 				return true;
@@ -405,6 +440,7 @@ public class DataB {
 		} catch (SQLException e) {
 			logger.error("A lekérdezés sikertelen.");
 		}
+
 		return false;
 	}
 
@@ -422,10 +458,12 @@ public class DataB {
 	public static boolean isStatusExist(String name) {
 		if (!isTableExist("STATUS"))
 			createStatusTable();
+
 		try {
 			Statement statement = connection.createStatement();
 			String query = "SELECT NAME FROM STATUS WHERE NAME='" + name + "'";
 			ResultSet result = statement.executeQuery(query);
+
 			if (result.next()) {
 				logger.debug("A lekérdezés sikeres.");
 
@@ -435,6 +473,7 @@ public class DataB {
 		} catch (SQLException e) {
 			logger.error("A lekérdezés sikertelen.");
 		}
+
 		return false;
 	}
 
@@ -477,12 +516,13 @@ public class DataB {
 	public static boolean addProfile(String name, String pass) {
 		if (!isTableExist("USERS"))
 			createStatusTable();
+
 		if (isUserExist(name)) {
 			logger.error("A hozzáadás a táblához sikertelen.");
 			return false;
 		}
-		try {
 
+		try {
 			Statement stm = connection.createStatement();
 
 			String query = "INSERT INTO USERS (NAME,PASS)" + "VALUES('" + name
@@ -493,6 +533,7 @@ public class DataB {
 
 		} catch (SQLException e) {
 			logger.error("A hozzáadás a táblához sikertelen.");
+
 			return false;
 		}
 		logger.debug("A hozzáadás a táblához sikeres.");
@@ -517,6 +558,7 @@ public class DataB {
 	public static boolean loadProfile(String name, String pass) {
 		if (!isTableExist("USERS"))
 			createUsersTable();
+
 		try {
 			Statement statement = connection.createStatement();
 			String query = "SELECT PASS FROM USERS WHERE NAME='" + name + "'";

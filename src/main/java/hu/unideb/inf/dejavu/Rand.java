@@ -14,6 +14,7 @@ import java.util.Random;
  *
  */
 public class Rand {
+
 	/**
 	 * A véletlen poziciók tárolására szolgáló lista.
 	 */
@@ -27,6 +28,7 @@ public class Rand {
 	 */
 	public Rand(int dimension) {
 		List<Position> positions = new ArrayList<Position>();
+		
 		for (int i = 0; i < dimension; i++)
 			for (int j = 0; j < dimension; j++)
 				positions.add(new Position(i, j, dimension));
@@ -50,6 +52,7 @@ public class Rand {
 	 * @return andomPos
 	 */
 	public List<Position> getrandomPos() {
+		
 		return randomPos;
 	}
 }

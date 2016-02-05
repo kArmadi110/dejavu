@@ -13,16 +13,19 @@ import java.io.File;
  *
  */
 public class Card {
+	
 	/**
 	 * Az kép elérési útja amit a felhasználó választott.
 	 */
 	private File value;
+	
 	/**
 	 * Igazságérték, mely azt mutatja, hogy a kártyára lehet e még kattintani.
 	 */
 	private boolean clicked;
+	
 	/**
-	 * A kártya poziciója a mátrixban.
+	 * A kártya pozíciója a mátrixban.
 	 */
 	private Position position;
 
@@ -66,6 +69,7 @@ public class Card {
 	 *            a mátrix dimenziója.
 	 */
 	void setPosition(int x, int y, int dimension) {
+		
 		position.setPos(x, y, dimension);
 	}
 
@@ -77,6 +81,7 @@ public class Card {
 	 *            többet, egyébként lehet.
 	 */
 	public void setClicked(boolean b) {
+		
 		clicked = b;
 	}
 	/**
@@ -96,6 +101,7 @@ public class Card {
 	public Position getPosition() {
 		return position;
 	}
+	
 	/**
 	 * Visszaadja a kártyához kiválasztott kép elérési útvonalát.
 	 * 

@@ -17,10 +17,12 @@ public class StopWatch {
 	 * növeljük egy percel.
 	 */
 	long start = 0;
+	
 	/**
 	 * A percek számát tároljuk.
 	 */
 	long minute = 0;
+	
 	/**
 	 * Az osztály naplózója.
 	 */
@@ -34,7 +36,6 @@ public class StopWatch {
 	 */
 	public StopWatch() {
 		start = System.currentTimeMillis();
-		logger.info("Jelenlegi idő mentése");
 	}
 
 	/**
@@ -43,7 +44,7 @@ public class StopWatch {
 	 * @return Igaz értékkel tér vissza ha eltelt 60 másodperc, egyébként
 	 *         hamissal.
 	 */
-	 boolean update() {
+	boolean update() {
 		if ((System.currentTimeMillis() - start) / 1000 >= 60) {
 			minute += 1;
 			start += 60000;
@@ -51,6 +52,7 @@ public class StopWatch {
 
 			return true;
 		}
+	
 		return false;
 	}
 
@@ -84,6 +86,7 @@ public class StopWatch {
 	@Override
 	public String toString() {
 		update();
+		
 		return String.format("%02d:%02d", minute,
 				(System.currentTimeMillis() - start) / 1000);
 	}
