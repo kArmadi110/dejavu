@@ -1,6 +1,6 @@
 package hu.unideb.inf.dejavu.gui;
 
-import hu.unideb.inf.dejavu.Game;
+import hu.unideb.inf.dejavu.DejaVu;
 import hu.unideb.inf.dejavu.objects.StopWatch;
 
 import java.awt.CardLayout;
@@ -16,14 +16,12 @@ import javax.swing.filechooser.FileFilter;
 
 public class Ground extends JFrame implements GameFrame {
 	GameMenu menu;
-	Game game;
 
 	JFileChooser choser = new JFileChooser();
 	JComboBox<String> dimensionChoser = new JComboBox<String>();
 	StopWatch stopWatch;
 
 	public Ground() {
-		game = new Game();
 		init();
 
 		setChoser();
@@ -70,7 +68,7 @@ public class Ground extends JFrame implements GameFrame {
 		setResizable(false);
 		addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                game.exitGame();
+                DejaVu.game.exitGame();
             }
         });
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

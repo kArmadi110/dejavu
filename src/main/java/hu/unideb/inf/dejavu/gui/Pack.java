@@ -18,23 +18,23 @@ public class Pack extends JPanel {
 		GridBagConstraints gb = new GridBagConstraints();
 		gb.gridy = 0;
 
-		cardButtons = new CardButton[DejaVu.ground.game.getDim()][DejaVu.ground.game
+		cardButtons = new CardButton[DejaVu.game.getDim()][DejaVu.game
 				.getDim()];
 
-		for (int i = 0; i < DejaVu.ground.game.getDim(); i++) {
-			for (int j = 0; j < DejaVu.ground.game.getDim(); j++)
-				cardButtons[i][j] = new CardButton(DejaVu.ground.game.getCard(
-						i, j), DejaVu.ground.game.getDim());
+		for (int i = 0; i < DejaVu.game.getDim(); i++) {
+			for (int j = 0; j < DejaVu.game.getDim(); j++)
+				cardButtons[i][j] = new CardButton(DejaVu.game.getCard(
+						i, j), DejaVu.game.getDim());
 		}
 
-		for (int i = 0; i < DejaVu.ground.game.getDim(); i++) {
+		for (int i = 0; i < DejaVu.game.getDim(); i++) {
 			JPanel panelTemp = new JPanel();
-			for (int j = 0; j < DejaVu.ground.game.getDim(); j++) {
+			for (int j = 0; j < DejaVu.game.getDim(); j++) {
 				cardButtons[i][j]
 						.addActionListener(new cardActionListener(i, j));
 
 				panelTemp.add(cardButtons[i][j]);
-				if(!DejaVu.ground.game.getCard(i, j).isClicked())
+				if(!DejaVu.game.getCard(i, j).isClicked())
 					cardButtons[i][j].setCard();
 				else
 					cardButtons[i][j].setBack();
@@ -53,11 +53,11 @@ public class Pack extends JPanel {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			DejaVu.ground.game.updateCardStatus(i, j);
+			DejaVu.game.updateCardStatus(i, j);
 			
 			cardButtons[i][j].setCard();
 			
-			for (Position temp : DejaVu.ground.game.getDownCard())
+			for (Position temp : DejaVu.game.getDownCard())
 				cardButtons[temp.getFirst()][temp.getSecond()].setBack();
 		}
 	}

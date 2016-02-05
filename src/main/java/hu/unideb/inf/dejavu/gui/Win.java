@@ -17,7 +17,7 @@ public class Win extends JPanel implements GameMenu {
 	Button back;
 
 	Win() {
-		DejaVu.ground.game.updateHighScores();
+		DejaVu.game.updateHighScores();
 		JLabel Win = new JLabel("Ön nyert!");
 		Win.setFont(new Font("Courier New", Font.ITALIC, 50));
 

@@ -15,7 +15,6 @@ public class CardButton extends JButton {
 	double size;
 	File card;
 
-
 	CardButton(Card card, int dimension) {
 		size = (1.0 / dimension) * 400;
 		this.card = card.getValue();
@@ -27,7 +26,6 @@ public class CardButton extends JButton {
 	}
 
 	void setBack() {
-		
 		ClassLoader cl = this.getClass().getClassLoader();
 		
 		ImageIcon imageIcon = new ImageIcon(cl.getResource("pictures/cards1/back2.png"));
@@ -43,6 +41,7 @@ public class CardButton extends JButton {
 		Image imageTemp = imageIcon.getImage().getScaledInstance((int) size,
 				(int) size, Image.SCALE_DEFAULT);
 		imageIcon = new ImageIcon(imageTemp);
+		
 		setIcon(imageIcon);
 	}
 

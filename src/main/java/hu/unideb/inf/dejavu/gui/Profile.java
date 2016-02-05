@@ -61,9 +61,9 @@ public class Profile extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 
 				if (login
-						&& DejaVu.ground.game.loadProfile(userName.getText(),
+						&& DejaVu.game.loadProfile(userName.getText(),
 								new String(password.getPassword()))) {
-					if (DejaVu.ground.game.isStatusExist()) {
+					if (DejaVu.game.isStatusExist()) {
 						String[] options = { "Igen", "Nem" };
 						int loadInfo = JOptionPane.showOptionDialog(
 								Profile.this,
@@ -71,7 +71,7 @@ public class Profile extends JDialog {
 								"Mentés betöltése", JOptionPane.YES_NO_OPTION,
 								JOptionPane.NO_OPTION, null, options,
 								options[0]);
-						if (loadInfo == 0 && DejaVu.ground.game.filesExist()) {
+						if (loadInfo == 0 && DejaVu.game.filesExist()) {
 							parent.firstB.setEnabled(true);
 							parent.secondB.setEnabled(true);
 							DejaVu.ground.setMenu(new PlayGround(true));
@@ -79,7 +79,7 @@ public class Profile extends JDialog {
 						} else {
 							parent.firstB.setEnabled(true);
 							parent.secondB.setEnabled(true);
-							DejaVu.ground.game.removeStatus();
+							DejaVu.game.removeStatus();
 							DejaVu.ground.setMenu(new Menu());
 							dispose();
 						}
@@ -91,7 +91,7 @@ public class Profile extends JDialog {
 					}
 
 				} else if (!login
-						&& DejaVu.ground.game.addProfile(userName.getText(),
+						&& DejaVu.game.addProfile(userName.getText(),
 								new String(password.getPassword()))) {
 
 					parent.firstB.setEnabled(true);

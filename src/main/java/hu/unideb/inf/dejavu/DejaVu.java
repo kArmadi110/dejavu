@@ -15,7 +15,10 @@ public class DejaVu {
 	 * Az aktuális ablak.
 	 */
 	public static Ground ground;
-
+	/**
+	 * A logika
+	 */
+	public static Game game;
 	/**
 	 * A program main metódusa.
 	 * 
@@ -24,7 +27,9 @@ public class DejaVu {
 	 */
 	public static void main(String[] args) {
 		DataB.connect();
-
+		
+		game = new Game();
+		
 		ground = new Ground();
 		ground.setVisible(true);
 

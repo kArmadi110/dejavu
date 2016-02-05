@@ -23,7 +23,7 @@ public class Menu extends JPanel implements GameMenu {
 		Game = new Button("Játék", new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (DejaVu.ground.game.isSetDim() && DejaVu.ground.game.filesExist())
+				if (DejaVu.game.isSetDim() && DejaVu.game.filesExist())
 					DejaVu.ground.setMenu(new PlayGround());
 				else 
 					DejaVu.ground.setMenu(new Settings());
@@ -44,7 +44,7 @@ public class Menu extends JPanel implements GameMenu {
 		Back = new Button("Vissza", new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				DejaVu.ground.game.setDim(0);
+				DejaVu.game.setDim(0);
 				DejaVu.ground.dimensionChoser.removeAllItems();
 				DejaVu.ground.setMenu(back());
 			}

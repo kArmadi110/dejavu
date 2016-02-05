@@ -10,6 +10,5 @@ public class Button extends JButton {
 		super(a);
 		addActionListener(al);
 		setFont(new Font("Courier New", Font.ITALIC, 12));
-
 	}
 }

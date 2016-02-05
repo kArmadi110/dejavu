@@ -46,7 +46,7 @@ public class Settings extends JPanel implements GameMenu {
 								+ "X" + dimensions.get(i));
 					String result = (String) DejaVu.ground.dimensionChoser
 							.getItemAt(0);
-					DejaVu.ground.game.setDim(Integer.parseInt(result
+					DejaVu.game.setDim(Integer.parseInt(result
 							.substring(0, 1)));
 				}
 			}
@@ -54,7 +54,7 @@ public class Settings extends JPanel implements GameMenu {
 		game = new Button("Játék", new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (DejaVu.ground.game.isSetDim())
+				if (DejaVu.game.isSetDim())
 					DejaVu.ground.setMenu(new PlayGround());
 			}
 		});
@@ -66,7 +66,7 @@ public class Settings extends JPanel implements GameMenu {
 					String result = (String) DejaVu.ground.dimensionChoser
 							.getSelectedItem();
 					if (result != null)
-						DejaVu.ground.game.setDim(Integer.parseInt(result
+						DejaVu.game.setDim(Integer.parseInt(result
 								.substring(0, 1)));
 				}
 			}

@@ -25,7 +25,7 @@ public class HighScores extends JPanel implements GameMenu {
 				DejaVu.ground.setMenu(back());
 			}
 		});
-		TreeMap<String, String> highScoreMap = DejaVu.ground.game
+		TreeMap<String, String> highScoreMap = DejaVu.game
 				.getHighScores();
 		Object[][] value = new Object[highScoreMap.size()][3];
 

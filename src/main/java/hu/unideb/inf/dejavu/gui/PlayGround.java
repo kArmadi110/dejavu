@@ -25,7 +25,7 @@ public class PlayGround extends JPanel implements GameMenu {
 	Pack pakli;
 
 	public PlayGround() {
-		DejaVu.ground.game.setCards(Arrays.asList(DejaVu.ground.choser
+		DejaVu.game.setCards(Arrays.asList(DejaVu.ground.choser
 				.getSelectedFiles()));
 
 		init();
@@ -34,7 +34,7 @@ public class PlayGround extends JPanel implements GameMenu {
 
 	public PlayGround(boolean status) {
 
-		DejaVu.ground.game.loadCards();
+		DejaVu.game.loadCards();
 		init();
 
 	}
@@ -53,7 +53,7 @@ public class PlayGround extends JPanel implements GameMenu {
 						options, options[0]);
 				if (loadInfo == 0) {
 					t.stop();
-					DejaVu.ground.game.saveCards();
+					DejaVu.game.saveCards();
 				}
 				DejaVu.ground.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -91,8 +91,8 @@ public class PlayGround extends JPanel implements GameMenu {
 
 			public void actionPerformed(ActionEvent e) {
 				//DejaVu.ground.game.timer.update();
-				timer.setText(DejaVu.ground.game.timer.toString());
-				if (DejaVu.ground.game.isEnd()) {
+				timer.setText(DejaVu.game.timer.toString());
+				if (DejaVu.game.isEnd()) {
 					DejaVu.ground
 							.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					t.stop();
