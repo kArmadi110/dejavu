@@ -4,6 +4,7 @@ import hu.unideb.inf.dejavu.DejaVu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -25,9 +26,9 @@ public class SignInMenu extends DVMenu {
 		final TextField name = new TextField();
 		name.setPromptText("Név");
 		add(name, 3, 4);
-		// TODO: kipontozni a jelszót
+
 		add(new DVText("Jelszó:", Font.font("Verdana", 10)), 2, 5);
-		final TextField pass = new TextField();
+		final PasswordField pass = new PasswordField();
 		pass.setPromptText("Jelszó");
 		add(pass, 3, 5);
 
@@ -36,15 +37,24 @@ public class SignInMenu extends DVMenu {
 		signIn.setOnAction(new EventHandler<ActionEvent>() {
 
 			public void handle(ActionEvent arg0) {
-				// TODO: enter is belépő gomb nem csak a kattintás
+				// TODO: enter is belépő gomb enter és kattintás
 
 				if (args.equals("Bejelentkezés")
 						&& DejaVu.game.loadProfile(name.getText(),
 								pass.getText())) {
 
-					// TODO: játékállás betöltése
+					boolean load = false;
+					if (DejaVu.game.isStatusExist()) {
+						// TODO: a játékállás betöltésének eldöntése, új ablak
+					}
+					if (load && DejaVu.game.filesExist()) {
+						DejaVu.setNewMenu(new MainMenu());
 
-					DejaVu.setNewMenu(new MainMenu());
+					} else {
+						DejaVu.game.removeStatus();
+						DejaVu.setNewMenu(new MainMenu());
+					}
+
 					WelcomeMenu.signIn.setDisable(false);
 					WelcomeMenu.newProfile.setDisable(false);
 
