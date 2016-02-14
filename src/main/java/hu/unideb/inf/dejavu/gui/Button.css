@@ -1,0 +1,12 @@
+.button {
+    -fx-text-fill: white;
+    -fx-text-alignment: left;
+    -fx-font-family: "Helvetica";
+    -fx-font-size:  16px;
+    -fx-padding: 5 150 5 10;
+    -fx-background-color: linear-gradient(to right, transparent 0%, #15640F 20%, transparent 50%);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to right, transparent 0%, #15640F 20%, transparent 80%);
+}

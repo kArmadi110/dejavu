@@ -1,0 +1,13 @@
+#close {
+    -fx-text-fill: white;
+    -fx-background-color: #D40404;
+    -fx-font-family: "Helvetica";
+}
+
+#minimize{
+	-fx-text-fill: white;
+}
+
+#topBar{
+	-fx-background-color: rgb(21, 100, 15, 0.5);
+}

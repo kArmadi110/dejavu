@@ -1,0 +1,8 @@
+#menu {
+     -fx-background-image: url("background.png");
+         -fx-base: #c7dec7;
+    -fx-accent: #00c996 ;
+    -fx-default-button: #abedd8 ;
+    -fx-focus-color: #03d39e;
+    -fx-faint-focus-color: #03d39e22;
+}
