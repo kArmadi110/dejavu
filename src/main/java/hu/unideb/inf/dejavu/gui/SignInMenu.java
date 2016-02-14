@@ -3,14 +3,17 @@ package hu.unideb.inf.dejavu.gui;
 import hu.unideb.inf.dejavu.DejaVu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class SignInMenu extends DVMenu {
 
-	public SignInMenu(String args) {
+	public SignInMenu(final String args) {
 		super();
 
 		setHgap(10);
@@ -19,12 +22,12 @@ public class SignInMenu extends DVMenu {
 		add(new DVText(args, Font.font("Verdana", FontWeight.BOLD, 20)), 3, 2);
 
 		add(new DVText("Név:", Font.font("Verdana", 10)), 2, 4);
-		TextField name = new TextField();
+		final TextField name = new TextField();
 		name.setPromptText("Név");
 		add(name, 3, 4);
-
+		// TODO: kipontozni a jelszót
 		add(new DVText("Jelszó:", Font.font("Verdana", 10)), 2, 5);
-		TextField pass = new TextField();
+		final TextField pass = new TextField();
 		pass.setPromptText("Jelszó");
 		add(pass, 3, 5);
 
@@ -33,19 +36,81 @@ public class SignInMenu extends DVMenu {
 		signIn.setOnAction(new EventHandler<ActionEvent>() {
 
 			public void handle(ActionEvent arg0) {
+				// TODO: enter is belépő gomb nem csak a kattintás
 
-				/*
-				 * TODO: if args==bejelentkezés akkor bejelentkezünk else hiba
-				 * else if args== új profil új profilt hozunk létre, valami nem
-				 * klappol hiba validáljuk, hogy megfelelő karaktereket lehessen
-				 * csak megadni valami más módot keresünk
-				 */
+				if (args.equals("Bejelentkezés")
+						&& DejaVu.game.loadProfile(name.getText(),
+								pass.getText())) {
 
-				DejaVu.setNewMenu(new MainMenu());
-				WelcomeMenu.signIn.setDisable(false);
-				WelcomeMenu.newProfile.setDisable(false);
+					// TODO: játékállás betöltése
 
-				((Stage) signIn.getScene().getWindow()).close();
+					DejaVu.setNewMenu(new MainMenu());
+					WelcomeMenu.signIn.setDisable(false);
+					WelcomeMenu.newProfile.setDisable(false);
+
+					((Stage) signIn.getScene().getWindow()).close();
+
+				} else if (args.equals("Új profil")
+						&& DejaVu.game.addProfile(name.getText(),
+								pass.getText())) {
+
+					DejaVu.setNewMenu(new MainMenu());
+					WelcomeMenu.signIn.setDisable(false);
+					WelcomeMenu.newProfile.setDisable(false);
+
+					((Stage) signIn.getScene().getWindow()).close();
+
+				} else {
+					final Stage stage = new Stage();
+					final int width = 250, height = 130;
+
+					DVMenu error = new DVMenu();
+					error.setHgap(5);
+					error.setVgap(5);
+
+					ExitToolbar exit = new ExitToolbar(stage);
+					ExitToolbar.toolbarButtons.closeButton
+							.setOnAction(new EventHandler<ActionEvent>() {
+
+								public void handle(ActionEvent arg0) {
+									WelcomeMenu.signIn.setDisable(false);
+									WelcomeMenu.newProfile.setDisable(false);
+									stage.close();
+
+								}
+							});
+
+					final DVButton OK = new DVButton("OK", 1);
+
+					OK.setOnAction(new EventHandler<ActionEvent>() {
+
+						public void handle(ActionEvent arg0) {
+							((Stage) OK.getScene().getWindow()).close();
+						}
+					});
+
+					DVText message = new DVText(
+							"Hibás felhasználónév vagy jelszó!", Font.font(
+									"Verdana", 14));
+
+					error.setTop(exit);
+
+					error.add(message, 1, 1);
+					error.add(OK, 1, 10);
+
+					stage.initStyle(StageStyle.TRANSPARENT);
+					Scene scene = new Scene(error, width, height);
+					scene.setFill(Color.TRANSPARENT);
+
+					stage.setMaxHeight(height);
+					stage.setMinHeight(height);
+					stage.setMaxWidth(width);
+					stage.setMinWidth(width);
+					stage.setAlwaysOnTop(true);
+					stage.setScene(scene);
+					stage.centerOnScreen();
+					stage.show();
+				}
 
 			}
 		});
@@ -53,5 +118,4 @@ public class SignInMenu extends DVMenu {
 		add(signIn, 8, 6);
 
 	}
-
 }
