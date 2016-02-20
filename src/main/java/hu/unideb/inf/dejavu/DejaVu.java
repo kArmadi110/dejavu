@@ -3,6 +3,7 @@ package hu.unideb.inf.dejavu;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import hu.unideb.inf.dejavu.gui.DVMenu;
@@ -18,6 +19,9 @@ import hu.unideb.inf.dejavu.gui.WelcomeMenu;
  *
  */
 public class DejaVu extends Application {
+	
+	public static FileChooser fileChooser = new FileChooser();
+	
 	/**
 	 * Az aktuális képernyő közepe.
 	 */
@@ -48,6 +52,10 @@ public class DejaVu extends Application {
 
 	@Override
 	public void start(Stage arg) throws Exception {
+		
+		fileChooser.setTitle("Nyissa meg a kívánt képeket");
+		
+		
 		stage = arg;
 		stage.initStyle(StageStyle.TRANSPARENT);
 

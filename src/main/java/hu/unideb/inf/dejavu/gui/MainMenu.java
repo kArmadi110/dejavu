@@ -15,6 +15,9 @@ public class MainMenu extends DVMenu {
 	MainMenu() {
 		super();
 
+		SlidePane rightPane = new SlidePane(500, settings,highScore);
+		setRight(rightPane);
+		
 		back.setOnAction(new EventHandler<ActionEvent>() {
 
 			public void handle(ActionEvent arg0) {
@@ -27,6 +30,7 @@ public class MainMenu extends DVMenu {
 		setVgap(10);
 		add(new DVText("DejaVu", Font.font("Verdana", FontWeight.BOLD, 30)), 1,
 				2);
+
 		add(game, 1, 17);
 		add(settings, 1, 19);
 		add(highScore, 1, 21);
