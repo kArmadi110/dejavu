@@ -1,0 +1,33 @@
+.root{
+    -fx-background-color: #000000;
+}
+
+.text{
+   -fx-fill: white; 
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #D2D2D2;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #000000;
+}
+
+.table-view{
+   -fx-background-color: transparent;
+     -fx-table-cell-border-color: transparent;
+
+}
+
+ .column-header  { 
+    -fx-background-color: #000000;
+}
+
+.table-row-cell:empty {
+    -fx-background-color: black;
+}
+ 
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+}

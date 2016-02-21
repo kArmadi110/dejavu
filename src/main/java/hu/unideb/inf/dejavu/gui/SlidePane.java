@@ -1,12 +1,19 @@
 package hu.unideb.inf.dejavu.gui;
 
-import hu.unideb.inf.dejavu.DejaVu;
+import java.util.TreeMap;
+import java.util.Map.Entry;
 
+import hu.unideb.inf.dejavu.DejaVu;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -87,7 +94,9 @@ public class SlidePane extends GridPane {
 							}
 						});
 
-						//TODO: dimensionChoser
+						// TODO: kijelölt fileok megjelenítése
+						// TODO: dimensionChoser
+
 						add(chooser, 5, 4);
 
 						setVisible(true);
@@ -146,7 +155,50 @@ public class SlidePane extends GridPane {
 					} else {
 						add(new DVText("Eredménytábla", Font
 								.font("Verdana", 22)), 4, 3);
-						// TODO: táblázatot hozzáadni
+						TableView<Player> table = new TableView<Player>();
+						table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+						table.getStylesheets().add(
+								SlidePane.class.getResource("Table.css")
+										.toExternalForm());
+
+						ObservableList<Player> data = FXCollections
+								.observableArrayList();
+
+						TreeMap<String, String> highScoreMap = DejaVu.game
+								.getHighScores();
+
+						int i = 1;
+						for (Entry<String, String> entry : highScoreMap
+								.entrySet()) {
+							data.add(new Player(i, entry.getKey(), entry
+									.getValue()));
+							i++;
+							if (i > 10)
+								break;
+						}
+
+						table.setItems(data);
+
+						TableColumn<Player, Integer> number = new TableColumn<Player, Integer>(
+								"Sorszám");
+						TableColumn<Player, String> name = new TableColumn<Player, String>(
+								"Név");
+						TableColumn<Player, String> time = new TableColumn<Player, String>(
+								"Idő");
+
+						number.setCellValueFactory(new PropertyValueFactory<Player, Integer>(
+								"number"));// TODO: DAFUQ
+						name.setCellValueFactory(new PropertyValueFactory<Player, String>(
+								"name"));
+						time.setCellValueFactory(new PropertyValueFactory<Player, String>(
+								"time"));
+
+						table.getColumns().addAll(number, name, time);
+
+						add(table, 5, 4);
+						// TODO: táblázat css
+
 						setVisible(true);
 						openAnim.play();
 					}
@@ -159,10 +211,6 @@ public class SlidePane extends GridPane {
 
 	public double getSize() {
 		return size;
-	}
-
-	public void setHighScore() {
-
 	}
 
 	public void setSize(double size) {
