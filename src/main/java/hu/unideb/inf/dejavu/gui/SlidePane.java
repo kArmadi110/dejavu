@@ -25,7 +25,13 @@ import javafx.util.Duration;
 
 public class SlidePane extends GridPane {
 	private double size;
+
 	List<File> cardPathList = new ArrayList<File>();
+
+	List<Integer> dimensions = Game.matrixSize(cardPathList.size());
+
+	ObservableList<String> result = FXCollections.observableArrayList();
+	Animation closeAnim, openAnim;
 
 	public SlidePane(double size, Button settingButton, Button highScoreButton) {
 		setHgap(10);
@@ -41,7 +47,7 @@ public class SlidePane extends GridPane {
 
 		settingButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent actionEvent) {
-				Animation closeAnim = new Transition() {
+				closeAnim = new Transition() {
 					{
 						setCycleDuration(Duration.millis(500));
 					}
@@ -61,7 +67,7 @@ public class SlidePane extends GridPane {
 							}
 						});
 
-				Animation openAnim = new Transition() {
+				openAnim = new Transition() {
 					{
 						setCycleDuration(Duration.millis(500));
 					}
@@ -96,18 +102,20 @@ public class SlidePane extends GridPane {
 								cardPathList = DejaVu.fileChooser
 										.showOpenMultipleDialog((Stage) getScene()
 												.getWindow());
+
+								dimensions = Game.matrixSize(cardPathList
+										.size());
+
+								if (!dimensions.isEmpty()) {
+									for (int i = dimensions.size() - 1; i >= 0; i--)
+										result.add(dimensions.get(i) + "X"
+												+ dimensions.get(i));
+								}
+
+								DejaVu.dimensionChoser.setItems(result);
+
 							}
 						});
-
-						List<Integer> dimensions = Game.matrixSize(cardPathList
-								.size());
-
-						if (!dimensions.isEmpty()) {
-							for (int i = dimensions.size() - 1; i >= 0; i--)
-								DejaVu.dimensionChoser.getItems().add(
-										dimensions.get(i) + "X"
-												+ dimensions.get(i));
-						}
 
 						add(chooser, 5, 4);
 						add(DejaVu.dimensionChoser, 5, 5);
@@ -122,7 +130,7 @@ public class SlidePane extends GridPane {
 		highScoreButton.setOnAction(new EventHandler<ActionEvent>() {
 			@SuppressWarnings("unchecked")
 			public void handle(ActionEvent actionEvent) {
-				Animation closeAnim = new Transition() {
+				closeAnim = new Transition() {
 					{
 						setCycleDuration(Duration.millis(500));
 					}
@@ -142,7 +150,7 @@ public class SlidePane extends GridPane {
 							}
 						});
 
-				Animation openAnim = new Transition() {
+				openAnim = new Transition() {
 					{
 						setCycleDuration(Duration.millis(500));
 					}

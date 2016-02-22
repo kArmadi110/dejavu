@@ -12,12 +12,9 @@ import hu.unideb.inf.dejavu.gui.ExitToolbar;
 import hu.unideb.inf.dejavu.gui.SlidePane;
 import hu.unideb.inf.dejavu.gui.WelcomeMenu;
 
-//TODO: a logika megkapa, hogy hányszor hanyas, és ott vágjuk szét
 //TODO: bejelentkezés kék körvonal
-//TODO: áttünés kezdése, ha a másik már befejeződött
-//TODO: combobox átírni choiseboxra
-//TODO: dimensionChoser normális css
-//TODO: dimensionchoser frissítése időben amikor bezárjuk a tallózást
+
+//TODO: a logika megkapa, hogy hányszor hanyas, és ott vágjuk szét
 //TODO: játékmentés betöltése
 //TODO: playground
 //TODO: refactor: átnézni, getterek, ahol a static tagra hivatkoztam, dejavu osztályból kigányolni ami nem oda való
@@ -57,6 +54,7 @@ public class DejaVu extends Application {
 	 */
 	public static void main(String[] args) {
 		DataB.connect();
+		dimensionChoser.setId("dimensionChoser");
 		dimensionChoser.getStylesheets().add(
 				SlidePane.class.getResource("DimensionChoser.css")
 						.toExternalForm());

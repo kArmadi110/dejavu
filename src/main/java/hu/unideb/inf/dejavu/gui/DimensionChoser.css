@@ -3,3 +3,10 @@
     -fx-background: #585858;
     -fx-text-fill: white;
 }
+
+#dimensionChoser
+{
+    -fx-background-color: #585858;
+    -fx-text-fill: white;
+    -fx-padding: 0 25 0 25;
+}
