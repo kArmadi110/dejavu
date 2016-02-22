@@ -2,13 +2,25 @@ package hu.unideb.inf.dejavu;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import hu.unideb.inf.dejavu.gui.DVMenu;
 import hu.unideb.inf.dejavu.gui.ExitToolbar;
+import hu.unideb.inf.dejavu.gui.SlidePane;
 import hu.unideb.inf.dejavu.gui.WelcomeMenu;
+
+//TODO: a logika megkapa, hogy hányszor hanyas, és ott vágjuk szét
+//TODO: bejelentkezés kék körvonal
+//TODO: áttünés kezdése, ha a másik már befejeződött
+//TODO: combobox átírni choiseboxra
+//TODO: dimensionChoser normális css
+//TODO: dimensionchoser frissítése időben amikor bezárjuk a tallózást
+//TODO: játékmentés betöltése
+//TODO: playground
+//TODO: refactor: átnézni, getterek, ahol a static tagra hivatkoztam, dejavu osztályból kigányolni ami nem oda való
 
 /**
  * A main metódust tartalmazó osztály.
@@ -19,9 +31,10 @@ import hu.unideb.inf.dejavu.gui.WelcomeMenu;
  *
  */
 public class DejaVu extends Application {
-	
+
+	public static ComboBox<String> dimensionChoser = new ComboBox<String>();
+
 	public static FileChooser fileChooser = new FileChooser();
-	
 	/**
 	 * Az aktuális képernyő közepe.
 	 */
@@ -44,7 +57,9 @@ public class DejaVu extends Application {
 	 */
 	public static void main(String[] args) {
 		DataB.connect();
-
+		dimensionChoser.getStylesheets().add(
+				SlidePane.class.getResource("DimensionChoser.css")
+						.toExternalForm());
 		game = new Game();
 
 		launch(args);
@@ -52,10 +67,9 @@ public class DejaVu extends Application {
 
 	@Override
 	public void start(Stage arg) throws Exception {
-		
+
 		fileChooser.setTitle("Nyissa meg a kívánt képeket");
-		
-		
+
 		stage = arg;
 		stage.initStyle(StageStyle.TRANSPARENT);
 
@@ -80,6 +94,9 @@ public class DejaVu extends Application {
 		scene.setFill(Color.TRANSPARENT);
 
 		stage.setScene(scene);
+	}
+
+	public static void choseFiles() {
 	}
 
 }

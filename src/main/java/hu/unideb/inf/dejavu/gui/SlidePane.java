@@ -1,9 +1,13 @@
 package hu.unideb.inf.dejavu.gui;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import hu.unideb.inf.dejavu.DejaVu;
+import hu.unideb.inf.dejavu.Game;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.collections.FXCollections;
@@ -21,6 +25,7 @@ import javafx.util.Duration;
 
 public class SlidePane extends GridPane {
 	private double size;
+	List<File> cardPathList = new ArrayList<File>();
 
 	public SlidePane(double size, Button settingButton, Button highScoreButton) {
 		setHgap(10);
@@ -88,17 +93,24 @@ public class SlidePane extends GridPane {
 						chooser.setOnAction(new EventHandler<ActionEvent>() {
 
 							public void handle(ActionEvent arg0) {
-								DejaVu.fileChooser
+								cardPathList = DejaVu.fileChooser
 										.showOpenMultipleDialog((Stage) getScene()
 												.getWindow());
 							}
 						});
 
-						// TODO: kijelölt fileok megjelenítése
-						// TODO: dimensionChoser
+						List<Integer> dimensions = Game.matrixSize(cardPathList
+								.size());
+
+						if (!dimensions.isEmpty()) {
+							for (int i = dimensions.size() - 1; i >= 0; i--)
+								DejaVu.dimensionChoser.getItems().add(
+										dimensions.get(i) + "X"
+												+ dimensions.get(i));
+						}
 
 						add(chooser, 5, 4);
-
+						add(DejaVu.dimensionChoser, 5, 5);
 						setVisible(true);
 						openAnim.play();
 					}
@@ -108,6 +120,7 @@ public class SlidePane extends GridPane {
 		});
 
 		highScoreButton.setOnAction(new EventHandler<ActionEvent>() {
+			@SuppressWarnings("unchecked")
 			public void handle(ActionEvent actionEvent) {
 				Animation closeAnim = new Transition() {
 					{
@@ -155,6 +168,7 @@ public class SlidePane extends GridPane {
 					} else {
 						add(new DVText("Eredménytábla", Font
 								.font("Verdana", 22)), 4, 3);
+
 						TableView<Player> table = new TableView<Player>();
 						table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
@@ -188,7 +202,7 @@ public class SlidePane extends GridPane {
 								"Idő");
 
 						number.setCellValueFactory(new PropertyValueFactory<Player, Integer>(
-								"number"));// TODO: DAFUQ
+								"number"));
 						name.setCellValueFactory(new PropertyValueFactory<Player, String>(
 								"name"));
 						time.setCellValueFactory(new PropertyValueFactory<Player, String>(
@@ -197,10 +211,10 @@ public class SlidePane extends GridPane {
 						table.getColumns().addAll(number, name, time);
 
 						add(table, 5, 4);
-						// TODO: táblázat css
 
 						setVisible(true);
 						openAnim.play();
+
 					}
 				}
 
