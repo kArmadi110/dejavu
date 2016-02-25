@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import hu.unideb.inf.dejavu.gui.DVMenu;
@@ -66,15 +67,14 @@ public class DejaVu extends Application {
 	 */
 	public static void main(String[] args) {
 		DataB.connect();
-		
+
 		dimensionChoser.setId("dimensionChoser");
 		dimensionChoser.getStylesheets().add(
 				SlidePane.class.getResource("DimensionChoser.css")
 						.toExternalForm());
 
-		fileChooser.getExtensionFilters().addAll(
-				new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-				new FileChooser.ExtensionFilter("PNG", "*.png"));
+		fileChooser.getExtensionFilters().add(
+				new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
 
 		game = new Game();
 

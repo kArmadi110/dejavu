@@ -43,6 +43,7 @@ public class SlidePane extends GridPane {
 
 		settingButton
 				.setOnAction((arg0) -> {
+
 					closeAnim = new Transition() {
 						{
 							setCycleDuration(Duration.millis(500));
@@ -85,14 +86,19 @@ public class SlidePane extends GridPane {
 
 							DVButton chooser = new DVButton("Tallózás", 1);
 							chooser.setOnAction((arg1) -> {
+								DejaVu.dimensionChoser.getItems().clear();
+
 								DejaVu.cardPathList = DejaVu.fileChooser
 										.showOpenMultipleDialog((Stage) getScene()
 												.getWindow());
 
-								dimensions = Game.matrixSize(DejaVu.cardPathList
-										.size());
-
+								if (DejaVu.cardPathList != null
+										&& !DejaVu.cardPathList.isEmpty())
+									dimensions = Game
+											.matrixSize(DejaVu.cardPathList
+													.size());
 								if (!dimensions.isEmpty()) {
+
 									for (int i = dimensions.size() - 1; i >= 0; i--)
 										result.add(dimensions.get(i) + "X"
 												+ dimensions.get(i));
