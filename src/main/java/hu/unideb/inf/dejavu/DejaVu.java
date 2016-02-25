@@ -16,9 +16,11 @@ import hu.unideb.inf.dejavu.gui.ExitToolbar;
 import hu.unideb.inf.dejavu.gui.SlidePane;
 import hu.unideb.inf.dejavu.gui.WelcomeMenu;
 
+//TODO: Ikon beállítása
 //TODO: playground feltöltése, stopwatch
 //TODO: játékmentés betöltése új ablak
 
+//TODO: osztálybetöltők, az elérési utak jól vannak e
 //TODO: refactor: átnézni, getterek, ahol a static tagra hivatkoztam 
 //TODO: dejavuben sok szemét van
 //TODO: slidepane listák nem feltétlenül kellenek
