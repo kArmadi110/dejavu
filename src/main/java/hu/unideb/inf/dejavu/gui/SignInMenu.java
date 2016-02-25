@@ -41,7 +41,7 @@ public class SignInMenu extends DVMenu {
 
 				boolean load = false;
 				if (DejaVu.game.isStatusExist()) {
-					
+
 				}
 				if (load && DejaVu.game.filesExist()) {
 					DejaVu.setNewMenu(new MainMenu());
@@ -74,24 +74,17 @@ public class SignInMenu extends DVMenu {
 				error.setVgap(5);
 
 				ExitToolbar exit = new ExitToolbar(stage);
-				ExitToolbar.toolbarButtons.closeButton
-						.setOnAction(new EventHandler<ActionEvent>() {
+				ExitToolbar.toolbarButtons.closeButton.setOnAction((arg1) -> {
+					WelcomeMenu.signIn.setDisable(false);
+					WelcomeMenu.newProfile.setDisable(false);
+					stage.close();
 
-							public void handle(ActionEvent arg0) {
-								WelcomeMenu.signIn.setDisable(false);
-								WelcomeMenu.newProfile.setDisable(false);
-								stage.close();
-
-							}
-						});
+				});
 
 				final DVButton OK = new DVButton("OK", 1);
 
-				OK.setOnAction(new EventHandler<ActionEvent>() {
-
-					public void handle(ActionEvent arg0) {
-						((Stage) OK.getScene().getWindow()).close();
-					}
+				OK.setOnAction((arg1) -> {
+					((Stage) OK.getScene().getWindow()).close();
 				});
 
 				DVText message = new DVText(

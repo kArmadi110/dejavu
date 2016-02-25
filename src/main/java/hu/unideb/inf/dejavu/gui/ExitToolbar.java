@@ -4,11 +4,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ToolBar;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
-import javafx.scene.effect.DropShadow;
 import javafx.stage.Stage;
 
 class ToolbarButtons extends HBox {

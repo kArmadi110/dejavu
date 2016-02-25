@@ -58,14 +58,10 @@ public class SlidePane extends GridPane {
 						}
 					};
 
-					closeAnim.onFinishedProperty().set(
-							new EventHandler<ActionEvent>() {
-
-								public void handle(ActionEvent arg0) {
-									setVisible(false);
-									getChildren().clear();
-								}
-							});
+					closeAnim.onFinishedProperty().set((arg1) -> {
+						setVisible(false);
+						getChildren().clear();
+					});
 
 					openAnim = new Transition() {
 						{
@@ -78,13 +74,9 @@ public class SlidePane extends GridPane {
 						}
 					};
 
-					openAnim.onFinishedProperty().set(
-							new EventHandler<ActionEvent>() {
-
-								public void handle(ActionEvent arg0) {
-									setVisible(true);
-								}
-							});
+					openAnim.onFinishedProperty().set((arg1) -> {
+						setVisible(true);
+					});
 
 					if (openAnim.statusProperty().get() == Animation.Status.STOPPED
 							&& closeAnim.statusProperty().get() == Animation.Status.STOPPED) {
@@ -96,25 +88,22 @@ public class SlidePane extends GridPane {
 									22)), 4, 3);
 
 							DVButton chooser = new DVButton("Tallózás", 1);
-							chooser.setOnAction(new EventHandler<ActionEvent>() {
+							chooser.setOnAction((arg1) -> {
+								cardPathList = DejaVu.fileChooser
+										.showOpenMultipleDialog((Stage) getScene()
+												.getWindow());
 
-								public void handle(ActionEvent arg0) {
-									cardPathList = DejaVu.fileChooser
-											.showOpenMultipleDialog((Stage) getScene()
-													.getWindow());
+								dimensions = Game.matrixSize(cardPathList
+										.size());
 
-									dimensions = Game.matrixSize(cardPathList
-											.size());
-
-									if (!dimensions.isEmpty()) {
-										for (int i = dimensions.size() - 1; i >= 0; i--)
-											result.add(dimensions.get(i) + "X"
-													+ dimensions.get(i));
-									}
-
-									DejaVu.dimensionChoser.setItems(result);
-
+								if (!dimensions.isEmpty()) {
+									for (int i = dimensions.size() - 1; i >= 0; i--)
+										result.add(dimensions.get(i) + "X"
+												+ dimensions.get(i));
 								}
+
+								DejaVu.dimensionChoser.setItems(result);
+
 							});
 
 							add(chooser, 5, 4);
@@ -139,14 +128,10 @@ public class SlidePane extends GridPane {
 						}
 					};
 
-					closeAnim.onFinishedProperty().set(
-							new EventHandler<ActionEvent>() {
-
-								public void handle(ActionEvent arg0) {
-									setVisible(false);
-									getChildren().clear();
-								}
-							});
+					closeAnim.onFinishedProperty().set((arg1) -> {
+						setVisible(false);
+						getChildren().clear();
+					});
 
 					openAnim = new Transition() {
 						{
@@ -159,16 +144,13 @@ public class SlidePane extends GridPane {
 						}
 					};
 
-					openAnim.onFinishedProperty().set(
-							new EventHandler<ActionEvent>() {
-
-								public void handle(ActionEvent arg0) {
-									setVisible(true);
-								}
-							});
+					openAnim.onFinishedProperty().set((arg1) -> {
+						setVisible(true);
+					});
 
 					if (openAnim.statusProperty().get() == Animation.Status.STOPPED
 							&& closeAnim.statusProperty().get() == Animation.Status.STOPPED) {
+
 						if (isVisible()) {
 							closeAnim.play();
 						} else {
