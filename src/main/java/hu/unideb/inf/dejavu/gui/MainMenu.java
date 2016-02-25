@@ -20,6 +20,19 @@ public class MainMenu extends DVMenu {
 			DejaVu.setNewMenu(new WelcomeMenu());
 		});
 
+		game.setOnAction((arg) -> {
+			if (!DejaVu.dimensionChoser.getSelectionModel().isEmpty()) {
+				DejaVu.game.setDim(Integer.parseInt(DejaVu.dimensionChoser
+						.getValue().substring(0, 1)));
+			}
+
+			if (DejaVu.game.isSetDim() && DejaVu.game.filesExist()) {
+				DejaVu.game.setCards(DejaVu.cardPathList);
+
+				DejaVu.setNewMenu(new PlayGround());
+			}
+
+		});
 		setHgap(10);
 		setVgap(10);
 		add(new DVText("DejaVu", Font.font("Verdana", FontWeight.BOLD, 30)), 1,

@@ -1,5 +1,9 @@
 package hu.unideb.inf.dejavu;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -12,11 +16,15 @@ import hu.unideb.inf.dejavu.gui.ExitToolbar;
 import hu.unideb.inf.dejavu.gui.SlidePane;
 import hu.unideb.inf.dejavu.gui.WelcomeMenu;
 
-//TODO: a logika megkapa, hogy n*x e, és ott vágjuk szét
-//TODO: playground feltöltése, stopwatch kilépés
+//TODO: playground feltöltése, stopwatch
 //TODO: játékmentés betöltése új ablak
-//TODO: refactor: átnézni, getterek, ahol a static tagra hivatkoztam dejavuben sok szemét van
-//TODO: css képek el innen
+
+//TODO: refactor: átnézni, getterek, ahol a static tagra hivatkoztam 
+//TODO: dejavuben sok szemét van
+//TODO: slidepane listák nem feltétlenül kellenek
+//TODO: játéklogikát átnézni, sok mindent felejtettem
+
+//TODO: adatbáziskezelést átírni
 
 /**
  * A main metódust tartalmazó osztály.
@@ -31,6 +39,9 @@ public class DejaVu extends Application {
 	public static ComboBox<String> dimensionChoser = new ComboBox<String>();
 
 	public static FileChooser fileChooser = new FileChooser();
+
+	public static List<File> cardPathList = new ArrayList<File>();
+
 	/**
 	 * Az aktuális képernyő közepe.
 	 */
@@ -53,10 +64,16 @@ public class DejaVu extends Application {
 	 */
 	public static void main(String[] args) {
 		DataB.connect();
+		
 		dimensionChoser.setId("dimensionChoser");
 		dimensionChoser.getStylesheets().add(
 				SlidePane.class.getResource("DimensionChoser.css")
 						.toExternalForm());
+
+		fileChooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+				new FileChooser.ExtensionFilter("PNG", "*.png"));
+
 		game = new Game();
 
 		launch(args);

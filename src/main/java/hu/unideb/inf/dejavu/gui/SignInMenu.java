@@ -1,8 +1,6 @@
 package hu.unideb.inf.dejavu.gui;
 
 import hu.unideb.inf.dejavu.DejaVu;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;

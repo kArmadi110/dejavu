@@ -12,8 +12,6 @@ import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -26,9 +24,7 @@ import javafx.util.Duration;
 public class SlidePane extends GridPane {
 	private double size;
 
-	List<File> cardPathList = new ArrayList<File>();
-
-	List<Integer> dimensions = Game.matrixSize(cardPathList.size());
+	List<Integer> dimensions = Game.matrixSize(DejaVu.cardPathList.size());
 
 	ObservableList<String> result = FXCollections.observableArrayList();
 	Animation closeAnim, openAnim;
@@ -89,11 +85,11 @@ public class SlidePane extends GridPane {
 
 							DVButton chooser = new DVButton("Tallózás", 1);
 							chooser.setOnAction((arg1) -> {
-								cardPathList = DejaVu.fileChooser
+								DejaVu.cardPathList = DejaVu.fileChooser
 										.showOpenMultipleDialog((Stage) getScene()
 												.getWindow());
 
-								dimensions = Game.matrixSize(cardPathList
+								dimensions = Game.matrixSize(DejaVu.cardPathList
 										.size());
 
 								if (!dimensions.isEmpty()) {
