@@ -15,15 +15,11 @@ public class MainMenu extends DVMenu {
 	MainMenu() {
 		super();
 
-		SlidePane rightPane = new SlidePane(500, settings,highScore);
+		SlidePane rightPane = new SlidePane(500, settings, highScore);
 		setRight(rightPane);
-		
-		back.setOnAction(new EventHandler<ActionEvent>() {
 
-			public void handle(ActionEvent arg0) {
-				DejaVu.setNewMenu(new WelcomeMenu());
-
-			}
+		back.setOnAction((arg0) -> {
+			DejaVu.setNewMenu(new WelcomeMenu());
 		});
 
 		setHgap(10);

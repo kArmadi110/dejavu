@@ -12,11 +12,10 @@ import hu.unideb.inf.dejavu.gui.ExitToolbar;
 import hu.unideb.inf.dejavu.gui.SlidePane;
 import hu.unideb.inf.dejavu.gui.WelcomeMenu;
 
-//TODO: bejelentkezés kék körvonal
-
 //TODO: a logika megkapa, hogy hányszor hanyas, és ott vágjuk szét
-//TODO: játékmentés betöltése
 //TODO: playground
+//TODO: NyereményPane
+//TODO: játékmentés betöltése új ablak
 //TODO: refactor: átnézni, getterek, ahol a static tagra hivatkoztam, dejavu osztályból kigányolni ami nem oda való
 
 /**
@@ -92,9 +91,6 @@ public class DejaVu extends Application {
 		scene.setFill(Color.TRANSPARENT);
 
 		stage.setScene(scene);
-	}
-
-	public static void choseFiles() {
 	}
 
 }

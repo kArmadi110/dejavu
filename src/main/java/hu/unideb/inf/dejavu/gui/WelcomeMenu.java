@@ -20,86 +20,81 @@ public class WelcomeMenu extends DVMenu {
 		setHgap(10);
 		setVgap(10);
 
-		signIn.setOnAction(new EventHandler<ActionEvent>() {
+		signIn.setOnAction((arg0) -> {
+			signIn.setDisable(true);
+			newProfile.setDisable(true);
 
-			public void handle(ActionEvent arg0) {
-				signIn.setDisable(true);
-				newProfile.setDisable(true);
+			final Stage stage = new Stage();
 
-				final Stage stage = new Stage();
+			SignInMenu signIn = new SignInMenu("Bejelentkezés");
 
-				SignInMenu signIn = new SignInMenu("Bejelentkezés");
+			ExitToolbar exit = new ExitToolbar(stage);
+			ExitToolbar.toolbarButtons.closeButton
+					.setOnAction(new EventHandler<ActionEvent>() {
 
-				ExitToolbar exit = new ExitToolbar(stage);
-				ExitToolbar.toolbarButtons.closeButton
-						.setOnAction(new EventHandler<ActionEvent>() {
+						public void handle(ActionEvent arg0) {
+							WelcomeMenu.signIn.setDisable(false);
+							WelcomeMenu.newProfile.setDisable(false);
+							stage.close();
 
-							public void handle(ActionEvent arg0) {
-								WelcomeMenu.signIn.setDisable(false);
-								WelcomeMenu.newProfile.setDisable(false);
-								stage.close();
+						}
+					});
 
-							}
-						});
+			signIn.setTop(exit);
 
-				signIn.setTop(exit);
+			stage.initStyle(StageStyle.TRANSPARENT);
+			Scene scene = new Scene(signIn, width, height);
+			scene.setFill(Color.TRANSPARENT);
 
-				stage.initStyle(StageStyle.TRANSPARENT);
-				Scene scene = new Scene(signIn, width, height);
-				scene.setFill(Color.TRANSPARENT);
-
-				stage.setMaxHeight(height);
-				stage.setMinHeight(height);
-				stage.setMaxWidth(width);
-				stage.setMinWidth(width);
-				stage.setAlwaysOnTop(true);
-				stage.setScene(scene);
-				stage.centerOnScreen();
-				stage.show();
-			}
+			stage.setMaxHeight(height);
+			stage.setMinHeight(height);
+			stage.setMaxWidth(width);
+			stage.setMinWidth(width);
+			stage.setAlwaysOnTop(true);
+			stage.setScene(scene);
+			stage.centerOnScreen();
+			stage.show();
 		});
 
-		newProfile.setOnAction(new EventHandler<ActionEvent>() {
+		newProfile.setOnAction((arg0) -> {
+			signIn.setDisable(true);
+			newProfile.setDisable(true);
 
-			public void handle(ActionEvent arg0) {
-				signIn.setDisable(true);
-				newProfile.setDisable(true);
+			final Stage stage = new Stage();
 
-				final Stage stage = new Stage();
+			SignInMenu signIn = new SignInMenu("Új profil");
 
-				SignInMenu signIn = new SignInMenu("Új profil");
+			ExitToolbar exit = new ExitToolbar(stage);
+			ExitToolbar.toolbarButtons.closeButton
+					.setOnAction(new EventHandler<ActionEvent>() {
 
-				ExitToolbar exit = new ExitToolbar(stage);
-				ExitToolbar.toolbarButtons.closeButton
-						.setOnAction(new EventHandler<ActionEvent>() {
+						public void handle(ActionEvent arg0) {
+							WelcomeMenu.signIn.setDisable(false);
+							WelcomeMenu.newProfile.setDisable(false);
+							stage.close();
 
-							public void handle(ActionEvent arg0) {
-								WelcomeMenu.signIn.setDisable(false);
-								WelcomeMenu.newProfile.setDisable(false);
-								stage.close();
+						}
+					});
 
-							}
-						});
+			signIn.setTop(exit);
 
-				signIn.setTop(exit);
+			stage.initStyle(StageStyle.TRANSPARENT);
+			Scene scene = new Scene(signIn, width, height);
+			scene.setFill(Color.TRANSPARENT);
 
-				stage.initStyle(StageStyle.TRANSPARENT);
-				Scene scene = new Scene(signIn, width, height);
-				scene.setFill(Color.TRANSPARENT);
-
-				stage.setMaxHeight(height);
-				stage.setMinHeight(height);
-				stage.setMaxWidth(width);
-				stage.setMinWidth(width);
-				stage.setAlwaysOnTop(true);
-				stage.setScene(scene);
-				stage.centerOnScreen();
-				stage.show();
-			}
+			stage.setMaxHeight(height);
+			stage.setMinHeight(height);
+			stage.setMaxWidth(width);
+			stage.setMinWidth(width);
+			stage.setAlwaysOnTop(true);
+			stage.setScene(scene);
+			stage.centerOnScreen();
+			stage.show();
 		});
-		// TODO: tüntesd el ezeket a szóközöket
+
 		DVText welcome = new DVText("      Üdvözöljük", Font.font("Verdana",
 				FontWeight.BOLD, 30));
+
 		DVText description = new DVText(
 				"Jelenktezzen be vagy hozzon létre új profilt.", Font.font(
 						"Verdana", 15));

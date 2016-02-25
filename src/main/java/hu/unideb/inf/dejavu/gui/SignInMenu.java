@@ -34,93 +34,87 @@ public class SignInMenu extends DVMenu {
 
 		final DVButton signIn = new DVButton(args, 1);
 
-		signIn.setOnAction(new EventHandler<ActionEvent>() {
+		signIn.setOnAction((arg0) -> {
 
-			public void handle(ActionEvent arg0) {
-				// TODO: enter is belépő gomb enter és kattintás
+			if (args.equals("Bejelentkezés")
+					&& DejaVu.game.loadProfile(name.getText(), pass.getText())) {
 
-				if (args.equals("Bejelentkezés")
-						&& DejaVu.game.loadProfile(name.getText(),
-								pass.getText())) {
-
-					boolean load = false;
-					if (DejaVu.game.isStatusExist()) {
-						// TODO: a játékállás betöltésének eldöntése, új ablak
-					}
-					if (load && DejaVu.game.filesExist()) {
-						DejaVu.setNewMenu(new MainMenu());
-
-					} else {
-						DejaVu.game.removeStatus();
-						DejaVu.setNewMenu(new MainMenu());
-					}
-
-					WelcomeMenu.signIn.setDisable(false);
-					WelcomeMenu.newProfile.setDisable(false);
-
-					((Stage) signIn.getScene().getWindow()).close();
-
-				} else if (args.equals("Új profil")
-						&& DejaVu.game.addProfile(name.getText(),
-								pass.getText())) {
-
+				boolean load = false;
+				if (DejaVu.game.isStatusExist()) {
+					
+				}
+				if (load && DejaVu.game.filesExist()) {
 					DejaVu.setNewMenu(new MainMenu());
-					WelcomeMenu.signIn.setDisable(false);
-					WelcomeMenu.newProfile.setDisable(false);
-
-					((Stage) signIn.getScene().getWindow()).close();
 
 				} else {
-					final Stage stage = new Stage();
-					final int width = 250, height = 130;
-
-					DVMenu error = new DVMenu();
-					error.setHgap(5);
-					error.setVgap(5);
-
-					ExitToolbar exit = new ExitToolbar(stage);
-					ExitToolbar.toolbarButtons.closeButton
-							.setOnAction(new EventHandler<ActionEvent>() {
-
-								public void handle(ActionEvent arg0) {
-									WelcomeMenu.signIn.setDisable(false);
-									WelcomeMenu.newProfile.setDisable(false);
-									stage.close();
-
-								}
-							});
-
-					final DVButton OK = new DVButton("OK", 1);
-
-					OK.setOnAction(new EventHandler<ActionEvent>() {
-
-						public void handle(ActionEvent arg0) {
-							((Stage) OK.getScene().getWindow()).close();
-						}
-					});
-
-					DVText message = new DVText(
-							"Hibás felhasználónév vagy jelszó!", Font.font(
-									"Verdana", 14));
-
-					error.setTop(exit);
-
-					error.add(message, 1, 1);
-					error.add(OK, 1, 10);
-
-					stage.initStyle(StageStyle.TRANSPARENT);
-					Scene scene = new Scene(error, width, height);
-					scene.setFill(Color.TRANSPARENT);
-
-					stage.setMaxHeight(height);
-					stage.setMinHeight(height);
-					stage.setMaxWidth(width);
-					stage.setMinWidth(width);
-					stage.setAlwaysOnTop(true);
-					stage.setScene(scene);
-					stage.centerOnScreen();
-					stage.show();
+					DejaVu.game.removeStatus();
+					DejaVu.setNewMenu(new MainMenu());
 				}
+
+				WelcomeMenu.signIn.setDisable(false);
+				WelcomeMenu.newProfile.setDisable(false);
+
+				((Stage) signIn.getScene().getWindow()).close();
+
+			} else if (args.equals("Új profil")
+					&& DejaVu.game.addProfile(name.getText(), pass.getText())) {
+
+				DejaVu.setNewMenu(new MainMenu());
+				WelcomeMenu.signIn.setDisable(false);
+				WelcomeMenu.newProfile.setDisable(false);
+
+				((Stage) signIn.getScene().getWindow()).close();
+
+			} else {
+				final Stage stage = new Stage();
+				final int width = 250, height = 130;
+
+				DVMenu error = new DVMenu();
+				error.setHgap(5);
+				error.setVgap(5);
+
+				ExitToolbar exit = new ExitToolbar(stage);
+				ExitToolbar.toolbarButtons.closeButton
+						.setOnAction(new EventHandler<ActionEvent>() {
+
+							public void handle(ActionEvent arg0) {
+								WelcomeMenu.signIn.setDisable(false);
+								WelcomeMenu.newProfile.setDisable(false);
+								stage.close();
+
+							}
+						});
+
+				final DVButton OK = new DVButton("OK", 1);
+
+				OK.setOnAction(new EventHandler<ActionEvent>() {
+
+					public void handle(ActionEvent arg0) {
+						((Stage) OK.getScene().getWindow()).close();
+					}
+				});
+
+				DVText message = new DVText(
+						"Hibás felhasználónév vagy jelszó!", Font.font(
+								"Verdana", 14));
+
+				error.setTop(exit);
+
+				error.add(message, 1, 1);
+				error.add(OK, 1, 10);
+
+				stage.initStyle(StageStyle.TRANSPARENT);
+				Scene scene = new Scene(error, width, height);
+				scene.setFill(Color.TRANSPARENT);
+
+				stage.setMaxHeight(height);
+				stage.setMinHeight(height);
+				stage.setMaxWidth(width);
+				stage.setMinWidth(width);
+				stage.setAlwaysOnTop(true);
+				stage.setScene(scene);
+				stage.centerOnScreen();
+				stage.show();
 
 			}
 		});

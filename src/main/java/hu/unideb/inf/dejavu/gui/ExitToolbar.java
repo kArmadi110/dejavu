@@ -38,14 +38,11 @@ class ToolbarButtons extends HBox {
 				ToolbarButtons.class.getResource("TopMenu.css")
 						.toExternalForm());
 
-		downButton.setOnAction(new EventHandler<ActionEvent>() {
-
-			public void handle(ActionEvent arg0) {
-				stage.setIconified(true);
-				// iconified bug
-				// https://bugs.openjdk.java.net/browse/JDK-8095451
-			}
-		});
+		downButton.setOnAction((arg0) -> {
+			stage.setIconified(true);
+			// iconified bug
+			// https://bugs.openjdk.java.net/browse/JDK-8095451
+			});
 
 		this.getChildren().add(downButton);
 
@@ -64,30 +61,23 @@ public class ExitToolbar extends ToolBar {
 		setMinHeight(height);
 		setMaxHeight(height);
 		toolbarButtons = new ToolbarButtons(stage);
-		
+
 		getItems().add(toolbarButtons);
 
-		setOnMousePressed(new EventHandler<MouseEvent>() {
-
-			public void handle(MouseEvent arg0) {
-				Xc = arg0.getSceneX();
-				Yc = arg0.getSceneY();
-			}
+		setOnMousePressed((event) -> {
+			Xc = event.getSceneX();
+			Yc = event.getSceneY();
 		});
 
-		setOnMouseDragged(new EventHandler<MouseEvent>() {
-
-			public void handle(MouseEvent event) {
-				stage.setX(event.getScreenX() - Xc);
-				stage.setY(event.getScreenY() - Yc);
-			}
+		setOnMouseDragged((event) -> {
+			stage.setX(event.getScreenX() - Xc);
+			stage.setY(event.getScreenY() - Yc);
 		});
 
 		setId("topBar");
 		getStylesheets().add(
 				ExitToolbar.class.getResource("TopMenu.css").toExternalForm());
-		setEffect(new DropShadow(10, Color.BLACK));
-
+		
 	}
 
 }
