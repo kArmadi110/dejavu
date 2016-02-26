@@ -12,22 +12,23 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import hu.unideb.inf.dejavu.gui.Congrat;
 import hu.unideb.inf.dejavu.gui.DVMenu;
 import hu.unideb.inf.dejavu.gui.ExitToolbar;
 import hu.unideb.inf.dejavu.gui.SlidePane;
-import hu.unideb.inf.dejavu.gui.WelcomeMenu;
+
+
+//TODO: stopwatch
+//TODO: játékmentés, játékállás betöltése, új ablak
+//TODO: adatbáziskezelést átírni
 
 //TODO: Ikon beállítása
-//TODO: playground feltöltése, stopwatch
-//TODO: játékmentés betöltése új ablak
-
 //TODO: osztálybetöltők, az elérési utak jól vannak e
 //TODO: refactor: átnézni, getterek, ahol a static tagra hivatkoztam 
 //TODO: dejavuben sok szemét van
 //TODO: slidepane listák nem feltétlenül kellenek
 //TODO: játéklogikát átnézni, sok mindent felejtettem
 
-//TODO: adatbáziskezelést átírni
 
 /**
  * A main metódust tartalmazó osztály.
@@ -89,7 +90,7 @@ public class DejaVu extends Application {
 		stage = arg;
 		stage.initStyle(StageStyle.TRANSPARENT);
 
-		setNewMenu(new WelcomeMenu());
+		setNewMenu(new Congrat());
 		stage.setTitle("dejaVu");
 
 		stage.setMaxHeight(600);// nem túl szép
