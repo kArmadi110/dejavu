@@ -12,7 +12,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import hu.unideb.inf.dejavu.gui.Congrat;
 import hu.unideb.inf.dejavu.gui.DVMenu;
 import hu.unideb.inf.dejavu.gui.ExitToolbar;
 import hu.unideb.inf.dejavu.gui.SlidePane;
@@ -72,7 +71,7 @@ public class DejaVu extends Application {
 
 		dimensionChoser.setId("dimensionChoser");
 		dimensionChoser.getStylesheets().add(
-				SlidePane.class.getResource("DimensionChoser.css")
+				SlidePane.class.getClassLoader().getResource("DimensionChoser.css")
 						.toExternalForm());
 
 		fileChooser.getExtensionFilters().add(

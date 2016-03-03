@@ -11,10 +11,10 @@ public class DVButton extends Button {
 
 		if (horizOrVertc == 0)// 0 fuggoleges, else vizszintes
 			getStylesheets().add(
-					DVButton.class.getResource("Button.css").toExternalForm());
+					getClass().getClassLoader().getResource("Button.css").toExternalForm());
 		else
 			getStylesheets().add(
-					DVButton.class.getResource("ButtonTop.css")
+					getClass().getClassLoader().getResource("ButtonTop.css")
 							.toExternalForm());
 	}
 

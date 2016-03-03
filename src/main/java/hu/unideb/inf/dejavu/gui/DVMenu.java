@@ -9,8 +9,7 @@ class WindowPane extends GridPane{
 
 		setId("menu");
 
-		getStylesheets().add(
-				DVMenu.class.getResource("Menu.css").toExternalForm());
+		getStylesheets().add(getClass().getClassLoader().getResource("Menu.css").toExternalForm());
 
 	}
 	
@@ -26,7 +25,7 @@ public class DVMenu extends BorderPane {
 		setId("window");
 
 		getStylesheets().add(
-				WindowPane.class.getResource("Window.css").toExternalForm());
+				getClass().getClassLoader().getResource("Window.css").toExternalForm());
 
 		setCenter(window);
 

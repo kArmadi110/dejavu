@@ -16,9 +16,7 @@ class ToolbarButtons extends HBox {
 
 		closeButton.setId("close");
 
-		closeButton.getStylesheets().add(
-				ToolbarButtons.class.getResource("TopMenu.css")
-						.toExternalForm());
+		closeButton.getStylesheets().add(getClass().getClassLoader().getResource("TopMenu.css").toExternalForm());
 
 		closeButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -31,15 +29,13 @@ class ToolbarButtons extends HBox {
 
 		downButton.setId("minimize");
 
-		downButton.getStylesheets().add(
-				ToolbarButtons.class.getResource("TopMenu.css")
-						.toExternalForm());
+		downButton.getStylesheets().add(getClass().getClassLoader().getResource("TopMenu.css").toExternalForm());
 
 		downButton.setOnAction((arg0) -> {
 			stage.setIconified(true);
 			// iconified bug
 			// https://bugs.openjdk.java.net/browse/JDK-8095451
-			});
+		});
 
 		this.getChildren().add(downButton);
 
@@ -72,9 +68,8 @@ public class ExitToolbar extends ToolBar {
 		});
 
 		setId("topBar");
-		getStylesheets().add(
-				ExitToolbar.class.getResource("TopMenu.css").toExternalForm());
-		
+		getStylesheets().add(getClass().getClassLoader().getResource("TopMenu.css").toExternalForm());
+
 	}
 
 }
