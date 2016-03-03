@@ -37,7 +37,7 @@ public class SlidePane extends GridPane {
 		setVisible(false);
 		setId("slidePane");
 		getStylesheets().add(
-				DVMenu.class.getResource("SlidePane.css").toExternalForm());
+				getClass().getClassLoader().getResource("SlidePane.css").toExternalForm());
 
 		settingButton
 				.setOnAction((arg0) -> {
@@ -161,7 +161,7 @@ public class SlidePane extends GridPane {
 							table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 							table.getStylesheets().add(
-									SlidePane.class.getResource("Table.css")
+									getClass().getClassLoader().getResource("Table.css")
 											.toExternalForm());
 
 							ObservableList<Player> data = FXCollections

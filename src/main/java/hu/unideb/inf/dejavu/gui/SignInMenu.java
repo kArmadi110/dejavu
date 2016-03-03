@@ -1,16 +1,17 @@
 package hu.unideb.inf.dejavu.gui;
 
+
 import hu.unideb.inf.dejavu.DejaVu;
-import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class SignInMenu extends DVMenu {
+
+	DVText message = new DVText("", Font.font("Verdana", 14));
 
 	public SignInMenu(final String args) {
 		super();
@@ -34,8 +35,7 @@ public class SignInMenu extends DVMenu {
 
 		signIn.setOnAction((arg0) -> {
 
-			if (args.equals("Bejelentkezés")
-					&& DejaVu.game.loadProfile(name.getText(), pass.getText())) {
+			if (args.equals("Bejelentkezés") && DejaVu.game.loadProfile(name.getText(), pass.getText())) {
 
 				boolean load = false;
 				if (DejaVu.game.isStatusExist()) {
@@ -54,8 +54,7 @@ public class SignInMenu extends DVMenu {
 
 				((Stage) signIn.getScene().getWindow()).close();
 
-			} else if (args.equals("Új profil")
-					&& DejaVu.game.addProfile(name.getText(), pass.getText())) {
+			} else if (args.equals("Új profil") && DejaVu.game.addProfile(name.getText(), pass.getText())) {
 
 				DejaVu.setNewMenu(new MainMenu());
 				WelcomeMenu.signIn.setDisable(false);
@@ -64,48 +63,9 @@ public class SignInMenu extends DVMenu {
 				((Stage) signIn.getScene().getWindow()).close();
 
 			} else {
-				final Stage stage = new Stage();
-				final int width = 250, height = 130;
-
-				DVMenu error = new DVMenu();
-				error.setHgap(5);
-				error.setVgap(5);
-
-				ExitToolbar exit = new ExitToolbar(stage);
-				ExitToolbar.toolbarButtons.closeButton.setOnAction((arg1) -> {
-					WelcomeMenu.signIn.setDisable(false);
-					WelcomeMenu.newProfile.setDisable(false);
-					stage.close();
-
-				});
-
-				final DVButton OK = new DVButton("OK", 1);
-
-				OK.setOnAction((arg1) -> {
-					((Stage) OK.getScene().getWindow()).close();
-				});
-
-				DVText message = new DVText(
-						"Hibás felhasználónév vagy jelszó!", Font.font(
-								"Verdana", 14));
-
-				error.setTop(exit);
-
-				error.add(message, 1, 1);
-				error.add(OK, 1, 10);
-
-				stage.initStyle(StageStyle.TRANSPARENT);
-				Scene scene = new Scene(error, width, height);
-				scene.setFill(Color.TRANSPARENT);
-
-				stage.setMaxHeight(height);
-				stage.setMinHeight(height);
-				stage.setMaxWidth(width);
-				stage.setMinWidth(width);
-				stage.setAlwaysOnTop(true);
-				stage.setScene(scene);
-				stage.centerOnScreen();
-				stage.show();
+				message = new DVText("Hibás név vagy jelszó!", Font.font("Verdana", 14));
+				message.setFill(Color.RED);
+				add(message, 8, 5);
 
 			}
 		});
