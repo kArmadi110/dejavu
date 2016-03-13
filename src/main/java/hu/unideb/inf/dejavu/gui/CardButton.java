@@ -28,9 +28,8 @@ public class CardButton extends Button {
 	}
 
 	public void setCard() throws MalformedURLException {
-		setStyle("-fx-background-image: url('"
-				+ card.toURI().toURL().toString() + "');"
-				+ "-fx-background-size:" + size + " " + size + ";");
+		setStyle("-fx-background-image: url('" + card.toURI().toURL().toString() + "');" + "-fx-background-size:" + size
+				+ " " + size + ";");
 
 	}
 

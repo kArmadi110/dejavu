@@ -17,19 +17,19 @@ public class MainMenu extends DVMenu {
 		setRight(rightPane);
 
 		back.setOnAction((arg0) -> {
-			DejaVu.setNewMenu(new WelcomeMenu());
+			DejaVuGUI.setNewMenu(new WelcomeMenu());
 		});
 
 		game.setOnAction((arg) -> {
-			if (!DejaVu.dimensionChoser.getSelectionModel().isEmpty()) {
-				//TODO: áttenni logikába a szétdarabolást
-				DejaVu.game.setDim(Integer.parseInt(DejaVu.dimensionChoser.getValue().substring(0, 1)));
+			if (!DejaVuGUI.dimensionChoser.getSelectionModel().isEmpty()) {
+				// TODO: áttenni logikába a szétdarabolást
+				DejaVu.game.setDim(Integer.parseInt(DejaVuGUI.dimensionChoser.getValue().substring(0, 1)));
 			}
 
 			if (DejaVu.game.isSetDim() && DejaVu.game.filesExist()) {
-				DejaVu.game.setCards(DejaVu.cardPathList);
+				DejaVu.game.setCards(DejaVuGUI.cardPathList);
 
-				DejaVu.setNewMenu(new PlayGround());
+				DejaVuGUI.setNewMenu(new PlayGround());
 			}
 
 		});

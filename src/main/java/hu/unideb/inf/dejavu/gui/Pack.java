@@ -14,13 +14,12 @@ public class Pack extends GridPane {
 	Pack() {
 		setHgap(5);
 		setVgap(5);
-		
+
 		cardButtons = new CardButton[DejaVu.game.getDim()][DejaVu.game.getDim()];
 
 		for (int i = 0; i < DejaVu.game.getDim(); i++)
 			for (int j = 0; j < DejaVu.game.getDim(); j++)
-				cardButtons[i][j] = new CardButton(DejaVu.game.getCard(i, j),
-						DejaVu.game.getDim());
+				cardButtons[i][j] = new CardButton(DejaVu.game.getCard(i, j), DejaVu.game.getDim());
 
 		for (int i = 0; i < DejaVu.game.getDim(); i++) {
 			for (int j = 0; j < DejaVu.game.getDim(); j++) {
@@ -60,12 +59,12 @@ public class Pack extends GridPane {
 
 			for (Position temp : DejaVu.game.getDownCard())
 				cardButtons[temp.getFirst()][temp.getSecond()].setBack();
-			
-			if(DejaVu.game.isEnd()){
-				DejaVu.setNewMenu(new Congrat());
+
+			if (DejaVu.game.isEnd()) {
+				DejaVuGUI.setNewMenu(new Congrat());
 			}
 		}
-		
+
 	}
 
 }

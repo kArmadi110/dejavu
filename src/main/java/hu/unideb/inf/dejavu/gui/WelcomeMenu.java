@@ -11,7 +11,8 @@ import javafx.stage.StageStyle;
 
 public class WelcomeMenu extends DVMenu {
 
-	public static DVButton signIn = new DVButton("Bejelentkezés", 1);//ok így statikusan?
+	public static DVButton signIn = new DVButton("Bejelentkezés", 1);// ok így
+																		// statikusan?
 	public static DVButton newProfile = new DVButton("Új profil", 1);
 
 	public WelcomeMenu() {
@@ -29,16 +30,15 @@ public class WelcomeMenu extends DVMenu {
 			SignInMenu signIn = new SignInMenu("Bejelentkezés");
 
 			ExitToolbar exit = new ExitToolbar(stage);
-			exit.toolbarButtons.closeButton
-					.setOnAction(new EventHandler<ActionEvent>() {
+			exit.toolbarButtons.closeButton.setOnAction(new EventHandler<ActionEvent>() {
 
-						public void handle(ActionEvent arg0) {
-							WelcomeMenu.signIn.setDisable(false);
-							WelcomeMenu.newProfile.setDisable(false);
-							stage.close();
+				public void handle(ActionEvent arg0) {
+					WelcomeMenu.signIn.setDisable(false);
+					WelcomeMenu.newProfile.setDisable(false);
+					stage.close();
 
-						}
-					});
+				}
+			});
 
 			signIn.setTop(exit);
 
@@ -65,16 +65,15 @@ public class WelcomeMenu extends DVMenu {
 			SignInMenu signIn = new SignInMenu("Új profil");
 
 			ExitToolbar exit = new ExitToolbar(stage);
-			exit.toolbarButtons.closeButton
-					.setOnAction(new EventHandler<ActionEvent>() {
+			exit.toolbarButtons.closeButton.setOnAction(new EventHandler<ActionEvent>() {
 
-						public void handle(ActionEvent arg0) {
-							WelcomeMenu.signIn.setDisable(false);
-							WelcomeMenu.newProfile.setDisable(false);
-							stage.close();
+				public void handle(ActionEvent arg0) {
+					WelcomeMenu.signIn.setDisable(false);
+					WelcomeMenu.newProfile.setDisable(false);
+					stage.close();
 
-						}
-					});
+				}
+			});
 
 			signIn.setTop(exit);
 
@@ -92,12 +91,9 @@ public class WelcomeMenu extends DVMenu {
 			stage.show();
 		});
 
-		DVText welcome = new DVText("      Üdvözöljük", Font.font("Verdana",
-				FontWeight.BOLD, 30));
+		DVText welcome = new DVText("      Üdvözöljük", Font.font("Verdana", FontWeight.BOLD, 30));
 
-		DVText description = new DVText(
-				"Jelenktezzen be vagy hozzon létre új profilt.", Font.font(
-						"Verdana", 15));
+		DVText description = new DVText("Jelenktezzen be vagy hozzon létre új profilt.", Font.font("Verdana", 15));
 
 		add(welcome, 8, 25);
 		add(description, 8, 27);

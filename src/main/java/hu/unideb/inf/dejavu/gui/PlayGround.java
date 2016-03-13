@@ -13,7 +13,7 @@ public class PlayGround extends DVMenu {
 		DVButton back = new DVButton("Vissza", 1);
 
 		back.setOnAction((arg0) -> {
-			DejaVu.setNewMenu(new MainMenu());
+			DejaVuGUI.setNewMenu(new MainMenu());
 		});
 
 		Pack pack = new Pack();

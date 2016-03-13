@@ -32,18 +32,19 @@ public class SignInMenu extends DVMenu {
 
 		signIn.setOnAction((arg0) -> {
 
-			if (args.equals("Bejelentkezés") && DejaVu.game.loadProfile(name.getText(), pass.getText())) {
+			if (args.equals("Bejelentkezés") && 
+					DejaVu.game.loadProfile(name.getText(), pass.getText())) {
 
 				boolean load = false;
 				if (DejaVu.game.isStatusExist()) {
 					// TODO: állás betöltése
 				}
 				if (load && DejaVu.game.filesExist()) {
-					DejaVu.setNewMenu(new MainMenu());
+					DejaVuGUI.setNewMenu(new MainMenu());
 
 				} else {
 					DejaVu.game.removeStatus();
-					DejaVu.setNewMenu(new MainMenu());
+					DejaVuGUI.setNewMenu(new MainMenu());
 				}
 
 				WelcomeMenu.signIn.setDisable(false);
@@ -53,7 +54,7 @@ public class SignInMenu extends DVMenu {
 
 			} else if (args.equals("Új profil") && DejaVu.game.addProfile(name.getText(), pass.getText())) {
 
-				DejaVu.setNewMenu(new MainMenu());
+				DejaVuGUI.setNewMenu(new MainMenu());
 				WelcomeMenu.signIn.setDisable(false);
 				WelcomeMenu.newProfile.setDisable(false);
 

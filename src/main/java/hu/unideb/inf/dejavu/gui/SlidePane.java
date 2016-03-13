@@ -22,7 +22,7 @@ import javafx.util.Duration;
 public class SlidePane extends GridPane {
 	private double size;
 	// TODO: what a fuck is this here
-	List<Integer> dimensions = Game.matrixSize(DejaVu.cardPathList.size());
+	List<Integer> dimensions = Game.matrixSize(DejaVuGUI.cardPathList.size());
 
 	ObservableList<String> result = FXCollections.observableArrayList();
 
@@ -78,23 +78,25 @@ public class SlidePane extends GridPane {
 
 					DVButton chooser = new DVButton("Tallózás", 1);
 					chooser.setOnAction((arg1) -> {
-						DejaVu.dimensionChoser.getItems().clear();
+						DejaVuGUI.dimensionChoser.getItems().clear();
 
-						DejaVu.cardPathList = DejaVu.fileChooser.showOpenMultipleDialog((Stage) getScene().getWindow());
+						DejaVuGUI.cardPathList = DejaVuGUI.fileChooser
+								.showOpenMultipleDialog((Stage) getScene().getWindow());
 
-						if (DejaVu.cardPathList != null && !DejaVu.cardPathList.isEmpty())//TODO: hát ez kúrva undorító
-							dimensions = DejaVu.game.matrixSize(DejaVu.cardPathList.size());
+						if (DejaVuGUI.cardPathList != null && !DejaVuGUI.cardPathList.isEmpty()) // TODO:
+							// TODO: eltüntetni
+							dimensions = DejaVu.game.matrixSize(DejaVuGUI.cardPathList.size());
 						if (!dimensions.isEmpty()) {
 
 							for (int i = dimensions.size() - 1; i >= 0; i--)
 								result.add(dimensions.get(i) + "X" + dimensions.get(i));
 						}
 
-						DejaVu.dimensionChoser.setItems(result);
+						DejaVuGUI.dimensionChoser.setItems(result);
 					});
 
 					add(chooser, 5, 4);
-					add(DejaVu.dimensionChoser, 5, 5);
+					add(DejaVuGUI.dimensionChoser, 5, 5);
 					setVisible(true);
 					openAnim.play();
 				}

@@ -1,6 +1,5 @@
 package hu.unideb.inf.dejavu.gui;
 
-import hu.unideb.inf.dejavu.DejaVu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.Font;
@@ -19,7 +18,7 @@ public class Congrat extends DVMenu {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				DejaVu.setNewMenu(new MainMenu());
+				DejaVuGUI.setNewMenu(new MainMenu());
 			}
 		});
 
