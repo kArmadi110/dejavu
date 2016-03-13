@@ -22,8 +22,8 @@ public class MainMenu extends DVMenu {
 
 		game.setOnAction((arg) -> {
 			if (!DejaVu.dimensionChoser.getSelectionModel().isEmpty()) {
-				DejaVu.game.setDim(Integer.parseInt(DejaVu.dimensionChoser
-						.getValue().substring(0, 1)));
+				//TODO: áttenni logikába a szétdarabolást
+				DejaVu.game.setDim(Integer.parseInt(DejaVu.dimensionChoser.getValue().substring(0, 1)));
 			}
 
 			if (DejaVu.game.isSetDim() && DejaVu.game.filesExist()) {
@@ -35,8 +35,7 @@ public class MainMenu extends DVMenu {
 		});
 		setHgap(10);
 		setVgap(10);
-		add(new DVText("DejaVu", Font.font("Verdana", FontWeight.BOLD, 30)), 1,
-				2);
+		add(new DVText("DejaVu", Font.font("Verdana", FontWeight.BOLD, 30)), 1, 2);
 
 		add(game, 1, 17);
 		add(settings, 1, 19);

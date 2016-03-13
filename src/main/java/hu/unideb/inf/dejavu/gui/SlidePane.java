@@ -21,10 +21,11 @@ import javafx.util.Duration;
 
 public class SlidePane extends GridPane {
 	private double size;
-
+	// TODO: what a fuck is this here
 	List<Integer> dimensions = Game.matrixSize(DejaVu.cardPathList.size());
 
 	ObservableList<String> result = FXCollections.observableArrayList();
+
 	Animation closeAnim, openAnim;
 
 	public SlidePane(double size, Button settingButton, Button highScoreButton) {
@@ -36,176 +37,144 @@ public class SlidePane extends GridPane {
 		setSize(size);
 		setVisible(false);
 		setId("slidePane");
-		getStylesheets().add(
-				getClass().getClassLoader().getResource("SlidePane.css").toExternalForm());
+		getStylesheets().add(getClass().getClassLoader().getResource("SlidePane.css").toExternalForm());
 
-		settingButton
-				.setOnAction((arg0) -> {
+		settingButton.setOnAction((arg0) -> {
 
-					closeAnim = new Transition() {
-						{
-							setCycleDuration(Duration.millis(500));
+			closeAnim = new Transition() {
+				{
+					setCycleDuration(Duration.millis(500));
+				}
+
+				@Override
+				protected void interpolate(double arg0) {
+					setPrefWidth((getSize()) * (1 - arg0));
+				}
+			};
+
+			closeAnim.onFinishedProperty().set((arg1) -> {
+				setVisible(false);
+				getChildren().clear();
+			});
+
+			openAnim = new Transition() {
+				{
+					setCycleDuration(Duration.millis(500));
+				}
+
+				@Override
+				protected void interpolate(double arg0) {
+					setPrefWidth(arg0 * getSize());
+				}
+			};
+
+			if (openAnim.statusProperty().get() == Animation.Status.STOPPED
+					&& closeAnim.statusProperty().get() == Animation.Status.STOPPED) {
+				if (isVisible()) {
+					closeAnim.play();
+
+				} else {
+					add(new DVText("Beállítások", Font.font("Verdana", 22)), 4, 3);
+
+					DVButton chooser = new DVButton("Tallózás", 1);
+					chooser.setOnAction((arg1) -> {
+						DejaVu.dimensionChoser.getItems().clear();
+
+						DejaVu.cardPathList = DejaVu.fileChooser.showOpenMultipleDialog((Stage) getScene().getWindow());
+
+						if (DejaVu.cardPathList != null && !DejaVu.cardPathList.isEmpty())//TODO: hát ez kúrva undorító
+							dimensions = DejaVu.game.matrixSize(DejaVu.cardPathList.size());
+						if (!dimensions.isEmpty()) {
+
+							for (int i = dimensions.size() - 1; i >= 0; i--)
+								result.add(dimensions.get(i) + "X" + dimensions.get(i));
 						}
 
-						@Override
-						protected void interpolate(double arg0) {
-							setPrefWidth((getSize()) * (1 - arg0));
-						}
-					};
-
-					closeAnim.onFinishedProperty().set((arg1) -> {
-						setVisible(false);
-						getChildren().clear();
+						DejaVu.dimensionChoser.setItems(result);
 					});
 
-					openAnim = new Transition() {
-						{
-							setCycleDuration(Duration.millis(500));
-						}
+					add(chooser, 5, 4);
+					add(DejaVu.dimensionChoser, 5, 5);
+					setVisible(true);
+					openAnim.play();
+				}
+			}
 
-						@Override
-						protected void interpolate(double arg0) {
-							setPrefWidth(arg0 * getSize());
-						}
-					};
+		});
 
-					openAnim.onFinishedProperty().set((arg1) -> {
-						setVisible(true);
-					});
+		highScoreButton.setOnAction((arg0) -> {
+			closeAnim = new Transition() {
+				{
+					setCycleDuration(Duration.millis(500));
+				}
 
-					if (openAnim.statusProperty().get() == Animation.Status.STOPPED
-							&& closeAnim.statusProperty().get() == Animation.Status.STOPPED) {
-						if (isVisible()) {
-							closeAnim.play();
+				@Override
+				protected void interpolate(double arg0) {
+					setPrefWidth(getSize() * (1 - arg0));
+				}
+			};
 
-						} else {
-							add(new DVText("Beállítások", Font.font("Verdana",
-									22)), 4, 3);
+			closeAnim.onFinishedProperty().set((arg1) -> {
+				setVisible(false);
+				getChildren().clear();
+			});
 
-							DVButton chooser = new DVButton("Tallózás", 1);
-							chooser.setOnAction((arg1) -> {
-								DejaVu.dimensionChoser.getItems().clear();
+			openAnim = new Transition() {
+				{
+					setCycleDuration(Duration.millis(500));
+				}
 
-								DejaVu.cardPathList = DejaVu.fileChooser
-										.showOpenMultipleDialog((Stage) getScene()
-												.getWindow());
+				@Override
+				protected void interpolate(double arg0) {
+					setPrefWidth(arg0 * getSize());
+				}
+			};
 
-								if (DejaVu.cardPathList != null
-										&& !DejaVu.cardPathList.isEmpty())
-									dimensions = Game
-											.matrixSize(DejaVu.cardPathList
-													.size());
-								if (!dimensions.isEmpty()) {
+			if (openAnim.statusProperty().get() == Animation.Status.STOPPED
+					&& closeAnim.statusProperty().get() == Animation.Status.STOPPED) {
 
-									for (int i = dimensions.size() - 1; i >= 0; i--)
-										result.add(dimensions.get(i) + "X"
-												+ dimensions.get(i));
-								}
+				if (isVisible()) {
+					closeAnim.play();
+				} else {
+					add(new DVText("Eredménytábla", Font.font("Verdana", 22)), 4, 3);
 
-								DejaVu.dimensionChoser.setItems(result);
+					TableView<Player> table = new TableView<Player>();
+					table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-							});
+					table.getStylesheets().add(getClass().getClassLoader().getResource("Table.css").toExternalForm());
 
-							add(chooser, 5, 4);
-							add(DejaVu.dimensionChoser, 5, 5);
-							setVisible(true);
-							openAnim.play();
-						}
+					ObservableList<Player> data = FXCollections.observableArrayList();
+
+					TreeMap<String, String> highScoreMap = DejaVu.game.getHighScores();
+
+					int i = 1;
+					for (Entry<String, String> entry : highScoreMap.entrySet()) {
+						data.add(new Player(i, entry.getKey(), entry.getValue()));
+						i++;
+						if (i > 10)
+							break;
 					}
 
-				});
+					table.setItems(data);
 
-		highScoreButton
-				.setOnAction((arg0) -> {
-					closeAnim = new Transition() {
-						{
-							setCycleDuration(Duration.millis(500));
-						}
+					TableColumn<Player, Integer> number = new TableColumn<Player, Integer>("Sorszám");
+					TableColumn<Player, String> name = new TableColumn<Player, String>("Név");
+					TableColumn<Player, String> time = new TableColumn<Player, String>("Idő");
 
-						@Override
-						protected void interpolate(double arg0) {
-							setPrefWidth(getSize() * (1 - arg0));
-						}
-					};
+					number.setCellValueFactory(new PropertyValueFactory<Player, Integer>("number"));
+					name.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
+					time.setCellValueFactory(new PropertyValueFactory<Player, String>("time"));
 
-					closeAnim.onFinishedProperty().set((arg1) -> {
-						setVisible(false);
-						getChildren().clear();
-					});
+					table.getColumns().addAll(number, name, time);
 
-					openAnim = new Transition() {
-						{
-							setCycleDuration(Duration.millis(500));
-						}
+					add(table, 5, 4);
 
-						@Override
-						protected void interpolate(double arg0) {
-							setPrefWidth(arg0 * getSize());
-						}
-					};
+					setVisible(true);
+					openAnim.play();
 
-					openAnim.onFinishedProperty().set((arg1) -> {
-						setVisible(true);
-					});
-
-					if (openAnim.statusProperty().get() == Animation.Status.STOPPED
-							&& closeAnim.statusProperty().get() == Animation.Status.STOPPED) {
-
-						if (isVisible()) {
-							closeAnim.play();
-						} else {
-							add(new DVText("Eredménytábla", Font.font(
-									"Verdana", 22)), 4, 3);
-
-							TableView<Player> table = new TableView<Player>();
-							table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-							table.getStylesheets().add(
-									getClass().getClassLoader().getResource("Table.css")
-											.toExternalForm());
-
-							ObservableList<Player> data = FXCollections
-									.observableArrayList();
-
-							TreeMap<String, String> highScoreMap = DejaVu.game
-									.getHighScores();
-
-							int i = 1;
-							for (Entry<String, String> entry : highScoreMap
-									.entrySet()) {
-								data.add(new Player(i, entry.getKey(), entry
-										.getValue()));
-								i++;
-								if (i > 10)
-									break;
-							}
-
-							table.setItems(data);
-
-							TableColumn<Player, Integer> number = new TableColumn<Player, Integer>(
-									"Sorszám");
-							TableColumn<Player, String> name = new TableColumn<Player, String>(
-									"Név");
-							TableColumn<Player, String> time = new TableColumn<Player, String>(
-									"Idő");
-
-							number.setCellValueFactory(new PropertyValueFactory<Player, Integer>(
-									"number"));
-							name.setCellValueFactory(new PropertyValueFactory<Player, String>(
-									"name"));
-							time.setCellValueFactory(new PropertyValueFactory<Player, String>(
-									"time"));
-
-							table.getColumns().addAll(number, name, time);
-
-							add(table, 5, 4);
-
-							setVisible(true);
-							openAnim.play();
-
-						}
-					}
-				});
+				}
+			}
+		});
 
 	}
 

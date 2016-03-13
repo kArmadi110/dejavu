@@ -18,18 +18,6 @@ import hu.unideb.inf.dejavu.gui.SlidePane;
 import hu.unideb.inf.dejavu.gui.WelcomeMenu;
 
 
-//TODO: stopwatch
-//TODO: játékmentés, játékállás betöltése, új ablak
-//TODO: adatbáziskezelést átírni
-
-//TODO: Ikon beállítása
-//TODO: osztálybetöltők, az elérési utak jól vannak e
-//TODO: refactor: átnézni, getterek, ahol a static tagra hivatkoztam 
-//TODO: dejavuben sok szemét van
-//TODO: slidepane listák nem feltétlenül kellenek
-//TODO: játéklogikát átnézni, sok mindent felejtettem
-
-
 /**
  * A main metódust tartalmazó osztály.
  * 
@@ -39,11 +27,11 @@ import hu.unideb.inf.dejavu.gui.WelcomeMenu;
  *
  */
 public class DejaVu extends Application {
-
+	
 	public static ComboBox<String> dimensionChoser = new ComboBox<String>();
 
 	public static FileChooser fileChooser = new FileChooser();
-
+//TODO: mi a faszom ez itt
 	public static List<File> cardPathList = new ArrayList<File>();
 
 	/**
@@ -71,7 +59,7 @@ public class DejaVu extends Application {
 
 		dimensionChoser.setId("dimensionChoser");
 		dimensionChoser.getStylesheets().add(
-				SlidePane.class.getClassLoader().getResource("DimensionChoser.css")
+				WelcomeMenu.class.getClassLoader().getResource("DimensionChoser.css")
 						.toExternalForm());
 
 		fileChooser.getExtensionFilters().add(
@@ -93,7 +81,7 @@ public class DejaVu extends Application {
 		setNewMenu(new WelcomeMenu());
 		stage.setTitle("dejaVu");
 
-		stage.setMaxHeight(600);// nem túl szép
+		stage.setMaxHeight(600);
 		stage.setMinHeight(600);
 		stage.setMaxWidth(800);
 		stage.setMinWidth(800);

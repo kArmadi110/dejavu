@@ -25,7 +25,6 @@ public class CardButton extends Button {
 
 	public void setBack() {
 		setStyle("-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #15640F, #000000, #15640F);");
-		// TODO: gond?
 	}
 
 	public void setCard() throws MalformedURLException {

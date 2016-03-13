@@ -43,9 +43,9 @@ class ToolbarButtons extends HBox {
 }
 
 public class ExitToolbar extends ToolBar {
-	public static int height = 20;
-	public static double Xc = 0, Yc = 0;
-	public static ToolbarButtons toolbarButtons;
+	public int height = 20;
+	public double Xc = 0, Yc = 0;
+	public ToolbarButtons toolbarButtons;
 
 	public ExitToolbar(final Stage stage) {
 		super();

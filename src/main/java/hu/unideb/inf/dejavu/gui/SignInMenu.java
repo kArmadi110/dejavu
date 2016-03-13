@@ -1,6 +1,5 @@
 package hu.unideb.inf.dejavu.gui;
 
-
 import hu.unideb.inf.dejavu.DejaVu;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -10,8 +9,6 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class SignInMenu extends DVMenu {
-
-	DVText message = new DVText("", Font.font("Verdana", 14));
 
 	public SignInMenu(final String args) {
 		super();
@@ -39,7 +36,7 @@ public class SignInMenu extends DVMenu {
 
 				boolean load = false;
 				if (DejaVu.game.isStatusExist()) {
-
+					// TODO: állás betöltése
 				}
 				if (load && DejaVu.game.filesExist()) {
 					DejaVu.setNewMenu(new MainMenu());
@@ -63,10 +60,9 @@ public class SignInMenu extends DVMenu {
 				((Stage) signIn.getScene().getWindow()).close();
 
 			} else {
-				message = new DVText("Hibás név vagy jelszó!", Font.font("Verdana", 14));
+				DVText message = new DVText("Hibás név vagy jelszó!", Font.font("Verdana", 14));
 				message.setFill(Color.RED);
 				add(message, 8, 5);
-
 			}
 		});
 

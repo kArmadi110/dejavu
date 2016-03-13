@@ -11,8 +11,7 @@ public class Congrat extends DVMenu {
 	public Congrat() {
 		super();
 
-		DVText grat = new DVText("Ön nyert!", Font.font("Verdana",
-				FontWeight.BOLD, 30));
+		DVText grat = new DVText("Ön nyert!", Font.font("Verdana", FontWeight.BOLD, 30));
 
 		DVButton back = new DVButton("Főmenü", 0);
 

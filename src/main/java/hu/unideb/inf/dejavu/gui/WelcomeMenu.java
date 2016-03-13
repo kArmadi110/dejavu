@@ -11,7 +11,7 @@ import javafx.stage.StageStyle;
 
 public class WelcomeMenu extends DVMenu {
 
-	public static DVButton signIn = new DVButton("Bejelentkezés", 1);
+	public static DVButton signIn = new DVButton("Bejelentkezés", 1);//ok így statikusan?
 	public static DVButton newProfile = new DVButton("Új profil", 1);
 
 	public WelcomeMenu() {
@@ -29,7 +29,7 @@ public class WelcomeMenu extends DVMenu {
 			SignInMenu signIn = new SignInMenu("Bejelentkezés");
 
 			ExitToolbar exit = new ExitToolbar(stage);
-			ExitToolbar.toolbarButtons.closeButton
+			exit.toolbarButtons.closeButton
 					.setOnAction(new EventHandler<ActionEvent>() {
 
 						public void handle(ActionEvent arg0) {
@@ -65,7 +65,7 @@ public class WelcomeMenu extends DVMenu {
 			SignInMenu signIn = new SignInMenu("Új profil");
 
 			ExitToolbar exit = new ExitToolbar(stage);
-			ExitToolbar.toolbarButtons.closeButton
+			exit.toolbarButtons.closeButton
 					.setOnAction(new EventHandler<ActionEvent>() {
 
 						public void handle(ActionEvent arg0) {
