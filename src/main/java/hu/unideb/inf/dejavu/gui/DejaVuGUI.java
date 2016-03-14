@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -46,7 +47,9 @@ public class DejaVuGUI extends Application {
 		stage.setMinHeight(600);
 		stage.setMaxWidth(800);
 		stage.setMinWidth(800);
-
+		// TODO: why not working?
+		stage.getIcons()
+				.add(new Image(WelcomeMenu.class.getClassLoader().getResource("images/icon.png").toExternalForm()));
 		stage.show();
 
 	}

@@ -1,6 +1,7 @@
 package hu.unideb.inf.dejavu;
 
 import hu.unideb.inf.dejavu.gui.DejaVuGUI;
+import javafx.application.Application;
 
 /**
  * A main metódust tartalmazó osztály.
@@ -27,7 +28,7 @@ public class DejaVu {
 		DataB.connect();
 		game = new Game();
 		
-		javafx.application.Application.launch(DejaVuGUI.class);
+		Application.launch(DejaVuGUI.class);
 	}
 
 }

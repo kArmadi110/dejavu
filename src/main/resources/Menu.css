@@ -1,5 +1,5 @@
 #menu {
-    -fx-background-image: url("/pictures/cards1/background.png");
+    -fx-background-image: url("/images/background.png");
  	-fx-text-box-border: white ;
   	-fx-focus-color: #15640F ;
 }
