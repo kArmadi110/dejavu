@@ -17,6 +17,8 @@ public class DejaVu {
 	 * A logika
 	 */
 	public static Game game;
+	
+	public static IData DB;
 
 	/**
 	 * A program main metódusa.
@@ -25,7 +27,8 @@ public class DejaVu {
 	 *            Parancssori argumentumok.
 	 */
 	public static void main(String[] args) {
-		DataB.connect();
+		DB= new DataB();
+		DB.connect();
 		game = new Game();
 		
 		Application.launch(DejaVuGUI.class);

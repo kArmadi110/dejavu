@@ -147,7 +147,7 @@ public class SlidePane extends GridPane {
 
 					ObservableList<Player> data = FXCollections.observableArrayList();
 
-					TreeMap<String, String> highScoreMap = DejaVu.game.getHighScores();
+					TreeMap<String, String> highScoreMap = DejaVu.game.getHighScores().getTable();
 
 					int i = 1;
 					for (Entry<String, String> entry : highScoreMap.entrySet()) {

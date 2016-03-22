@@ -3,6 +3,7 @@ package hu.unideb.inf.dejavu;
 import java.util.List;
 
 import hu.unideb.inf.dejavu.objects.Card;
+import hu.unideb.inf.dejavu.objects.Pack;
 
 import org.junit.Test;
 
@@ -13,10 +14,10 @@ public class GameTest {
 	@Test
 	public void testGetCard() {
 		Game game = new Game();
-		game.dimension = 4;
-		game.cards = new Card[4][4];
+		game.mainStatus.setDimension(4);
+		game.mainStatus.setPack(new Pack(new Card[4][4],4));
 
-		assertEquals(game.cards[0][0], game.getCard(0, 0));
+		assertEquals(game.mainStatus.getPack().getCard(0, 0), game.getCard(0, 0));
 	}
 
 	@Test
@@ -57,18 +58,18 @@ public class GameTest {
 	@Test
 	public void testIsEnd() {
 		Game game = new Game();
-		game.cards = new Card[4][4];
+		game.mainStatus.getPack().setCards(new Card[4][4]); ;
 		game.setDim(4);
 
 		for (int i = 0; i < game.getDim(); i++)
 			for (int j = 0; j < game.getDim(); j++)
-				game.cards[i][j] = new Card();
+				game.mainStatus.getPack().setCard(new Card(), i, j);
 
 		assertEquals(false, game.isEnd());
 
 		for (int i = 0; i < game.getDim(); i++)
 			for (int j = 0; j < game.getDim(); j++)
-				game.cards[i][j].setClicked(false);
+				game.mainStatus.getPack().getCard(i, j).setClicked(false);
 
 		assertEquals(true, game.isEnd());
 	}

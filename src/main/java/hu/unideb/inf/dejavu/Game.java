@@ -10,8 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import hu.unideb.inf.dejavu.objects.Card;
+import hu.unideb.inf.dejavu.objects.HighScoreTable;
+import hu.unideb.inf.dejavu.objects.Pack;
 import hu.unideb.inf.dejavu.objects.Position;
+import hu.unideb.inf.dejavu.objects.Status;
 import hu.unideb.inf.dejavu.objects.StopWatch;
+import hu.unideb.inf.dejavu.objects.User;
 
 /**
  * Játéklogikát megvalósító osztály. A {@code Game} osztály tartalmazza a
@@ -25,47 +29,50 @@ public class Game {
 
 	/**
 	 * A megjelenítendő kártyák.
-	 * */
-	Card[][] cards;
+	 */
+	// Card[][] cards;
 
 	/**
 	 * A játéktér dimenziója.
 	 * 
 	 * Kizárólag négyzetes mátrixokkal játszunk, ezért elég egy érték.
-	 * */
-	int dimension;
+	 */
+	// int dimension;
 
 	/**
 	 * A felfordított kártyákat tárolja ideiglenesen.
 	 */
-	private List<Position> upCards = new ArrayList<Position>();
+	// private List<Position> upCards = new ArrayList<Position>();
 
 	/**
 	 * A lefordítani a kívánt kártyák.
 	 * 
 	 * Alapértelmezésben amikor rákattintunk egy kártyára felfordul, ez a lista
 	 * tartalmazza majd azokat amiket vissza kell fordítani.
-	 * */
-	List<Position> downCards = new ArrayList<Position>();
+	 */
+	// List<Position> downCards = new ArrayList<Position>();
 
 	/**
 	 * Stopper az idő mérésére.
-	 * */
-	public StopWatch timer;
+	 */
+	// public StopWatch timer;
 
 	/**
 	 * A jelenlegi játékos felhasználóneve.
-	 * */
-	String name;
+	 */
+	// String name;
 
 	/**
 	 * A jelenlegi játékos jelszava.
-	 * */
-	String pass;
+	 */
+	// String pass;
+
+	Status mainStatus;
 
 	/**
 	 * Az osztály naplózója.
 	 */
+
 	private static Logger logger = LoggerFactory.getLogger(DejaVu.class);
 
 	/**
@@ -76,8 +83,7 @@ public class Game {
 	 */
 
 	public Game() {
-		dimension = 0;
-		timer = new StopWatch();
+		mainStatus = new Status(new User(), new Pack(), new StopWatch(), 0);
 	}
 
 	/**
@@ -89,30 +95,29 @@ public class Game {
 	 * @param cardNames
 	 *            A kiválasztott kártyák nevét tartalmazza.
 	 * 
-	 * */
+	 */
 	public void setCards(List<File> cardNames) {
-		upCards.clear();
-		downCards.clear();
+		mainStatus.upCards.clear();
+		mainStatus.downCards.clear();
 
-		if (DataB.isStatusExist(name)) {
+		if (DejaVu.DB.isStatusExist(mainStatus.getUser())) {
 			logger.info("Mentett játékállás betöltése");
 			loadCards();
 		} else if (isSetDim()) {
 			logger.info("Új játékállás betöltése");
-			timer = new StopWatch();
+			mainStatus.setTime(new StopWatch());
 
-			Rand randomTemp = new Rand(dimension);
-			cards = new Card[dimension][dimension];
+			Rand randomTemp = new Rand(mainStatus.getDimension());
+			mainStatus.setPack(new Pack(new Card[mainStatus.getDimension()][mainStatus.getDimension()],
+					mainStatus.getDimension()));
 
-			for (int i = 0; i < (dimension * dimension) / 2; i++) {
-				addCard(cardNames.get(i), randomTemp.randomPos.get(i)
-						.getFirst(), randomTemp.randomPos.get(i).getSecond(),
-						dimension);
+			for (int i = 0; i < (mainStatus.getDimension() * mainStatus.getDimension()) / 2; i++) {
+				addCard(cardNames.get(i), randomTemp.randomPos.get(i).getFirst(),
+						randomTemp.randomPos.get(i).getSecond(), mainStatus.getDimension());
 				randomTemp.randomPos.remove(i);
 
-				addCard(cardNames.get(i), randomTemp.randomPos.get(i)
-						.getFirst(), randomTemp.randomPos.get(i).getSecond(),
-						dimension);
+				addCard(cardNames.get(i), randomTemp.randomPos.get(i).getFirst(),
+						randomTemp.randomPos.get(i).getSecond(), mainStatus.getDimension());
 			}
 
 		}
@@ -132,7 +137,7 @@ public class Game {
 	 *            A mátrixbeli dimenzió.
 	 */
 	private void addCard(File file, int x, int y, int dimension) {
-		cards[x][y] = new Card(file, x, y, dimension);
+		mainStatus.getPack().setCard(new Card(file, x, y, dimension), x, y);
 	}
 
 	/**
@@ -146,10 +151,10 @@ public class Game {
 	 * 
 	 * @return Visszatér a kívánt kártyával.
 	 * 
-	 * */
+	 */
 	public Card getCard(int row, int column) {
-		if (row < dimension && column < dimension) {
-			return cards[row][column];
+		if (row < mainStatus.getDimension() && column < mainStatus.getDimension()) {
+			return mainStatus.getPack().getCard(row, column);
 		}
 
 		return null;
@@ -159,10 +164,10 @@ public class Game {
 	 * Visszaadja a lefordítandó kártyák pozicióinak listáját.
 	 * 
 	 * @return Visszatér a lefordított jártyák pozicióinak listájával.
-	 * */
+	 */
 	public List<Position> getDownCard() {
 
-		return downCards;
+		return mainStatus.downCards;
 	}
 
 	/**
@@ -170,12 +175,12 @@ public class Game {
 	 * 
 	 * @param dimension
 	 *            A kívánt dimenzió.
-	 * */
+	 */
 	public void setDim(int dimension) {
 		logger.debug("Új dimenzió beállítva");
-		upCards.clear();
-		downCards.clear();
-		this.dimension = dimension;
+		mainStatus.upCards.clear();
+		mainStatus.downCards.clear();
+		mainStatus.setDimension(dimension);
 	}
 
 	/**
@@ -185,17 +190,17 @@ public class Game {
 	 */
 	public boolean isSetDim() {
 
-		return dimension > 0 ? true : false;
+		return mainStatus.getDimension() > 0 ? true : false;
 	}
 
 	/**
 	 * Visszaadja a dimenzió értékét.
 	 * 
 	 * @return A dimenzió értéke.
-	 * */
+	 */
 	public int getDim() {
 
-		return dimension;
+		return mainStatus.getDimension();
 	}
 
 	/**
@@ -213,8 +218,7 @@ public class Game {
 		List<Integer> result = new ArrayList<Integer>();
 
 		for (int i = 2 * numberOfElement; i > 1; i--)
-			if (!result.contains((int) Math.sqrt(i))
-					&& (int) Math.sqrt(i) % 2 == 0)
+			if (!result.contains((int) Math.sqrt(i)) && (int) Math.sqrt(i) % 2 == 0)
 				result.add((int) Math.sqrt(i));
 
 		logger.debug("Új mátrix méretek létrehozása sikeres.");
@@ -230,8 +234,8 @@ public class Game {
 	 */
 
 	public boolean isEnd() {
-		for (int i = 0; i < dimension; i++)
-			for (int j = 0; j < dimension; j++) {
+		for (int i = 0; i < mainStatus.getDimension(); i++)
+			for (int j = 0; j < mainStatus.getDimension(); j++) {
 				if (getCard(i, j).isClicked())
 					return false;
 			}
@@ -255,39 +259,40 @@ public class Game {
 	 *         egyébként hamissal.
 	 */
 	public boolean updateCardStatus(int row, int column) {
-		downCards.clear();
+		mainStatus.downCards.clear();
 
-		if (cards[row][column].isClicked()) {
-			if (!upCards.contains(cards[row][column].getPosition()))
-				upCards.add(cards[row][column].getPosition());
+		if (mainStatus.getPack().getCard(row, column).isClicked()) {
+			if (!mainStatus.upCards.contains(mainStatus.getPack().getCard(row, column).getPosition()))
+				mainStatus.upCards.add(mainStatus.getPack().getCard(row, column).getPosition());
 
-			if (upCards.size() == 2
-					&& !upCards.get(0).equals(upCards.get(1))
-					&& cards[upCards.get(0).getFirst()][upCards.get(0)
-							.getSecond()].getValue().equals(
-							cards[upCards.get(1).getFirst()][upCards.get(1)
-									.getSecond()].getValue())) {
+			if (mainStatus.upCards.size() == 2 && !mainStatus.upCards.get(0).equals(mainStatus.upCards.get(1))
+					&& mainStatus.getPack()
+							.getCard(mainStatus.upCards.get(0).getFirst(), mainStatus.upCards.get(0).getSecond())
+							.getValue().equals(mainStatus.getPack().getCard(mainStatus.upCards.get(1).getFirst(),
+									mainStatus.upCards.get(1).getSecond()).getValue())) {
 
-				cards[upCards.get(0).getFirst()][upCards.get(0).getSecond()]
+				mainStatus.getPack()
+						.getCard(mainStatus.upCards.get(0).getFirst(), mainStatus.upCards.get(0).getSecond())
 						.setClicked(false);
-				upCards.remove(0);
+				mainStatus.upCards.remove(0);
 
-				cards[upCards.get(0).getFirst()][upCards.get(0).getSecond()]
+				mainStatus.getPack()
+						.getCard(mainStatus.upCards.get(0).getFirst(), mainStatus.upCards.get(0).getSecond())
 						.setClicked(false);
-				upCards.remove(0);
+				mainStatus.upCards.remove(0);
 
 				return true;
 
-			} else if (upCards.size() > 2) {
-				downCards.add(upCards.get(0));
-				upCards.remove(0);
-				downCards.add(upCards.get(0));
-				upCards.remove(0);
+			} else if (mainStatus.upCards.size() > 2) {
+				mainStatus.downCards.add(mainStatus.upCards.get(0));
+				mainStatus.upCards.remove(0);
+				mainStatus.downCards.add(mainStatus.upCards.get(0));
+				mainStatus.upCards.remove(0);
 				return false;
 			}
 
 		}
-		
+
 		return false;
 	}
 
@@ -297,17 +302,14 @@ public class Game {
 	 * @return Igazzal tér vissza, ha minden elérési út helyes.
 	 */
 	public boolean filesExist() {
-		List<Card> res = DataB.loadStatus(name);
-		
-		for (int i = 0; i < res.size(); i++) {
-			if (!res.get(i).getValue().exists()
-					|| res.get(i).getValue().isDirectory()) {
-				removeStatus();
-				return false;
-			}
+		Status status = DejaVu.DB.loadStatus(mainStatus.getUser());
+
+		if (status.getPack().isValid()) {
+			removeStatus();
+			return true;
 		}
-		
-		return true;
+
+		return false;
 	}
 
 	/**
@@ -317,23 +319,17 @@ public class Game {
 	 *         betöltöttük.
 	 */
 	public boolean loadCards() {
-		List<Card> res = DataB.loadStatus(name);
-		String time = DataB.getTime(name);
-		timer.fromString(time);
+		Status status = DejaVu.DB.loadStatus(mainStatus.getUser());
 
 		if (!filesExist())
 			return false;
 
-		setDim((int) Math.sqrt(res.size()));
-		cards = new Card[dimension][dimension];
+		setDim(status.getDimension());
+		mainStatus.setPack(
+				new Pack(new Card[mainStatus.getDimension()][mainStatus.getDimension()], mainStatus.getDimension()));
 
-		for (int i = 0; i < res.size(); i++) {
-			cards[res.get(i).getPosition().getFirst()][res.get(i).getPosition()
-					.getSecond()] = res.get(i);
-		}
-		
 		removeStatus();
-		
+
 		return true;
 	}
 
@@ -345,14 +341,8 @@ public class Game {
 	 */
 	public boolean saveCards() {
 		removeStatus();
-		
-		for (int i = 0; i < dimension; i++)
-			for (int j = 0; j < dimension; j++) {
-				DataB.saveStatus(name, cards[i][j].getValue().toString(),
-						timer, cards[i][j].isClicked(), cards[i][j]
-								.getPosition().getFirst(), cards[i][j]
-								.getPosition().getSecond(), dimension);
-			}
+
+		DejaVu.DB.saveStatus(mainStatus);
 
 		return true;
 	}
@@ -364,8 +354,8 @@ public class Game {
 	 *         egyébként hamissal.
 	 */
 	public boolean isStatusExist() {
-		
-		return DataB.isStatusExist(name);
+
+		return DejaVu.DB.isStatusExist(mainStatus.getUser());
 	}
 
 	/**
@@ -375,8 +365,8 @@ public class Game {
 	 *         hamissal.
 	 */
 	public boolean removeStatus() {
-		
-		return DataB.removeStatus(name);
+
+		return DejaVu.DB.removeStatus(mainStatus.getUser());
 	}
 
 	/**
@@ -386,8 +376,8 @@ public class Game {
 	 *         egyébként hamissal.
 	 */
 	public boolean updateHighScores() {
-		
-		return DataB.updateHighScores(timer.toString(), name);
+
+		return DejaVu.DB.updateHighScores(mainStatus.getTime().toString(), mainStatus.getUser().getUserName());
 	}
 
 	/**
@@ -395,10 +385,9 @@ public class Game {
 	 * 
 	 * @return visszaad egy rendezett TreeMap példányt.
 	 */
-	public TreeMap<String, String> getHighScores() {
-		TreeMap<String, String> result = new TreeMap<String, String>(
-				Collections.reverseOrder());
-		result = (TreeMap<String, String>) DataB.getHighScores();
+	public HighScoreTable getHighScores() {
+		HighScoreTable result = new HighScoreTable(new TreeMap<String, String>(Collections.reverseOrder()));
+		result = DejaVu.DB.getHighScores();
 
 		return result;
 	}
@@ -413,13 +402,12 @@ public class Game {
 	 *         egyébként hamissal.
 	 */
 	public boolean isPerfectName(String name) {
-		if (name.contains("\"") || name.contains("*") || name.contains("'")
-				|| name.contains("#") || name.contains("@")
+		if (name.contains("\"") || name.contains("*") || name.contains("'") || name.contains("#") || name.contains("@")
 				|| name.contains("!") || name.contains("?")) {
-		
+
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -438,14 +426,13 @@ public class Game {
 		if (!isPerfectName(name) || !isPerfectName(pass)) {
 			return false;
 		}
-		
-		if (DataB.isUserExist(name)) {
+
+		if (DejaVu.DB.isUserExist(new User(name, pass))) {
 			return false;
 		}
-		this.name = name;
-		this.pass = pass;
-		
-		return DataB.addProfile(name, pass);
+		mainStatus.setUser(new User(name, pass));
+
+		return DejaVu.DB.addProfile(mainStatus.getUser());
 	}
 
 	/**
@@ -459,22 +446,21 @@ public class Game {
 	 *         helyes.
 	 */
 
-	public boolean loadProfile(String name, String pass) {
-		if (!isPerfectName(name) && !isPerfectName(pass)) {
+	public boolean loadProfile(User user) {
+		if (!isPerfectName(user.getUserName()) && !isPerfectName(user.getPassword())) {
 			return false;
 		}
 
-		this.name = name;
-		this.pass = pass;
+		mainStatus.setUser(user);
 
-		return DataB.loadProfile(name, pass);
+		return DejaVu.DB.loadProfile(user);
 	}
 
 	/**
 	 * Megszakítja az adatbázis kapcsolatot és kilép.
 	 */
 	public void exitGame() {
-		DataB.close();
+		DejaVu.DB.close();
 		System.exit(0);
 	}
 

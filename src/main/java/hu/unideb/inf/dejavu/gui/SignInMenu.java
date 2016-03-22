@@ -1,6 +1,7 @@
 package hu.unideb.inf.dejavu.gui;
 
 import hu.unideb.inf.dejavu.DejaVu;
+import hu.unideb.inf.dejavu.objects.User;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
@@ -33,7 +34,7 @@ public class SignInMenu extends DVMenu {
 		signIn.setOnAction((arg0) -> {
 
 			if (args.equals("Bejelentkezés") && 
-					DejaVu.game.loadProfile(name.getText(), pass.getText())) {
+					DejaVu.game.loadProfile(new User(name.getText(), pass.getText()))) {
 
 				boolean load = false;
 				if (DejaVu.game.isStatusExist()) {

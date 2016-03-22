@@ -27,7 +27,7 @@ public class DVMenu extends BorderPane {
 		getStylesheets().add(getClass().getClassLoader().getResource("Window.css").toExternalForm());
 
 		setCenter(window);
-
+		
 	}
 
 	void setHgap(int h) {
