@@ -21,7 +21,7 @@ import javafx.util.Duration;
 
 public class SlidePane extends GridPane {
 	private double size;
-	// TODO: what a fuck is this here
+
 	List<Integer> dimensions = Game.matrixSize(DejaVuGUI.cardPathList.size());
 
 	ObservableList<String> result = FXCollections.observableArrayList();
@@ -83,9 +83,8 @@ public class SlidePane extends GridPane {
 						DejaVuGUI.cardPathList = DejaVuGUI.fileChooser
 								.showOpenMultipleDialog((Stage) getScene().getWindow());
 
-						if (DejaVuGUI.cardPathList != null && !DejaVuGUI.cardPathList.isEmpty()) // TODO:
-							// TODO: eltüntetni
-							dimensions = DejaVu.game.matrixSize(DejaVuGUI.cardPathList.size());
+						if (DejaVuGUI.cardPathList != null && !DejaVuGUI.cardPathList.isEmpty())
+							dimensions = Game.matrixSize(DejaVuGUI.cardPathList.size());
 						if (!dimensions.isEmpty()) {
 
 							for (int i = dimensions.size() - 1; i >= 0; i--)

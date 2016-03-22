@@ -22,8 +22,7 @@ public class MainMenu extends DVMenu {
 
 		game.setOnAction((arg) -> {
 			if (!DejaVuGUI.dimensionChoser.getSelectionModel().isEmpty()) {
-				// TODO: áttenni logikába a szétdarabolást
-				DejaVu.game.setDim(Integer.parseInt(DejaVuGUI.dimensionChoser.getValue().substring(0, 1)));
+				DejaVu.game.setDim(DejaVuGUI.dimensionChoser.getValue());
 			}
 
 			if (DejaVu.game.isSetDim() && DejaVu.game.filesExist()) {

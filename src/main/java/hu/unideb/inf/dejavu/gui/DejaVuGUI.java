@@ -19,9 +19,9 @@ public class DejaVuGUI extends Application {
 	public static ComboBox<String> dimensionChoser = new ComboBox<String>();
 
 	public static FileChooser fileChooser = new FileChooser();
-	// TODO: ezt eltüntetni
-	public static List<File> cardPathList = new ArrayList<File>();
 
+	public static List<File> cardPathList = new ArrayList<File>();
+	
 	public static DVMenu menu = new DVMenu();
 
 	public static Stage stage;
@@ -49,7 +49,7 @@ public class DejaVuGUI extends Application {
 		stage.setMinWidth(800);
 		
 		
-		// TODO: why not working?
+		//TODO: why not working?
 		stage.getIcons()
 				.add(new Image(WelcomeMenu.class.getClassLoader().getResource("images/icon.png").toExternalForm()));
 		stage.show();

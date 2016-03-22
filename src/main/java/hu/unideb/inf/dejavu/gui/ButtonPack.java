@@ -8,10 +8,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.GridPane;
 
-public class Pack extends GridPane {
+public class ButtonPack extends GridPane {
 	CardButton[][] cardButtons;
 
-	Pack() {
+	ButtonPack() {
 		setHgap(5);
 		setVgap(5);
 

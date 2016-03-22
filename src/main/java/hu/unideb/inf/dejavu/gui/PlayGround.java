@@ -1,7 +1,5 @@
 package hu.unideb.inf.dejavu.gui;
 
-import hu.unideb.inf.dejavu.DejaVu;
-
 public class PlayGround extends DVMenu {
 
 	PlayGround() {
@@ -16,7 +14,7 @@ public class PlayGround extends DVMenu {
 			DejaVuGUI.setNewMenu(new MainMenu());
 		});
 
-		Pack pack = new Pack();
+		ButtonPack pack = new ButtonPack();
 
 		add(pack, 3, 2);
 		add(back, 1, 3);

@@ -27,47 +27,7 @@ import hu.unideb.inf.dejavu.objects.User;
  */
 public class Game {
 
-	/**
-	 * A megjelenítendő kártyák.
-	 */
-	// Card[][] cards;
-
-	/**
-	 * A játéktér dimenziója.
-	 * 
-	 * Kizárólag négyzetes mátrixokkal játszunk, ezért elég egy érték.
-	 */
-	// int dimension;
-
-	/**
-	 * A felfordított kártyákat tárolja ideiglenesen.
-	 */
-	// private List<Position> upCards = new ArrayList<Position>();
-
-	/**
-	 * A lefordítani a kívánt kártyák.
-	 * 
-	 * Alapértelmezésben amikor rákattintunk egy kártyára felfordul, ez a lista
-	 * tartalmazza majd azokat amiket vissza kell fordítani.
-	 */
-	// List<Position> downCards = new ArrayList<Position>();
-
-	/**
-	 * Stopper az idő mérésére.
-	 */
-	// public StopWatch timer;
-
-	/**
-	 * A jelenlegi játékos felhasználóneve.
-	 */
-	// String name;
-
-	/**
-	 * A jelenlegi játékos jelszava.
-	 */
-	// String pass;
-
-	Status mainStatus;
+	public Status mainStatus;
 
 	/**
 	 * Az osztály naplózója.
@@ -177,6 +137,14 @@ public class Game {
 	 *            A kívánt dimenzió.
 	 */
 	public void setDim(int dimension) {
+		logger.debug("Új dimenzió beállítva");
+		mainStatus.upCards.clear();
+		mainStatus.downCards.clear();
+		mainStatus.setDimension(dimension);
+	}
+
+	public void setDim(String dimString) {
+		int dimension = Integer.parseInt(dimString.substring(0, 1));
 		logger.debug("Új dimenzió beállítva");
 		mainStatus.upCards.clear();
 		mainStatus.downCards.clear();
