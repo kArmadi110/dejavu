@@ -345,7 +345,6 @@ public class DataB implements IData {
 	public boolean updateHighScores(String sw, String name) {
 		if (!isHighScoreTableExist())
 			createHighScoresTable();
-//TODO: csak ha érdemes updatelni
 		try {
 			Statement stm = connection.createStatement();
 
@@ -403,7 +402,6 @@ public class DataB implements IData {
 	 */
 	public HighScoreTable getHighScores() {
 		TreeMap<String, String> result = new TreeMap<String, String>();
-//TODO: csak 10 et hagyunk benne
 		if (!isHighScoreTableExist())
 			createHighScoresTable();
 		try {

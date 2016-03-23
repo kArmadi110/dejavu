@@ -3,6 +3,7 @@ package hu.unideb.inf.dejavu;
 import hu.unideb.inf.dejavu.gui.DejaVuGUI;
 import javafx.application.Application;
 
+//TODO: adatbázis hibernatre
 /**
  * A main metódust tartalmazó osztály.
  * 
@@ -17,7 +18,7 @@ public class DejaVu {
 	 * A logika
 	 */
 	public static Game game;
-	
+
 	public static IData DB;
 
 	/**
@@ -27,10 +28,10 @@ public class DejaVu {
 	 *            Parancssori argumentumok.
 	 */
 	public static void main(String[] args) {
-		DB= new DataB();
+		DB = new DataB();
 		DB.connect();
 		game = new Game();
-		
+
 		Application.launch(DejaVuGUI.class);
 	}
 

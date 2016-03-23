@@ -21,14 +21,16 @@ public class DejaVuGUI extends Application {
 	public static FileChooser fileChooser = new FileChooser();
 
 	public static List<File> cardPathList = new ArrayList<File>();
-	
+
 	public static DVMenu menu = new DVMenu();
 
 	public static Stage stage;
 
 	@Override
 	public void start(Stage arg) throws Exception {
-//TODO: ELLENŐRIZNI MINDENT MEGFELELŐEN MŰKÖDIK E
+		// TODO: ELLENŐRIZNI MINDENT MEGFELELŐEN MŰKÖDIK E
+		// TODO: ikon
+		// TODO: Sotopper
 		dimensionChoser.setId("dimensionChoser");
 		dimensionChoser.getStylesheets()
 				.add(WelcomeMenu.class.getClassLoader().getResource("DimensionChoser.css").toExternalForm());
@@ -47,9 +49,7 @@ public class DejaVuGUI extends Application {
 		stage.setMinHeight(600);
 		stage.setMaxWidth(800);
 		stage.setMinWidth(800);
-		
-		
-		//TODO: wtill not work...
+
 		stage.getIcons()
 				.add(new Image(WelcomeMenu.class.getClassLoader().getResource("images/icon.png").toExternalForm()));
 		stage.show();
