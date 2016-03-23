@@ -22,7 +22,6 @@ import hu.unideb.inf.dejavu.objects.User;
  * megjelenítendő kártyákat, azokról az információkat, innen kérdezhető le
  * továbbá az adatbázis.
  * 
- * @author iam346
  *
  */
 public class Game {
@@ -62,7 +61,7 @@ public class Game {
 
 		if (DejaVu.DB.isStatusExist(mainStatus.getUser())) {
 			logger.info("Mentett játékállás betöltése");
-			loadCards();
+			loadStatus();
 		} else if (isSetDim()) {
 			logger.info("Új játékállás betöltése");
 			mainStatus.setTime(new StopWatch());
@@ -273,9 +272,11 @@ public class Game {
 		Status status = DejaVu.DB.loadStatus(mainStatus.getUser());
 
 		if (status.getPack().isValid()) {
-			removeStatus();
+
 			return true;
 		}
+
+		removeStatus();
 
 		return false;
 	}
@@ -286,15 +287,15 @@ public class Game {
 	 * @return Igaz igazságértékkel tér vissza, ha kártyákat sikeresen
 	 *         betöltöttük.
 	 */
-	public boolean loadCards() {
+	public boolean loadStatus() {
 		Status status = DejaVu.DB.loadStatus(mainStatus.getUser());
 
-		if (!filesExist())
+		if (!filesExist()) {
+			removeStatus();
 			return false;
+		}
 
-		setDim(status.getDimension());
-		mainStatus.setPack(
-				new Pack(new Card[mainStatus.getDimension()][mainStatus.getDimension()], mainStatus.getDimension()));
+		mainStatus = status;
 
 		removeStatus();
 
@@ -307,7 +308,7 @@ public class Game {
 	 * @return Igaz igazságértékkel tér vissza, ha sikerült elmenteni a
 	 *         játékállást.
 	 */
-	public boolean saveCards() {
+	public boolean saveStatus() {
 		removeStatus();
 
 		DejaVu.DB.saveStatus(mainStatus);

@@ -309,11 +309,10 @@ public class DataB implements IData {
 				for (int j = 0; j < status.getDimension(); j++) {
 					String query = "INSERT INTO STATUS (NAME,CARD,TIME,CLICKED,X,Y,DIM) " + "VALUES('"
 							+ status.getUser().getUserName() + "','" + status.getPack().getCard(i, j).getValue() + "','"
-							+ status.getTime().toString() + "','" 
-							+ (status.getPack().getCard(i, j).isClicked()?1:0) + "','"
-							+ status.getPack().getCard(i, j).getPosition().getFirst() + "','"
+							+ status.getTime().toString() + "','" + (status.getPack().getCard(i, j).isClicked() ? 1 : 0)
+							+ "','" + status.getPack().getCard(i, j).getPosition().getFirst() + "','"
 							+ status.getPack().getCard(i, j).getPosition().getSecond() + "','" + status.getDimension()
-							+ "')";// TODO: temporary clicked 1
+							+ "')";
 					statement.executeQuery(query);
 					statement.executeQuery("commit");
 				}
@@ -346,7 +345,7 @@ public class DataB implements IData {
 	public boolean updateHighScores(String sw, String name) {
 		if (!isHighScoreTableExist())
 			createHighScoresTable();
-
+//TODO: csak ha érdemes updatelni
 		try {
 			Statement stm = connection.createStatement();
 
@@ -404,7 +403,7 @@ public class DataB implements IData {
 	 */
 	public HighScoreTable getHighScores() {
 		TreeMap<String, String> result = new TreeMap<String, String>();
-
+//TODO: csak 10 et hagyunk benne
 		if (!isHighScoreTableExist())
 			createHighScoresTable();
 		try {
@@ -439,14 +438,14 @@ public class DataB implements IData {
 		int dimension = 0;
 
 		if (!isStatusExist(user))
-			return new Status(user, new Pack(result,dimension), time, dimension);
+			return new Status(user, new Pack(result, dimension), time, dimension);
 		try {
 			Statement statement = connection.createStatement();
 			String query = "SELECT * FROM STATUS WHERE NAME='" + user.getUserName() + "'";
 			ResultSet rs = statement.executeQuery(query);
-			dimension = rs.getInt("DIM");
-			
+
 			while (rs.next()) {
+				dimension = rs.getInt("DIM");
 				Card temp = new Card(new File(rs.getString("CARD")), rs.getInt("X"), rs.getInt("Y"), rs.getInt("DIM"));
 				temp.setClicked((rs.getInt("CLICKED") == 1 ? true : false));
 				result.add(temp);
@@ -456,7 +455,7 @@ public class DataB implements IData {
 			logger.error("A lekérdezés sikertelen.");
 		}
 
-		return new Status(user, new Pack(result,dimension), time, dimension);
+		return new Status(user, new Pack(result, dimension), time, dimension);
 	}
 
 	/**
@@ -571,7 +570,8 @@ public class DataB implements IData {
 		try {
 			Statement stm = connection.createStatement();
 
-			String query = "INSERT INTO USERS (NAME,PASS)" + "VALUES('" + user.getUserName() + "','" + user.getPassword() + "')";
+			String query = "INSERT INTO USERS (NAME,PASS)" + "VALUES('" + user.getUserName() + "','"
+					+ user.getPassword() + "')";
 			stm.executeQuery("SELECT NAME FROM USERS WHERE NAME='" + user.getUserName() + "'");
 			stm.executeQuery(query);
 			stm.executeQuery("commit");

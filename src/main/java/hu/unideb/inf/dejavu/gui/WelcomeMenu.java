@@ -11,8 +11,8 @@ import javafx.stage.StageStyle;
 
 public class WelcomeMenu extends DVMenu {
 
-	public static DVButton signIn = new DVButton("Bejelentkezés", 1);// ok így
-																		// statikusan?
+	public static DVButton signIn = new DVButton("Bejelentkezés", 1);
+																		
 	public static DVButton newProfile = new DVButton("Új profil", 1);
 
 	public WelcomeMenu() {

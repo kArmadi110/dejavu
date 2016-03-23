@@ -2,14 +2,18 @@ package hu.unideb.inf.dejavu.gui;
 
 import hu.unideb.inf.dejavu.DejaVu;
 import hu.unideb.inf.dejavu.objects.User;
+import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class SignInMenu extends DVMenu {
+
+	final int height = 200, width = 500;
 
 	public SignInMenu(final String args) {
 		super();
@@ -33,25 +37,47 @@ public class SignInMenu extends DVMenu {
 
 		signIn.setOnAction((arg0) -> {
 
-			if (args.equals("Bejelentkezés") && 
-					DejaVu.game.loadProfile(new User(name.getText(), pass.getText()))) {
+			if (args.equals("Bejelentkezés") && DejaVu.game.loadProfile(new User(name.getText(), pass.getText()))) {
 
-				boolean load = false;
 				if (DejaVu.game.isStatusExist()) {
-					// TODO: állás betöltése
-				}
-				if (load && DejaVu.game.filesExist()) {
-					DejaVuGUI.setNewMenu(new MainMenu());
 
-				} else {
-					DejaVu.game.removeStatus();
-					DejaVuGUI.setNewMenu(new MainMenu());
+					final Stage stage = new Stage();
+
+					QuestionMenu loadState = new QuestionMenu("Szeretné betölteni a játékmentést?", "Igen", "Nem",
+							() -> {
+						stage.close();
+					} , () -> {
+						DejaVu.game.removeStatus();
+						stage.close();
+					});
+
+					ExitToolbar exit = new ExitToolbar(stage);
+					exit.toolbarButtons.closeButton.setOnAction((arg1) -> {
+						stage.close();
+					});
+
+					loadState.setTop(exit);
+
+					stage.initStyle(StageStyle.TRANSPARENT);
+					Scene scene = new Scene(loadState, width, height);
+					scene.setFill(Color.TRANSPARENT);
+
+					stage.setMaxHeight(height);
+					stage.setMinHeight(height);
+					stage.setMaxWidth(width);
+					stage.setMinWidth(width);
+					stage.setAlwaysOnTop(true);
+					stage.setScene(scene);
+					stage.centerOnScreen();
+					stage.show();
+
 				}
+				DejaVuGUI.setNewMenu(new MainMenu());
 
 				WelcomeMenu.signIn.setDisable(false);
 				WelcomeMenu.newProfile.setDisable(false);
 
-				((Stage) signIn.getScene().getWindow()).close();
+				((Stage) getScene().getWindow()).close();
 
 			} else if (args.equals("Új profil") && DejaVu.game.addProfile(name.getText(), pass.getText())) {
 
@@ -59,7 +85,7 @@ public class SignInMenu extends DVMenu {
 				WelcomeMenu.signIn.setDisable(false);
 				WelcomeMenu.newProfile.setDisable(false);
 
-				((Stage) signIn.getScene().getWindow()).close();
+				((Stage) getScene().getWindow()).close();
 
 			} else {
 				DVText message = new DVText("Hibás név vagy jelszó!", Font.font("Verdana", 14));

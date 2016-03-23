@@ -28,6 +28,7 @@ public class DVMenu extends BorderPane {
 
 		setCenter(window);
 		
+		setTop(new ExitToolbar(DejaVuGUI.stage));
 	}
 
 	void setHgap(int h) {

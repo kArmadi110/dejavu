@@ -28,7 +28,7 @@ public class DejaVuGUI extends Application {
 
 	@Override
 	public void start(Stage arg) throws Exception {
-
+//TODO: ELLENŐRIZNI MINDENT MEGFELELŐEN MŰKÖDIK E
 		dimensionChoser.setId("dimensionChoser");
 		dimensionChoser.getStylesheets()
 				.add(WelcomeMenu.class.getClassLoader().getResource("DimensionChoser.css").toExternalForm());
@@ -49,7 +49,7 @@ public class DejaVuGUI extends Application {
 		stage.setMinWidth(800);
 		
 		
-		//TODO: why not working?
+		//TODO: wtill not work...
 		stage.getIcons()
 				.add(new Image(WelcomeMenu.class.getClassLoader().getResource("images/icon.png").toExternalForm()));
 		stage.show();
@@ -58,7 +58,6 @@ public class DejaVuGUI extends Application {
 
 	public static void setNewMenu(DVMenu newMenu) {
 		menu = newMenu;
-		menu.setTop(new ExitToolbar(stage));
 
 		Scene scene = new Scene(menu, 800, 600);
 		scene.setFill(Color.TRANSPARENT);
