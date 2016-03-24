@@ -28,8 +28,6 @@ public class DejaVuGUI extends Application {
 
 	@Override
 	public void start(Stage arg) throws Exception {
-		// TODO: ELLENŐRIZNI MINDENT MEGFELELŐEN MŰKÖDIK E
-		// TODO: ikon
 		dimensionChoser.setId("dimensionChoser");
 		dimensionChoser.getStylesheets()
 				.add(WelcomeMenu.class.getClassLoader().getResource("DimensionChoser.css").toExternalForm());
@@ -50,7 +48,18 @@ public class DejaVuGUI extends Application {
 		stage.setMinWidth(800);
 
 		stage.getIcons()
-				.add(new Image(WelcomeMenu.class.getClassLoader().getResource("images/icon.png").toExternalForm()));
+				.add(new Image(WelcomeMenu.class.getClassLoader().getResource("images/icon16.png").toExternalForm()));
+		stage.getIcons()
+				.add(new Image(WelcomeMenu.class.getClassLoader().getResource("images/icon32.png").toExternalForm()));
+		stage.getIcons()
+				.add(new Image(WelcomeMenu.class.getClassLoader().getResource("images/icon64.png").toExternalForm()));
+		stage.getIcons()
+				.add(new Image(WelcomeMenu.class.getClassLoader().getResource("images/icon128.png").toExternalForm()));
+		stage.getIcons()
+				.add(new Image(WelcomeMenu.class.getClassLoader().getResource("images/icon256.png").toExternalForm()));
+		stage.getIcons()
+				.add(new Image(WelcomeMenu.class.getClassLoader().getResource("images/icon512.png").toExternalForm()));
+
 		stage.show();
 
 	}
