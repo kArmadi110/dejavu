@@ -4,6 +4,8 @@ import hu.unideb.inf.dejavu.DejaVu;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -58,7 +60,6 @@ public class PlayGround extends DVMenu {
 		setHgap(10);
 
 		back.setOnAction((arg0) -> {
-
 			back.setDisable(true);
 
 			final Stage stage = new Stage();
@@ -98,8 +99,26 @@ public class PlayGround extends DVMenu {
 
 		ButtonPack pack = new ButtonPack();
 
-		add(pack, 3, 2);
-		add(back, 1, 3);
+		DVText time = new DVText(DejaVu.game.mainStatus.getTime().toString(),
+				Font.font("Verdana", FontWeight.BOLD, 14));
+
+		Thread t = new Thread(() -> {
+			while (true) {
+				try {
+					Thread.sleep(1000);
+					time.setText(DejaVu.game.mainStatus.getTime().toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		t.setDaemon(true);
+		t.start();
+
+		add(pack, 7, 4);
+		add(back, 1, 6);
+		add(time, 20, 2);
 
 	}
 }

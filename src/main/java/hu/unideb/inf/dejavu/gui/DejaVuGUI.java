@@ -30,7 +30,6 @@ public class DejaVuGUI extends Application {
 	public void start(Stage arg) throws Exception {
 		// TODO: ELLENŐRIZNI MINDENT MEGFELELŐEN MŰKÖDIK E
 		// TODO: ikon
-		// TODO: Sotopper
 		dimensionChoser.setId("dimensionChoser");
 		dimensionChoser.getStylesheets()
 				.add(WelcomeMenu.class.getClassLoader().getResource("DimensionChoser.css").toExternalForm());
