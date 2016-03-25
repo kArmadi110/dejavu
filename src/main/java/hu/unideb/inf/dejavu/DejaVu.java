@@ -3,7 +3,6 @@ package hu.unideb.inf.dejavu;
 import hu.unideb.inf.dejavu.gui.DejaVuGUI;
 import javafx.application.Application;
 
-//TODO: adatbázis hibernatre
 /**
  * A main metódust tartalmazó osztály.
  * 

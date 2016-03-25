@@ -142,6 +142,12 @@ public class Game {
 		mainStatus.setDimension(dimension);
 	}
 
+	/**
+	 * Beállíthatjuk a kívánt dimenziót.
+	 * 
+	 * @param dimString
+	 *            A kívánt dimenzió nXn formában.
+	 */
 	public void setDim(String dimString) {
 		int dimension = Integer.parseInt(dimString.substring(0, 1));
 		logger.debug("Új dimenzió beállítva");

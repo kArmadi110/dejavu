@@ -55,12 +55,6 @@ public class DataB implements IData {
 	 */
 	private static Connection connection = null;
 
-	/**
-	 * Az adatbázis kapcsolat létrehozása.
-	 * 
-	 * @return Igazzal tér vissza ha a kapcsolatot sikerült létrehozni,
-	 *         egyébként hamissal.
-	 */
 	public boolean connect() {
 		if (connection != null)
 
@@ -107,12 +101,7 @@ public class DataB implements IData {
 		return true;
 	}
 
-	/**
-	 * Az adatbázis kapcsolat bezárása.
-	 * 
-	 * @return Igazzal tér vissza ha sikerült bezárni a kapcsolatot, egyébként
-	 *         hamissal
-	 */
+
 	public boolean close() {
 		try {
 			if (connection != null && !connection.isClosed()) {
@@ -136,13 +125,6 @@ public class DataB implements IData {
 
 	}
 
-	/**
-	 * Létrehozza a USERS táblát.
-	 * 
-	 * @return Igaz igazságértékkel tér vissza, ha sikerült létrehozni a táblát,
-	 *         egyébként hamissal.
-	 */
-
 	public boolean createUsersTable() {
 		try {
 			Statement statement = connection.createStatement();
@@ -159,12 +141,6 @@ public class DataB implements IData {
 		return true;
 	}
 
-	/**
-	 * Létrehozza a STATUS táblát.
-	 * 
-	 * @return Igaz igazságértékkel tér vissza, ha sikerült létrehozni a táblát,
-	 *         egyébként hamissal.
-	 */
 	public boolean createStatusTable() {
 		try {
 			Statement statement = connection.createStatement();
@@ -182,12 +158,6 @@ public class DataB implements IData {
 		return true;
 	}
 
-	/**
-	 * Létrehozza a HIGH_SCORES táblát.
-	 * 
-	 * @return Igaz igazságértékkel tér vissza, ha sikerült létrehozni a táblát,
-	 *         egyébként hamissal.
-	 */
 	public boolean createHighScoresTable() {
 		try {
 			Statement statement = connection.createStatement();
@@ -204,15 +174,6 @@ public class DataB implements IData {
 
 		return true;
 	}
-
-	/**
-	 * Visszaadja, hogy létezik e a tábla vagy sem.
-	 * 
-	 * @param table
-	 *            A lekérdezni kívánt tábla.
-	 * @return Igaz igazságértékkel tér vissza, ha létezik a tábla, egyébként
-	 *         hamissal.
-	 */
 
 	public boolean isHighScoreTableExist() {
 		try {
@@ -270,34 +231,14 @@ public class DataB implements IData {
 		} catch (SQLException e) {
 			logger.error("A lekérdezés sikertelen.");
 
-			return false;
+		} catch (Exception e) {
+			logger.error("A lekérdezés sikertelen.");
 		}
+
+		return false;
+
 	}
 
-	/**
-	 * Jelenlegi játékállás elmentése.
-	 * 
-	 * A {@code saveStatus} metódus elmenti a jelenlegi játékállást, ha nincs
-	 * létrehozva megfelelő tábla akkor készít.
-	 * 
-	 * @param name
-	 *            A mentést végrehajtó felhasználó felhasználóneve.
-	 * @param card
-	 *            A menteni kívánt filenév.
-	 * @param time
-	 *            A menteni kívánt idő .
-	 * @param clicked
-	 *            A kattinthatóság értéke.
-	 * @param x
-	 *            A kártya mátrix beli X poziciója.
-	 * @param y
-	 *            A kártya mátrix beli Y poziciója.
-	 * @param dim
-	 *            A kártya mátrix dimenziója.
-	 * 
-	 * @return Igaz igazságértékkel tér vissza, ha sikerült elmenteni a
-	 *         játékállást, egyébként hamissal.
-	 */
 	public boolean saveStatus(Status status) {
 		if (!isStatusTableExist())
 			createStatusTable();
@@ -327,21 +268,6 @@ public class DataB implements IData {
 		return true;
 	}
 
-	/**
-	 * Eredménytábla frissítése.
-	 * 
-	 * A updateHighScores metódus frissíti az eredménytáblát, ha nincs
-	 * létrehozva megfelelő tábla akkor készít.
-	 * 
-	 * @param sw
-	 *            A menteni kívánt idő.
-	 * 
-	 * @param name
-	 *            A menteni kívánt felhasználónév.
-	 * 
-	 * @return Igaz igazságértékkel tér vissza, ha sikerült a frissítés,
-	 *         egyébként hamissal.
-	 */
 	public boolean updateHighScores(String sw, String name) {
 		if (!isHighScoreTableExist())
 			createHighScoresTable();
@@ -363,15 +289,6 @@ public class DataB implements IData {
 		return true;
 	}
 
-	/**
-	 * Visszaadja a STATUS táblában lementett időt.
-	 * 
-	 * @param name
-	 *            A betölteni kívánt játékmentés tulajdonosának neve.
-	 * 
-	 * @return Igaz igazságértékkel tér vissza, ha sikerült betölteni a
-	 *         menstést, egyébként hamissal.
-	 */
 	public StopWatch getTime(User user) {
 		StopWatch sw = new StopWatch();
 
@@ -393,13 +310,6 @@ public class DataB implements IData {
 		return sw;
 	}
 
-	/**
-	 * Visszaadja az eredménytábla adatait.
-	 * 
-	 * Visszaadja az eredménytábla adatait rendezés nélkül.
-	 * 
-	 * @return Az eredménytábla adatai.
-	 */
 	public HighScoreTable getHighScores() {
 		TreeMap<String, String> result = new TreeMap<String, String>();
 		if (!isHighScoreTableExist())
@@ -421,15 +331,6 @@ public class DataB implements IData {
 		return new HighScoreTable(result);
 	}
 
-	/**
-	 * Visszaadja a kívánt játékmentést.
-	 * 
-	 * @param name
-	 *            A betölteni kívánt játékmentés tulajdonosának neve.
-	 * 
-	 * @return Az {@code name} felhasználó lementett kártyáinak a helyzetével
-	 *         tér vissza.
-	 */
 	public Status loadStatus(User user) {
 		List<Card> result = new ArrayList<Card>();
 		StopWatch time = getTime(user);
@@ -456,17 +357,6 @@ public class DataB implements IData {
 		return new Status(user, new Pack(result, dimension), time, dimension);
 	}
 
-	/**
-	 * Visszaadja, hogy létezik e már a kívánt felhasználónév.
-	 * 
-	 * Visszaadja, hogy létezik e már a kívánt felhasználónév, ha nincs USER
-	 * tábla akkor létrehozza.
-	 * 
-	 * @param name
-	 *            A ellenőrizendő felhasználónév.
-	 * 
-	 * @return Igaz ha létezik a felhasználónév, egyébként hamis.
-	 */
 	public boolean isUserExist(User user) {
 		if (!isUserTableExist())
 			createUsersTable();
@@ -487,17 +377,6 @@ public class DataB implements IData {
 		return false;
 	}
 
-	/**
-	 * Visszaadja, hogy létezik e a falhasználónak játékmentése.
-	 * 
-	 * Visszaadja, hogy létezik e már a kívánt játékmentés, ha nincs STATUS
-	 * tábla akkor létrehozza.
-	 * 
-	 * @param name
-	 *            A ellenőrizendő felhasználónév.
-	 * 
-	 * @return Igaz ha létezik a játékmentés, egyébként hamis.
-	 */
 	public boolean isStatusExist(User user) {
 		if (!isStatusTableExist())
 			createStatusTable();
@@ -520,14 +399,6 @@ public class DataB implements IData {
 		return false;
 	}
 
-	/**
-	 * Törli a játékmentést.
-	 * 
-	 * @param name
-	 *            A törlendő játékmentés tulajdonosának felhasználóneve.
-	 * 
-	 * @return Igaz ha sikeres a törlés, egyébként hamis.
-	 */
 	public boolean removeStatus(User user) {
 		try {
 			Statement statement = connection.createStatement();
@@ -543,19 +414,6 @@ public class DataB implements IData {
 		return false;
 	}
 
-	/**
-	 * Új profilt hoz létre.
-	 * 
-	 * Új profilt hoz létre, amennyiben nem létezik a felhasználónév. Ha nem
-	 * létezik a USER tábla akkor létrehozza.
-	 * 
-	 * @param name
-	 *            A felhasználó felhasználónév.
-	 * @param pass
-	 *            A felhasználó jelszava.
-	 * 
-	 * @return Igaz ha sikerült létrehozni a profilt, egyébként hamis.
-	 **/
 	public boolean addProfile(User user) {
 		if (!isUserTableExist())
 			createStatusTable();
@@ -583,20 +441,6 @@ public class DataB implements IData {
 
 		return true;
 	}
-
-	/**
-	 * Betölti a profilt.
-	 * 
-	 * Név és jelszó alapján betölti a profilt.
-	 * 
-	 * @param name
-	 *            A felhasználó felhasználónév.
-	 * @param pass
-	 *            A felhasználó jelszava.
-	 * 
-	 * @return Igazzal tér vissza, ha sikerült betölteni a profilt, egyébként
-	 *         hamissal.
-	 */
 
 	public boolean loadProfile(User user) {
 		if (!isUserTableExist())

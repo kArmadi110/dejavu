@@ -46,7 +46,7 @@ public class DejaVuGUI extends Application {
 		stage.setMinHeight(600);
 		stage.setMaxWidth(800);
 		stage.setMinWidth(800);
-
+		
 		stage.getIcons()
 				.add(new Image(WelcomeMenu.class.getClassLoader().getResource("images/icon16.png").toExternalForm()));
 		stage.getIcons()
