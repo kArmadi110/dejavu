@@ -67,7 +67,7 @@ public class DejaVuGUI extends Application {
 	public static void setNewMenu(DVMenu newMenu) {
 		menu = newMenu;
 
-		Scene scene = new Scene(menu, 800, 600);
+		Scene scene = new Scene(menu, 800, 620);
 		scene.setFill(Color.TRANSPARENT);
 
 		stage.setScene(scene);
