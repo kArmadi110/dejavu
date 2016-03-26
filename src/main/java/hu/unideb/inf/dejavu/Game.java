@@ -212,7 +212,7 @@ public class Game {
 				if (getCard(i, j).isClicked())
 					return false;
 			}
-
+		updateHighScores();
 		return true;
 	}
 

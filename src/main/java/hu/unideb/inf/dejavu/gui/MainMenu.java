@@ -39,7 +39,7 @@ public class MainMenu extends DVMenu {
 		add(game, 1, 17);
 		add(settings, 1, 19);
 		add(highScore, 1, 21);
-		add(back, 1, 42);
+		add(back, 1, 40);
 
 	}
 }

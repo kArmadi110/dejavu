@@ -1,5 +1,8 @@
 package hu.unideb.inf.dejavu.gui;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import hu.unideb.inf.dejavu.DejaVu;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -102,19 +105,15 @@ public class PlayGround extends DVMenu {
 		DVText time = new DVText(DejaVu.game.mainStatus.getTime().toString(),
 				Font.font("Verdana", FontWeight.BOLD, 14));
 
-		Thread t = new Thread(() -> {
-			while (true) {
-				try {
-					Thread.sleep(1000);
-					time.setText(DejaVu.game.mainStatus.getTime().toString());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		new Timer().scheduleAtFixedRate(new TimerTask() {
 
-		t.setDaemon(true);
-		t.start();
+			@Override
+			public void run() {
+				Platform.runLater(() -> {
+					time.setText(DejaVu.game.mainStatus.getTime().toString());
+				});
+			}
+		}, 1000,1000);
 
 		add(pack, 7, 4);
 		add(back, 1, 6);
