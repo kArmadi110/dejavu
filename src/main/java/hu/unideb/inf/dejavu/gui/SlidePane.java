@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import hu.unideb.inf.dejavu.DejaVu;
 import hu.unideb.inf.dejavu.Game;
+import hu.unideb.inf.dejavu.objects.Pair;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.collections.FXCollections;
@@ -146,11 +147,9 @@ public class SlidePane extends GridPane {
 
 					ObservableList<Player> data = FXCollections.observableArrayList();
 
-					TreeMap<String, String> highScoreMap = DejaVu.game.getHighScores().getTable();
-
 					int i = 1;
-					for (Entry<String, String> entry : highScoreMap.entrySet()) {
-						data.add(new Player(i, entry.getKey(), entry.getValue()));
+					for (Pair p: DejaVu.game.getHighScores().getTable()) {
+						data.add(new Player(i, p.getKey(),p.getValue()));
 						i++;
 						if (i > 10)
 							break;

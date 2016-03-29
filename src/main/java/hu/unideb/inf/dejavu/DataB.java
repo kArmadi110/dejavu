@@ -3,6 +3,7 @@ package hu.unideb.inf.dejavu;
 import hu.unideb.inf.dejavu.objects.Card;
 import hu.unideb.inf.dejavu.objects.HighScoreTable;
 import hu.unideb.inf.dejavu.objects.Pack;
+import hu.unideb.inf.dejavu.objects.Pair;
 import hu.unideb.inf.dejavu.objects.Status;
 import hu.unideb.inf.dejavu.objects.StopWatch;
 import hu.unideb.inf.dejavu.objects.User;
@@ -19,7 +20,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.TreeMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,7 +100,6 @@ public class DataB implements IData {
 
 		return true;
 	}
-
 
 	public boolean close() {
 		try {
@@ -311,7 +310,7 @@ public class DataB implements IData {
 	}
 
 	public HighScoreTable getHighScores() {
-		TreeMap<String, String> result = new TreeMap<String, String>();
+		List<Pair> result = new ArrayList<Pair>();
 		if (!isHighScoreTableExist())
 			createHighScoresTable();
 		try {
@@ -320,7 +319,7 @@ public class DataB implements IData {
 			ResultSet r = statement.executeQuery(query);
 
 			while (r.next()) {
-				result.put(r.getString("TIME"), r.getString("NAME"));
+				result.add(new Pair(r.getString("NAME"), r.getString("TIME")));
 			}
 		} catch (SQLException e) {
 			logger.error("A lekérdezés sikertelen.");

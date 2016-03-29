@@ -2,9 +2,7 @@ package hu.unideb.inf.dejavu;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.TreeMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -361,9 +359,9 @@ public class Game {
 	 * @return visszaad egy rendezett TreeMap példányt.
 	 */
 	public HighScoreTable getHighScores() {
-		HighScoreTable result = new HighScoreTable(new TreeMap<String, String>(Collections.reverseOrder()));
-		result = DejaVu.DB.getHighScores();
 
+		HighScoreTable result = DejaVu.DB.getHighScores();
+		result.sort();
 		return result;
 	}
 

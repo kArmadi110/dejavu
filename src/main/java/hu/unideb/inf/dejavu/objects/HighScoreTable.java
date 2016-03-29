@@ -1,17 +1,23 @@
 package hu.unideb.inf.dejavu.objects;
 
-import java.util.TreeMap;
+import java.util.Collections;
+import java.util.List;
 
 public class HighScoreTable {
-	TreeMap<String, String> table;
+	List<Pair> table;
 
-	public HighScoreTable(TreeMap<String, String> table) {
+	public HighScoreTable(List<Pair> table) {
 		super();
 		this.table = table;
 	}
 
-	public TreeMap<String, String> getTable() {
+	public List<Pair> getTable() {
 		return table;
 	}
-	
+
+	public void sort() {
+
+		Collections.sort(table);
+
+	}
 }
