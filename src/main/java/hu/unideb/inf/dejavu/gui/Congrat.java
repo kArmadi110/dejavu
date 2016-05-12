@@ -1,5 +1,6 @@
 package hu.unideb.inf.dejavu.gui;
 
+import hu.unideb.inf.dejavu.DejaVu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.Font;
@@ -26,6 +27,8 @@ public class Congrat extends DVMenu {
 		setVgap(250);
 		add(grat, 1, 1);
 		add(back, 0, 2);
+		
+		DejaVu.game.updateHighScores();
 
 	}
 }

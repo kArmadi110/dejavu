@@ -25,7 +25,7 @@ public class MainMenu extends DVMenu {
 				DejaVu.game.setDim(DejaVuGUI.dimensionChoser.getValue());
 			}
 
-			if (DejaVu.game.isSetDim() || DejaVu.game.filesExist()) {
+			if (DejaVu.game.isSetDim() && DejaVu.game.filesExist()) {
 				DejaVu.game.setCards(DejaVuGUI.cardPathList);
 
 				DejaVuGUI.setNewMenu(new PlayGround());

@@ -70,7 +70,7 @@ public class GameTest {
 		for (int i = 0; i < game.getDim(); i++)
 			for (int j = 0; j < game.getDim(); j++)
 				game.mainStatus.getPack().getCard(i, j).setClicked(false);
-
+		
 		assertEquals(true, game.isEnd());
 	}
 
