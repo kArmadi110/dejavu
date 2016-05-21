@@ -1,6 +1,7 @@
 package hu.unideb.inf.dejavu.gui;
 
 import hu.unideb.inf.dejavu.DejaVu;
+import hu.unideb.inf.dejavu.objects.HighScoreRecord;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.text.Font;
@@ -8,7 +9,7 @@ import javafx.scene.text.FontWeight;
 
 public class Congrat extends DVMenu {
 
-	public Congrat() {
+	public Congrat(int clicks,int dimension) {
 		super();
 
 		DVText grat = new DVText("Ön nyert!", Font.font("Verdana", FontWeight.BOLD, 30));
@@ -28,7 +29,7 @@ public class Congrat extends DVMenu {
 		add(grat, 1, 1);
 		add(back, 0, 2);
 		
-		DejaVu.game.updateHighScores();
+		DejaVu.game.updateHighScores(clicks,dimension);
 
 	}
 }

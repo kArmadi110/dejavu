@@ -3,6 +3,7 @@ package hu.unideb.inf.dejavu;
 import hu.unideb.inf.dejavu.objects.Status;
 import hu.unideb.inf.dejavu.objects.StopWatch;
 import hu.unideb.inf.dejavu.objects.User;
+import hu.unideb.inf.dejavu.objects.HighScoreRecord;
 import hu.unideb.inf.dejavu.objects.HighScoreTable;
 
 public interface IData {
@@ -50,8 +51,6 @@ public interface IData {
 	/**
 	 * Visszaadja, hogy létezik e a HIGH_SCORE tábla vagy sem.
 	 * 
-	 * @param table
-	 *            A lekérdezni kívánt tábla.
 	 * @return Igaz igazságértékkel tér vissza, ha létezik a tábla, egyébként
 	 *         hamissal.
 	 */
@@ -60,8 +59,6 @@ public interface IData {
 	/**
 	 * Visszaadja, hogy létezik e a STATUS tábla vagy sem.
 	 * 
-	 * @param table
-	 *            A lekérdezni kívánt tábla.
 	 * @return Igaz igazságértékkel tér vissza, ha létezik a tábla, egyébként
 	 *         hamissal.
 	 */
@@ -70,8 +67,6 @@ public interface IData {
 	/**
 	 * Visszaadja, hogy létezik e a USER tábla vagy sem.
 	 * 
-	 * @param table
-	 *            A lekérdezni kívánt tábla.
 	 * @return Igaz igazságértékkel tér vissza, ha létezik a tábla, egyébként
 	 *         hamissal.
 	 */
@@ -106,7 +101,7 @@ public interface IData {
 	 * @return Igaz igazságértékkel tér vissza, ha sikerült a frissítés,
 	 *         egyébként hamissal.
 	 */
-	public boolean updateHighScores(String sw, String name);
+	public boolean updateHighScores(HighScoreRecord record);
 
 	/**
 	 * Visszaadja a STATUS táblában lementett időt.

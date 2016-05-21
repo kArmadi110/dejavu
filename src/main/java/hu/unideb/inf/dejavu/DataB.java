@@ -1,9 +1,9 @@
 package hu.unideb.inf.dejavu;
 
 import hu.unideb.inf.dejavu.objects.Card;
+import hu.unideb.inf.dejavu.objects.HighScoreRecord;
 import hu.unideb.inf.dejavu.objects.HighScoreTable;
 import hu.unideb.inf.dejavu.objects.Pack;
-import hu.unideb.inf.dejavu.objects.Pair;
 import hu.unideb.inf.dejavu.objects.Status;
 import hu.unideb.inf.dejavu.objects.StopWatch;
 import hu.unideb.inf.dejavu.objects.User;
@@ -160,7 +160,7 @@ public class DataB implements IData {
 	public boolean createHighScoresTable() {
 		try {
 			Statement statement = connection.createStatement();
-			String query = "CREATE TABLE HIGH_SCORES (NAME VARCHAR2(100),TIME VARCHAR(8))";
+			String query = "CREATE TABLE HIGH_SCORES (NAME VARCHAR2(100),TIME VARCHAR(8),CLICKS NUMBER(5),DIM NUMBER(5))";
 			statement.executeQuery(query);
 			statement.executeQuery("commit");
 		} catch (SQLException e) {
@@ -267,13 +267,14 @@ public class DataB implements IData {
 		return true;
 	}
 
-	public boolean updateHighScores(String sw, String name) {
+	public boolean updateHighScores(HighScoreRecord record) {
 		if (!isHighScoreTableExist())
 			createHighScoresTable();
 		try {
 			Statement stm = connection.createStatement();
 
-			String query = "INSERT INTO HIGH_SCORES (NAME,TIME)" + "VALUES('" + name + "','" + sw + "')";
+			String query = "INSERT INTO HIGH_SCORES (NAME,TIME,CLICKS,DIM)" + "VALUES('" + record.getName() + "','"
+					+ record.getTime() + "','" + record.getClicks() + "','" + record.getDimension() + "')";
 			stm.executeQuery(query);
 			stm.executeQuery("commit");
 
@@ -310,16 +311,17 @@ public class DataB implements IData {
 	}
 
 	public HighScoreTable getHighScores() {
-		List<Pair> result = new ArrayList<Pair>();
+		List<HighScoreRecord> result = new ArrayList<HighScoreRecord>();
 		if (!isHighScoreTableExist())
 			createHighScoresTable();
 		try {
 			Statement statement = connection.createStatement();
-			String query = "SELECT NAME, TIME FROM HIGH_SCORES";
+			String query = "SELECT NAME, TIME,CLICKS,DIM FROM HIGH_SCORES";
 			ResultSet r = statement.executeQuery(query);
 
 			while (r.next()) {
-				result.add(new Pair(r.getString("NAME"), r.getString("TIME")));
+				result.add(new HighScoreRecord(r.getString("NAME"), r.getString("TIME"), r.getInt("CLICKS"),
+						r.getInt("DIM")));
 			}
 		} catch (SQLException e) {
 			logger.error("A lekérdezés sikertelen.");

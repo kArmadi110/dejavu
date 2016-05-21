@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 
 public class ButtonPack extends GridPane {
 	CardButton[][] cardButtons;
-
+	static int clicks=0;
 	ButtonPack() {
 		setHgap(5);
 		setVgap(5);
@@ -50,7 +50,8 @@ public class ButtonPack extends GridPane {
 		@Override
 		public void handle(ActionEvent arg0) {
 			DejaVu.game.updateCardStatus(i, j);
-
+			clicks++;
+			
 			try {
 				cardButtons[i][j].setCard();
 			} catch (MalformedURLException e) {
@@ -61,7 +62,7 @@ public class ButtonPack extends GridPane {
 				cardButtons[temp.getFirst()][temp.getSecond()].setBack();
 
 			if (DejaVu.game.isEnd()) {
-				DejaVuGUI.setNewMenu(new Congrat());
+				DejaVuGUI.setNewMenu(new Congrat(clicks,DejaVu.game.getDim()));
 			}
 		}
 

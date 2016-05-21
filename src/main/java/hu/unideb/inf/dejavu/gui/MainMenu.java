@@ -9,11 +9,12 @@ public class MainMenu extends DVMenu {
 	DVButton settings = new DVButton("Beállítások", 0);
 	DVButton highScore = new DVButton("Eredménytábla", 0);
 	DVButton back = new DVButton("Vissza", 1);
+	DVButton achievements = new DVButton("Díjak", 0);
 
 	MainMenu() {
 		super();
 
-		SlidePane rightPane = new SlidePane(500, settings, highScore);
+		SlidePane rightPane = new SlidePane(500, settings, highScore,achievements);
 		setRight(rightPane);
 
 		back.setOnAction((arg0) -> {
@@ -39,7 +40,8 @@ public class MainMenu extends DVMenu {
 		add(game, 1, 17);
 		add(settings, 1, 19);
 		add(highScore, 1, 21);
-		add(back, 1, 40);
+		add(back, 1, 39);
+		add(achievements,1,23);
 
 	}
 }

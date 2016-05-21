@@ -7,7 +7,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import hu.unideb.inf.dejavu.objects.Achievement;
 import hu.unideb.inf.dejavu.objects.Card;
+import hu.unideb.inf.dejavu.objects.HighScoreRecord;
 import hu.unideb.inf.dejavu.objects.HighScoreTable;
 import hu.unideb.inf.dejavu.objects.Pack;
 import hu.unideb.inf.dejavu.objects.Position;
@@ -348,9 +350,9 @@ public class Game {
 	 * @return Igaz igazságértékkel tér vissza, ha sikeres a frissítés,
 	 *         egyébként hamissal.
 	 */
-	public boolean updateHighScores() {
-
-		return DejaVu.DB.updateHighScores(mainStatus.getTime().toString(), mainStatus.getUser().getUserName());
+	public boolean updateHighScores(int clicks, int dimension) {
+		return DejaVu.DB.updateHighScores(new HighScoreRecord(mainStatus.getUser().getUserName(),
+				mainStatus.getTime().toString(), clicks, dimension));
 	}
 
 	/**
@@ -358,10 +360,17 @@ public class Game {
 	 * 
 	 * @return visszaad egy rendezett TreeMap példányt.
 	 */
-	public HighScoreTable getHighScores() {
+	public HighScoreTable getHighScoresByTime(String dim) {
 
 		HighScoreTable result = DejaVu.DB.getHighScores();
-		result.sort();
+		result.sortByTime(dim);
+		return result;
+	}
+
+	public HighScoreTable getHighScoresByClicks(String dim) {
+
+		HighScoreTable result = DejaVu.DB.getHighScores();
+		result.sortByClick(dim);
 		return result;
 	}
 
@@ -411,10 +420,8 @@ public class Game {
 	/**
 	 * Betölt egy profilt.
 	 * 
-	 * @param name
-	 *            A felhasználó elhasználóneve.
-	 * @param pass
-	 *            A felhazsnáló jelszava.
+	 * @param user
+	 *            A felhasználó.
 	 * @return Igaz igazságértékkel tér vissza, ha a felhasználónév és a jelszó
 	 *         helyes.
 	 */
@@ -427,6 +434,47 @@ public class Game {
 		mainStatus.setUser(user);
 
 		return DejaVu.DB.loadProfile(user);
+	}
+
+	private List<Achievement> getAchievement(String dim) {
+		List<Achievement> result = new ArrayList<Achievement>();
+		HighScoreTable highScoreByTime = getHighScoresByTime(dim);
+
+		if (!highScoreByTime.getTable().isEmpty()
+				&& highScoreByTime.getTable().get(0).getName().equals(mainStatus.getUser().getUserName()))
+			result.add(new Achievement(dim + "Idő", 1));
+		else if (!highScoreByTime.getTable().isEmpty()
+				&& highScoreByTime.getTable().get(1).getName().equals(mainStatus.getUser().getUserName()))
+			result.add(new Achievement(dim + "Idő", 2));
+		else if (!highScoreByTime.getTable().isEmpty()
+				&& highScoreByTime.getTable().get(2).getName().equals(mainStatus.getUser().getUserName()))
+			result.add(new Achievement(dim + "Idő", 3));
+
+		highScoreByTime = getHighScoresByClicks(dim);
+
+		if (!highScoreByTime.getTable().isEmpty()
+				&& highScoreByTime.getTable().get(0).getName().equals(mainStatus.getUser().getUserName()))
+			result.add(new Achievement(dim + "Kattintás", 1));
+		else if (!highScoreByTime.getTable().isEmpty()
+				&& highScoreByTime.getTable().get(1).getName().equals(mainStatus.getUser().getUserName()))
+			result.add(new Achievement(dim + "Kattintás", 2));
+		else if (!highScoreByTime.getTable().isEmpty()
+				&& highScoreByTime.getTable().get(2).getName().equals(mainStatus.getUser().getUserName()))
+			result.add(new Achievement(dim + "Kattintás", 3));
+
+		return result;
+	}
+
+	public List<Achievement> getAchievements() {
+		List<Achievement> result = new ArrayList<Achievement>();
+		result.addAll(getAchievement("2x2"));
+		result.addAll(getAchievement("4x4"));
+		result.addAll(getAchievement("6x6"));
+
+		if (result.stream().map(m -> m.getPrize()).filter(p -> p == 1).count() == 3)
+			result.add(new Achievement("A játék mestere", 0));
+
+		return result;
 	}
 
 	/**
