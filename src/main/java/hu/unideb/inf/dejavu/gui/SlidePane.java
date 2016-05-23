@@ -81,6 +81,7 @@ public class SlidePane extends GridPane {
 
 					DVButton chooser = new DVButton("Tallózás", 1);
 					chooser.setOnAction((arg1) -> {
+						ButtonPack.clicks = 0;
 						DejaVuGUI.dimensionChoser.getItems().clear();
 						dimensions.clear();
 						

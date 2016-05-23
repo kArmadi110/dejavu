@@ -19,7 +19,6 @@ public class PlayGround extends DVMenu {
 
 	PlayGround() {
 		super();
-		ButtonPack.clicks = 0;
 		
 		ExitToolbar exitToolbar = new ExitToolbar(DejaVuGUI.stage);
 

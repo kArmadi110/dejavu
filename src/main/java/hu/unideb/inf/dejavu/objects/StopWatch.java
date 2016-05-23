@@ -48,7 +48,7 @@ public class StopWatch {
 		if ((System.currentTimeMillis() - start) / 1000 >= 60) {
 			minute += 1;
 			start += 60000;
-			logger.info("Letelt egy perc.");
+			//logger.info("Letelt egy perc.");
 
 			return true;
 		}
@@ -71,7 +71,7 @@ public class StopWatch {
 			minute = Long.parseLong(minuteAndSecond[0]);
 			start = System.currentTimeMillis()
 					- Long.parseLong(minuteAndSecond[1]) * 1000;
-			logger.info("Az időmérés elkezdődött.");
+			//logger.info("Az időmérés elkezdődött.");
 
 		} else
 			return false;

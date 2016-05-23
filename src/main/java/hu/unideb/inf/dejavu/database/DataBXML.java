@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -419,13 +420,22 @@ public class DataBXML implements IData {
 							if (((Element) n).getElementsByTagName("name").item(0).getTextContent()
 									.equals(user.getUserName())) {
 								root.removeChild(n);
+								doc.normalize();
+								TransformerFactory transformerFactory = TransformerFactory.newInstance();
+								Transformer transformer = transformerFactory.newTransformer();
+								transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+								DOMSource source = new DOMSource(doc);
+
+								StreamResult result = new StreamResult(file);
+								transformer.transform(source, result);
+								
 								return true;
 							}
 						}
 					}
 				}
 			}
-		} catch (SAXException | IOException e) {
+		} catch (SAXException | IOException | TransformerException e) {
 			e.printStackTrace();
 		}
 
