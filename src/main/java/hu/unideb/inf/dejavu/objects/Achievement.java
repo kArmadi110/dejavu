@@ -1,7 +1,7 @@
 package hu.unideb.inf.dejavu.objects;
 
 /**
- * Díjakat reprezentáló osztály.
+ * Díjakat megvalósító osztály.
  * 
  * @author gergo
  *
