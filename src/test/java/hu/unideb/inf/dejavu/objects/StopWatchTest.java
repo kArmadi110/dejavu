@@ -6,7 +6,7 @@ import org.junit.Test;
 public class StopWatchTest {
 
 	@Test
-	public void testFromString() {
+	public void testFromString() {//TODO: !
 		StopWatch t1 = new StopWatch();
 
 		assertEquals(false, t1.fromString("102:000"));
@@ -15,7 +15,7 @@ public class StopWatchTest {
 	}
 
 	@Test
-	public void testUpdate() {
+	public void testUpdate() {//TODO: !
 		StopWatch t1 = new StopWatch();
 
 		assertEquals(false, t1.update());

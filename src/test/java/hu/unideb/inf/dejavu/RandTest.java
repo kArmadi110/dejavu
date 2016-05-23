@@ -6,7 +6,7 @@ import org.junit.Test;
 public class RandTest {
 
 	@Test
-	public void testGetRandomPos(){
+	public void testGetRandomPos(){//TODO: !
 		Rand random= new Rand(4);
 		
 		assertEquals(16,random.getrandomPos().size());

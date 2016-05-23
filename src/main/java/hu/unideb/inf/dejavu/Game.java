@@ -464,30 +464,28 @@ public class Game {
 	 * @return visszatér egy listával, ami tartalmazza a lekérdezni kivánt
 	 *         méretre milyen díjai vannak a játéksnak.
 	 */
-	private List<Achievement> getAchievement(String dim) {
+	List<Achievement> getAchievement(String dim, HighScoreTable highScoreByTime, HighScoreTable highScoreByClick,
+			User user) {
 		List<Achievement> result = new ArrayList<Achievement>();
-		HighScoreTable highScoreByTime = getHighScoresByTime(dim);
 
 		if (!highScoreByTime.getTable().isEmpty()
-				&& highScoreByTime.getTable().get(0).getName().equals(mainStatus.getUser().getUserName()))
+				&& highScoreByTime.getTable().get(0).getName().equals(user.getUserName()))
 			result.add(new Achievement(dim + "Idő", 1));
 		else if (highScoreByTime.getTable().size() > 1
-				&& highScoreByTime.getTable().get(1).getName().equals(mainStatus.getUser().getUserName()))
+				&& highScoreByTime.getTable().get(1).getName().equals(user.getUserName()))
 			result.add(new Achievement(dim + "Idő", 2));
 		else if (highScoreByTime.getTable().size() > 2
-				&& highScoreByTime.getTable().get(2).getName().equals(mainStatus.getUser().getUserName()))
+				&& highScoreByTime.getTable().get(2).getName().equals(user.getUserName()))
 			result.add(new Achievement(dim + "Idő", 3));
 
-		highScoreByTime = getHighScoresByClicks(dim);
-
-		if (!highScoreByTime.getTable().isEmpty()
-				&& highScoreByTime.getTable().get(0).getName().equals(mainStatus.getUser().getUserName()))
+		if (!highScoreByClick.getTable().isEmpty()
+				&& highScoreByClick.getTable().get(0).getName().equals(user.getUserName()))
 			result.add(new Achievement(dim + "Kattintás", 1));
-		else if (highScoreByTime.getTable().size() > 1
-				&& highScoreByTime.getTable().get(1).getName().equals(mainStatus.getUser().getUserName()))
+		else if (highScoreByClick.getTable().size() > 1
+				&& highScoreByClick.getTable().get(1).getName().equals(user.getUserName()))
 			result.add(new Achievement(dim + "Kattintás", 2));
-		else if (highScoreByTime.getTable().size() > 2
-				&& highScoreByTime.getTable().get(2).getName().equals(mainStatus.getUser().getUserName()))
+		else if (highScoreByClick.getTable().size() > 2
+				&& highScoreByClick.getTable().get(2).getName().equals(user.getUserName()))
 			result.add(new Achievement(dim + "Kattintás", 3));
 
 		return result;
@@ -500,9 +498,12 @@ public class Game {
 	 */
 	public List<Achievement> getAchievements() {
 		List<Achievement> result = new ArrayList<Achievement>();
-		result.addAll(getAchievement("2x2"));
-		result.addAll(getAchievement("4x4"));
-		result.addAll(getAchievement("6x6"));
+		result.addAll(
+				getAchievement("2x2", getHighScoresByTime("2x2"), getHighScoresByClicks("2x2"), mainStatus.getUser()));
+		result.addAll(
+				getAchievement("4x4", getHighScoresByTime("4x4"), getHighScoresByClicks("4x4"), mainStatus.getUser()));
+		result.addAll(
+				getAchievement("6x6", getHighScoresByTime("6x6"), getHighScoresByClicks("6x6"), mainStatus.getUser()));
 
 		if (result.stream().map(m -> m.getPrize()).filter(p -> p == 1).count() == 3)
 			result.add(new Achievement("A játék mestere", 0));
