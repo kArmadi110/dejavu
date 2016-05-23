@@ -1,4 +1,4 @@
-package hu.unideb.inf.dejavu;
+package hu.unideb.inf.dejavu.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package hu.unideb.inf.dejavu;
+package hu.unideb.inf.dejavu.controller;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
