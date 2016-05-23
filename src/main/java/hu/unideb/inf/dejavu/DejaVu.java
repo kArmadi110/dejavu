@@ -27,8 +27,7 @@ public class DejaVu {
 	 *            Parancssori argumentumok.
 	 */
 	public static void main(String[] args) {
-		DB = new DataB();
-		DB.connect();
+		DB = new DataBXML();
 		game = new Game();
 
 		Application.launch(DejaVuGUI.class);

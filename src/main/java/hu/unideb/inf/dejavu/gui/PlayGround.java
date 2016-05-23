@@ -19,7 +19,8 @@ public class PlayGround extends DVMenu {
 
 	PlayGround() {
 		super();
-
+		ButtonPack.clicks = 0;
+		
 		ExitToolbar exitToolbar = new ExitToolbar(DejaVuGUI.stage);
 
 		exitToolbar.toolbarButtons.closeButton.setOnAction((arg0) -> {
@@ -31,7 +32,7 @@ public class PlayGround extends DVMenu {
 			QuestionMenu loadState = new QuestionMenu("Szeretné menteni a játékállást?", "Igen", "Nem", () -> {
 				DejaVu.game.saveStatus();
 				Platform.exit();
-			} , () -> {
+			}, () -> {
 				Platform.exit();
 			});
 
@@ -72,7 +73,7 @@ public class PlayGround extends DVMenu {
 				back.setDisable(false);
 				DejaVuGUI.setNewMenu(new MainMenu());
 				stage.close();
-			} , () -> {
+			}, () -> {
 				back.setDisable(false);
 				DejaVuGUI.setNewMenu(new MainMenu());
 				stage.close();
@@ -113,7 +114,7 @@ public class PlayGround extends DVMenu {
 					time.setText(DejaVu.game.mainStatus.getTime().toString());
 				});
 			}
-		}, 1000,1000);
+		}, 1000, 1000);
 
 		add(pack, 7, 4);
 		add(back, 1, 6);

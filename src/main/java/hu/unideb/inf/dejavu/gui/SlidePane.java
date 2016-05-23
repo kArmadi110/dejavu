@@ -227,8 +227,17 @@ public class SlidePane extends GridPane {
 					int i = 3;
 					for (Achievement a : ac) {
 						add(new DVText(a.getDescription(), Font.font("Verdana", 18)), 4, i);
+						
 						ImageView img = new ImageView(new Image(
 								getClass().getClassLoader().getResource("images/first.png").toExternalForm()));
+						
+						if (a.getPrize() == 2)
+							img = new ImageView(new Image(
+									getClass().getClassLoader().getResource("images/second.png").toExternalForm()));
+						else if (a.getPrize() == 3)
+							img = new ImageView(new Image(
+									getClass().getClassLoader().getResource("images/third.png").toExternalForm()));
+						
 						img.setFitHeight(50);
 						img.setFitWidth(50);
 						add(img, 5, i);

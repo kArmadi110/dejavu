@@ -347,6 +347,11 @@ public class Game {
 	/**
 	 * Frissíti az eredménytáblát.
 	 * 
+	 * @param clicks 
+	 * 				a kattintások száma
+	 * @param dimension
+	 * 				a dimenzió
+	 * 
 	 * @return Igaz igazságértékkel tér vissza, ha sikeres a frissítés,
 	 *         egyébként hamissal.
 	 */
@@ -358,6 +363,8 @@ public class Game {
 	/**
 	 * Visszaadja az eredménytáblát.
 	 * 
+	 * * @param dim
+	 * 				a dimenzió
 	 * @return visszaad egy rendezett TreeMap példányt.
 	 */
 	public HighScoreTable getHighScoresByTime(String dim) {
@@ -443,10 +450,10 @@ public class Game {
 		if (!highScoreByTime.getTable().isEmpty()
 				&& highScoreByTime.getTable().get(0).getName().equals(mainStatus.getUser().getUserName()))
 			result.add(new Achievement(dim + "Idő", 1));
-		else if (!highScoreByTime.getTable().isEmpty()
+		else if (highScoreByTime.getTable().size()>1
 				&& highScoreByTime.getTable().get(1).getName().equals(mainStatus.getUser().getUserName()))
 			result.add(new Achievement(dim + "Idő", 2));
-		else if (!highScoreByTime.getTable().isEmpty()
+		else if (highScoreByTime.getTable().size()>2
 				&& highScoreByTime.getTable().get(2).getName().equals(mainStatus.getUser().getUserName()))
 			result.add(new Achievement(dim + "Idő", 3));
 
@@ -455,10 +462,10 @@ public class Game {
 		if (!highScoreByTime.getTable().isEmpty()
 				&& highScoreByTime.getTable().get(0).getName().equals(mainStatus.getUser().getUserName()))
 			result.add(new Achievement(dim + "Kattintás", 1));
-		else if (!highScoreByTime.getTable().isEmpty()
+		else if (highScoreByTime.getTable().size()>1
 				&& highScoreByTime.getTable().get(1).getName().equals(mainStatus.getUser().getUserName()))
 			result.add(new Achievement(dim + "Kattintás", 2));
-		else if (!highScoreByTime.getTable().isEmpty()
+		else if (highScoreByTime.getTable().size()>2
 				&& highScoreByTime.getTable().get(2).getName().equals(mainStatus.getUser().getUserName()))
 			result.add(new Achievement(dim + "Kattintás", 3));
 
@@ -481,7 +488,6 @@ public class Game {
 	 * Megszakítja az adatbázis kapcsolatot és kilép.
 	 */
 	public void exitGame() {
-		DejaVu.DB.close();
 		System.exit(0);
 	}
 

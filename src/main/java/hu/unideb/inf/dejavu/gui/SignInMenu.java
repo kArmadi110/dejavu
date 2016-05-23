@@ -45,11 +45,12 @@ public class SignInMenu extends DVMenu {
 
 					QuestionMenu loadState = new QuestionMenu("Szeretné betölteni a játékmentést?", "Igen", "Nem",
 							() -> {
-						stage.close();
-					} , () -> {
-						DejaVu.game.removeStatus();
-						stage.close();
-					});
+								DejaVu.game.loadStatus();
+								stage.close();
+							}, () -> {
+								DejaVu.game.removeStatus();
+								stage.close();
+							});
 
 					ExitToolbar exit = new ExitToolbar(stage);
 					exit.toolbarButtons.closeButton.setOnAction((arg1) -> {

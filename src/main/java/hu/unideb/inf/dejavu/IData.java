@@ -9,22 +9,6 @@ import hu.unideb.inf.dejavu.objects.HighScoreTable;
 public interface IData {
 
 	/**
-	 * Az adatbázis kapcsolat létrehozása.
-	 * 
-	 * @return Igazzal tér vissza ha a kapcsolatot sikerült létrehozni,
-	 *         egyébként hamissal.
-	 */
-	public boolean connect();
-
-	/**
-	 * Az adatbázis kapcsolat bezárása.
-	 * 
-	 * @return Igazzal tér vissza ha sikerült bezárni a kapcsolatot, egyébként
-	 *         hamissal
-	 */
-	public boolean close();
-
-	/**
 	 * Létrehozza a USERS táblát.
 	 * 
 	 * @return Igaz igazságértékkel tér vissza, ha sikerült létrehozni a táblát,
@@ -49,30 +33,6 @@ public interface IData {
 	public boolean createHighScoresTable();
 	
 	/**
-	 * Visszaadja, hogy létezik e a HIGH_SCORE tábla vagy sem.
-	 * 
-	 * @return Igaz igazságértékkel tér vissza, ha létezik a tábla, egyébként
-	 *         hamissal.
-	 */
-	public boolean isHighScoreTableExist();
-
-	/**
-	 * Visszaadja, hogy létezik e a STATUS tábla vagy sem.
-	 * 
-	 * @return Igaz igazságértékkel tér vissza, ha létezik a tábla, egyébként
-	 *         hamissal.
-	 */
-	public boolean isStatusTableExist();
-	
-	/**
-	 * Visszaadja, hogy létezik e a USER tábla vagy sem.
-	 * 
-	 * @return Igaz igazságértékkel tér vissza, ha létezik a tábla, egyébként
-	 *         hamissal.
-	 */
-	public boolean isUserTableExist();
-
-	/**
 	 * Jelenlegi játékállás elmentése.
 	 * 
 	 * A {@code saveStatus} metódus elmenti a jelenlegi játékállást, ha nincs
@@ -92,11 +52,8 @@ public interface IData {
 	 * A updateHighScores metódus frissíti az eredménytáblát, ha nincs
 	 * létrehozva megfelelő tábla akkor készít.
 	 * 
-	 * @param sw
-	 *            A menteni kívánt idő.
-	 * 
-	 * @param name
-	 *            A menteni kívánt felhasználónév.
+	 * @param record
+	 *            A menteni kívánt record.
 	 * 
 	 * @return Igaz igazságértékkel tér vissza, ha sikerült a frissítés,
 	 *         egyébként hamissal.
