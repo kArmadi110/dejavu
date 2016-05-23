@@ -1,5 +1,6 @@
 package hu.unideb.inf.dejavu.gui;
 
+import hu.unideb.inf.dejavu.controller.DejaVu;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,6 +23,7 @@ class ToolbarButtons extends HBox {
 
 			public void handle(ActionEvent arg0) {
 				Platform.exit();
+				DejaVu.game.exitGame();
 			}
 		});
 
