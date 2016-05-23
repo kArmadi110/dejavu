@@ -6,6 +6,12 @@ import hu.unideb.inf.dejavu.objects.User;
 import hu.unideb.inf.dejavu.objects.HighScoreRecord;
 import hu.unideb.inf.dejavu.objects.HighScoreTable;
 
+/**
+ * Adatbázist reprezentáló interface.
+ * 
+ * @author gergo
+ *
+ */
 public interface IData {
 
 	/**

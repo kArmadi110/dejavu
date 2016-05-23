@@ -10,14 +10,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -32,13 +29,29 @@ import hu.unideb.inf.dejavu.objects.Status;
 import hu.unideb.inf.dejavu.objects.StopWatch;
 import hu.unideb.inf.dejavu.objects.User;
 
+/**
+ * Az adatábziskezelést reprezentáló osztály.
+ * 
+ * @author gergo
+ *
+ */
 public class DataBXML implements IData {
 
-	private static Logger logger = LoggerFactory.getLogger(DejaVu.class);
-
+	/**
+	 * Az xml kezeléshez szükséged builder.
+	 */
 	DocumentBuilder dBuilder;
+	
+	/**
+	 * A szükséges xml állományok könyvtára.
+	 * 
+	 */
 	String folder = System.getProperty("user.home") + "/.DejaVuSave/";
 
+	/**
+	 * Az adatbázist reprezentáló osztály konstruktora.
+	 * 
+	 */
 	public DataBXML() {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		try {
@@ -76,17 +89,11 @@ public class DataBXML implements IData {
 			StreamResult result = new StreamResult(user);
 			transformer.transform(source, result);
 
-			logger.debug("Users létrehozva.");
 			return true;
-		} catch (TransformerConfigurationException e) {
-			e.printStackTrace();
-			logger.debug("Users létrehozása sikertelen.");
 		} catch (TransformerException e) {
 			e.printStackTrace();
-			logger.debug("Users létrehozása sikertelen.");
 		}
 
-		logger.debug("Users létrehozása sikertelen.");
 		return false;
 	}
 
@@ -112,15 +119,10 @@ public class DataBXML implements IData {
 			transformer.transform(source, result);
 
 			return true;
-		} catch (TransformerConfigurationException e) {
-			e.printStackTrace();
-			logger.debug("Status létrehozása sikertelen.");
 		} catch (TransformerException e) {
 			e.printStackTrace();
-			logger.debug("Status létrehozása sikertelen.");
 		}
 
-		logger.debug("Status létrehozása sikertelen.");
 		return false;
 	}
 
@@ -146,15 +148,10 @@ public class DataBXML implements IData {
 			transformer.transform(source, result);
 
 			return true;
-		} catch (TransformerConfigurationException e) {
-			e.printStackTrace();
-			logger.debug("HighScores létrehozása sikertelen.");
 		} catch (TransformerException e) {
 			e.printStackTrace();
-			logger.debug("HighScores létrehozása sikertelen.");
 		}
 
-		logger.debug("HighScores létrehozva.");
 		return false;
 	}
 
@@ -270,7 +267,6 @@ public class DataBXML implements IData {
 									.equals(user.getUserName())) {
 								sw.fromString(((Element) n).getElementsByTagName("time").item(0).getTextContent());
 
-								logger.debug("Sikeres idő lekérdezés");
 								break;
 							}
 						}

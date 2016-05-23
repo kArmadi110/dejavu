@@ -82,7 +82,8 @@ public class SlidePane extends GridPane {
 					DVButton chooser = new DVButton("Tallózás", 1);
 					chooser.setOnAction((arg1) -> {
 						DejaVuGUI.dimensionChoser.getItems().clear();
-
+						dimensions.clear();
+						
 						DejaVuGUI.cardPathList = DejaVuGUI.fileChooser
 								.showOpenMultipleDialog((Stage) getScene().getWindow());
 

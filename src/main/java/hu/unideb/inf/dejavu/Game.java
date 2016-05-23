@@ -22,16 +22,17 @@ import hu.unideb.inf.dejavu.objects.User;
  * megjelenítendő kártyákat, azokról az információkat, innen kérdezhető le
  * továbbá az adatbázis.
  * 
- *
  */
 public class Game {
 
+	/**
+	 * A jelenlegi játék státusza.
+	 */
 	public Status mainStatus;
 
 	/**
 	 * Az osztály naplózója.
 	 */
-
 	private static Logger logger = LoggerFactory.getLogger(DejaVu.class);
 
 	/**
@@ -162,7 +163,6 @@ public class Game {
 	 * @return Igazzal tér vissza, ha a dimension be van állítva.
 	 */
 	public boolean isSetDim() {
-
 		return mainStatus.getDimension() > 0 ? true : false;
 	}
 
@@ -185,6 +185,7 @@ public class Game {
 	 * 
 	 * @param numberOfElement
 	 *            a kártyák maximális elemszáma.
+	 * 
 	 * @return A lehetséges dimenziók listájával tér vissza.
 	 */
 	public static List<Integer> matrixSize(int numberOfElement) {
@@ -347,10 +348,11 @@ public class Game {
 	/**
 	 * Frissíti az eredménytáblát.
 	 * 
-	 * @param clicks 
-	 * 				a kattintások száma
+	 * @param clicks
+	 *            a kattintások száma
+	 * 
 	 * @param dimension
-	 * 				a dimenzió
+	 *            a dimenzió
 	 * 
 	 * @return Igaz igazságértékkel tér vissza, ha sikeres a frissítés,
 	 *         egyébként hamissal.
@@ -363,9 +365,9 @@ public class Game {
 	/**
 	 * Visszaadja az eredménytáblát.
 	 * 
-	 * * @param dim
-	 * 				a dimenzió
-	 * @return visszaad egy rendezett TreeMap példányt.
+	 * * @param dim a dimenzió
+	 * 
+	 * @return visszaad az eredménytáblát idő szeint rendezve.
 	 */
 	public HighScoreTable getHighScoresByTime(String dim) {
 
@@ -374,6 +376,13 @@ public class Game {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param dim
+	 *            a dimenzió
+	 * 
+	 * @return visszaad az eredménytáblát idő szeint rendezve.
+	 */
 	public HighScoreTable getHighScoresByClicks(String dim) {
 
 		HighScoreTable result = DejaVu.DB.getHighScores();
@@ -405,8 +414,10 @@ public class Game {
 	 * 
 	 * @param name
 	 *            A felhasználó elhasználóneve.
+	 * 
 	 * @param pass
 	 *            A felhazsnáló jelszava
+	 * 
 	 * @return igaz igazságértékkel tér vissza, ha a hozzáadás sikeres,
 	 *         egyébként hamissal.
 	 */
@@ -429,6 +440,7 @@ public class Game {
 	 * 
 	 * @param user
 	 *            A felhasználó.
+	 * 
 	 * @return Igaz igazságértékkel tér vissza, ha a felhasználónév és a jelszó
 	 *         helyes.
 	 */
@@ -443,6 +455,15 @@ public class Game {
 		return DejaVu.DB.loadProfile(user);
 	}
 
+	/**
+	 * A játékos díjainak lekérdezése egy adott méretre.
+	 * 
+	 * @param dim
+	 *            a lekérdezni kívánt méret
+	 * 
+	 * @return visszatér egy listával, ami tartalmazza a lekérdezni kivánt
+	 *         méretre milyen díjai vannak a játéksnak.
+	 */
 	private List<Achievement> getAchievement(String dim) {
 		List<Achievement> result = new ArrayList<Achievement>();
 		HighScoreTable highScoreByTime = getHighScoresByTime(dim);
@@ -450,10 +471,10 @@ public class Game {
 		if (!highScoreByTime.getTable().isEmpty()
 				&& highScoreByTime.getTable().get(0).getName().equals(mainStatus.getUser().getUserName()))
 			result.add(new Achievement(dim + "Idő", 1));
-		else if (highScoreByTime.getTable().size()>1
+		else if (highScoreByTime.getTable().size() > 1
 				&& highScoreByTime.getTable().get(1).getName().equals(mainStatus.getUser().getUserName()))
 			result.add(new Achievement(dim + "Idő", 2));
-		else if (highScoreByTime.getTable().size()>2
+		else if (highScoreByTime.getTable().size() > 2
 				&& highScoreByTime.getTable().get(2).getName().equals(mainStatus.getUser().getUserName()))
 			result.add(new Achievement(dim + "Idő", 3));
 
@@ -462,16 +483,21 @@ public class Game {
 		if (!highScoreByTime.getTable().isEmpty()
 				&& highScoreByTime.getTable().get(0).getName().equals(mainStatus.getUser().getUserName()))
 			result.add(new Achievement(dim + "Kattintás", 1));
-		else if (highScoreByTime.getTable().size()>1
+		else if (highScoreByTime.getTable().size() > 1
 				&& highScoreByTime.getTable().get(1).getName().equals(mainStatus.getUser().getUserName()))
 			result.add(new Achievement(dim + "Kattintás", 2));
-		else if (highScoreByTime.getTable().size()>2
+		else if (highScoreByTime.getTable().size() > 2
 				&& highScoreByTime.getTable().get(2).getName().equals(mainStatus.getUser().getUserName()))
 			result.add(new Achievement(dim + "Kattintás", 3));
 
 		return result;
 	}
 
+	/**
+	 * A játékos díjainak lekérdezése.
+	 * 
+	 * @return visszaadja a játékos összes díját
+	 */
 	public List<Achievement> getAchievements() {
 		List<Achievement> result = new ArrayList<Achievement>();
 		result.addAll(getAchievement("2x2"));
@@ -485,7 +511,8 @@ public class Game {
 	}
 
 	/**
-	 * Megszakítja az adatbázis kapcsolatot és kilép.
+	 * Kilép a játékból.
+	 * 
 	 */
 	public void exitGame() {
 		System.exit(0);

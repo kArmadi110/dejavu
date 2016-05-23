@@ -14,10 +14,13 @@ import javafx.application.Application;
 public class DejaVu {
 
 	/**
-	 * A logika
+	 * A logika.
 	 */
 	public static Game game;
 
+	/**
+	 * Az adatbázis interface.
+	 */
 	public static IData DB;
 
 	/**
