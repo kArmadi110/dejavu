@@ -1,6 +1,6 @@
 package hu.unideb.inf.dejavu.gui;
 
-import hu.unideb.inf.dejavu.DejaVu;
+import hu.unideb.inf.dejavu.controller.DejaVu;
 import hu.unideb.inf.dejavu.objects.User;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import hu.unideb.inf.dejavu.controller.Game;
 import hu.unideb.inf.dejavu.objects.Achievement;
 import hu.unideb.inf.dejavu.objects.Card;
 import hu.unideb.inf.dejavu.objects.HighScoreRecord;

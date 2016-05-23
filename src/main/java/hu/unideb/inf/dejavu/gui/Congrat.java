@@ -1,6 +1,6 @@
 package hu.unideb.inf.dejavu.gui;
 
-import hu.unideb.inf.dejavu.DejaVu;
+import hu.unideb.inf.dejavu.controller.DejaVu;
 import hu.unideb.inf.dejavu.objects.HighScoreRecord;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

@@ -3,7 +3,7 @@ package hu.unideb.inf.dejavu.gui;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import hu.unideb.inf.dejavu.DejaVu;
+import hu.unideb.inf.dejavu.controller.DejaVu;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;

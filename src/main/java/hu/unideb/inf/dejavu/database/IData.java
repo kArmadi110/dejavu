@@ -1,4 +1,4 @@
-package hu.unideb.inf.dejavu;
+package hu.unideb.inf.dejavu.database;
 
 import hu.unideb.inf.dejavu.objects.Status;
 import hu.unideb.inf.dejavu.objects.StopWatch;

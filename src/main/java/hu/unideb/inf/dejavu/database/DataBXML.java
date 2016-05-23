@@ -1,4 +1,4 @@
-package hu.unideb.inf.dejavu;
+package hu.unideb.inf.dejavu.database;
 
 import java.io.File;
 import java.io.IOException;

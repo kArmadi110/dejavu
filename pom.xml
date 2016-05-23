@@ -124,7 +124,7 @@
 						<configuration>
 							<archive>
 								<manifest>
-									<mainClass>hu.unideb.inf.dejavu.DejaVu</mainClass>
+									<mainClass>hu.unideb.inf.dejavu.controller.DejaVu</mainClass>
 								</manifest>
 							</archive>
 							<descriptorRefs>

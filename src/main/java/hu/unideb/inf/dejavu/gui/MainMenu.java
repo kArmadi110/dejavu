@@ -1,6 +1,6 @@
 package hu.unideb.inf.dejavu.gui;
 
-import hu.unideb.inf.dejavu.DejaVu;
+import hu.unideb.inf.dejavu.controller.DejaVu;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 

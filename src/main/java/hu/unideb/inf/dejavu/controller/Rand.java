@@ -1,4 +1,4 @@
-package hu.unideb.inf.dejavu;
+package hu.unideb.inf.dejavu.controller;
 
 import hu.unideb.inf.dejavu.objects.Position;
 

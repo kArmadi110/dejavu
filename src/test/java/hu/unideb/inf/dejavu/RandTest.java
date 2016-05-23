@@ -3,6 +3,8 @@ package hu.unideb.inf.dejavu;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import hu.unideb.inf.dejavu.controller.Rand;
+
 public class RandTest {
 
 	@Test

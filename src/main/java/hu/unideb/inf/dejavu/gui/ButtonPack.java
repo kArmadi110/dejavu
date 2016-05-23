@@ -2,7 +2,7 @@ package hu.unideb.inf.dejavu.gui;
 
 import java.net.MalformedURLException;
 
-import hu.unideb.inf.dejavu.DejaVu;
+import hu.unideb.inf.dejavu.controller.DejaVu;
 import hu.unideb.inf.dejavu.objects.Position;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

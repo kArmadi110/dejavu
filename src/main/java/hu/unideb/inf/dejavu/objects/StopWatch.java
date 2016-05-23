@@ -1,9 +1,9 @@
 package hu.unideb.inf.dejavu.objects;
 
-import hu.unideb.inf.dejavu.DejaVu;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import hu.unideb.inf.dejavu.controller.DejaVu;
 
 /**
  * A {@code StopWatch} osztály a játék közben eltelt idő mérésére szolgál.

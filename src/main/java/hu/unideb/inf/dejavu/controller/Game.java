@@ -1,4 +1,4 @@
-package hu.unideb.inf.dejavu;
+package hu.unideb.inf.dejavu.controller;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -464,7 +464,7 @@ public class Game {
 	 * @return visszatér egy listával, ami tartalmazza a lekérdezni kivánt
 	 *         méretre milyen díjai vannak a játéksnak.
 	 */
-	List<Achievement> getAchievement(String dim, HighScoreTable highScoreByTime, HighScoreTable highScoreByClick,
+	public List<Achievement> getAchievement(String dim, HighScoreTable highScoreByTime, HighScoreTable highScoreByClick,
 			User user) {
 		List<Achievement> result = new ArrayList<Achievement>();
 

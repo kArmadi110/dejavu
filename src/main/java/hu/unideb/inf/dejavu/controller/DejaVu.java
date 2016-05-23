@@ -1,5 +1,7 @@
-package hu.unideb.inf.dejavu;
+package hu.unideb.inf.dejavu.controller;
 
+import hu.unideb.inf.dejavu.database.DataBXML;
+import hu.unideb.inf.dejavu.database.IData;
 import hu.unideb.inf.dejavu.gui.DejaVuGUI;
 import javafx.application.Application;
 

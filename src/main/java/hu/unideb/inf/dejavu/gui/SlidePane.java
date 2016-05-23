@@ -2,8 +2,8 @@ package hu.unideb.inf.dejavu.gui;
 
 import java.util.List;
 
-import hu.unideb.inf.dejavu.DejaVu;
-import hu.unideb.inf.dejavu.Game;
+import hu.unideb.inf.dejavu.controller.DejaVu;
+import hu.unideb.inf.dejavu.controller.Game;
 import hu.unideb.inf.dejavu.objects.Achievement;
 import hu.unideb.inf.dejavu.objects.HighScoreRecord;
 import hu.unideb.inf.dejavu.objects.HighScoreTable;

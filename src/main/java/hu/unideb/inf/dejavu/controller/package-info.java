@@ -5,4 +5,4 @@
  * @author iam346
  *
  */
-package hu.unideb.inf.dejavu;
+package hu.unideb.inf.dejavu.controller;
