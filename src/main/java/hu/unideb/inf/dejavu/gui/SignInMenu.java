@@ -46,6 +46,7 @@ public class SignInMenu extends DVMenu {
 					QuestionMenu loadState = new QuestionMenu("Szeretné betölteni a játékmentést?", "Igen", "Nem",
 							() -> {
 								DejaVu.game.loadStatus();
+								DejaVuGUI.setNewMenu(new PlayGround());
 								stage.close();
 							}, () -> {
 								DejaVu.game.removeStatus();

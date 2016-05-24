@@ -178,8 +178,7 @@ public class DataBXML implements IData {
 			dimension.appendChild(doc.createTextNode(Integer.toString(status.getDimension())));
 			s.appendChild(dimension);
 
-			for (int i = 0; i < status.getDimension(); i++)// cards & nem
-															// tostring
+			for (int i = 0; i < status.getDimension(); i++)
 				for (int j = 0; j < status.getDimension(); j++) {
 					Element card = doc.createElement("card");
 					card.appendChild(doc.createTextNode(status.getPack().getCard(i, j).getValue().toString()));
